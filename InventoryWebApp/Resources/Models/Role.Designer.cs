@@ -59,5 +59,23 @@ namespace Resources.Models {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام سیستمی.
+        /// </summary>
+        public static string RoleName {
+            get {
+                return ResourceManager.GetString("RoleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نقش کاربر.
+        /// </summary>
+        public static string RoleTitle {
+            get {
+                return ResourceManager.GetString("RoleTitle", resourceCulture);
+            }
+        }
     }
 }
