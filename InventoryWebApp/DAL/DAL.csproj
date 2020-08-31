@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0AAE6AAB-7B26-488B-B663-DAD4AA53D6BD}</ProjectGuid>
+    <ProjectGuid>{55287B42-E660-4720-9D7B-CE736473CB8E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Models</RootNamespace>
-    <AssemblyName>Models</AssemblyName>
+    <RootNamespace>DAL</RootNamespace>
+    <AssemblyName>DAL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -50,35 +50,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseContext.cs" />
-    <Compile Include="DatabaseContextInitializer.cs" />
-    <Compile Include="DatabaseContextInitializerBeforeTheFirstRelease.cs" />
-    <Compile Include="Entities\BaseEntity.cs" />
-    <Compile Include="Entities\City.cs" />
-    <Compile Include="Entities\Product.cs" />
-    <Compile Include="Entities\InputDetail.cs" />
-    <Compile Include="Entities\ProductGroup.cs" />
-    <Compile Include="Entities\ProductForm.cs" />
-    <Compile Include="Entities\ProductCreator.cs" />
-    <Compile Include="Entities\ProductStatus.cs" />
-    <Compile Include="Entities\ProductGroupUnit.cs" />
-    <Compile Include="Entities\Province.cs" />
-    <Compile Include="Entities\Transporter.cs" />
-    <Compile Include="Entities\Customer.cs" />
-    <Compile Include="Entities\Input.cs" />
-    <Compile Include="Entities\Role.cs" />
-    <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryAndUnitOfWork\IRepository.cs" />
+    <Compile Include="RepositoryAndUnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="RepositoryAndUnitOfWork\Repository.cs" />
+    <Compile Include="RepositoryAndUnitOfWork\UnitOfWork.cs" />
+    <Compile Include="RepositoryClasses\CityRepository.cs" />
+    <Compile Include="RepositoryClasses\ProductGroupRepository.cs" />
+    <Compile Include="RepositoryClasses\ProductRepository.cs" />
+    <Compile Include="RepositoryClasses\ProvinceRepository.cs" />
+    <Compile Include="RepositoryClasses\RoleRepository.cs" />
+    <Compile Include="RepositoryClasses\UserRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ICityRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IProductGroupRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IProductRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IProvinceRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IRoleRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Resources\Resources.csproj">
-      <Project>{a49b7803-4dcf-4c54-b77b-b18ed16ad430}</Project>
-      <Name>Resources</Name>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{0aae6aab-7b26-488b-b663-dad4aa53d6bd}</Project>
+      <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

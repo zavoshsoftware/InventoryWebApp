@@ -22,14 +22,14 @@ namespace Resources.Models {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class BaseEntity {
+    public class ProductForm {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BaseEntity() {
+        internal ProductForm() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resources.Models {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Models.BaseEntity", typeof(BaseEntity).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Models.ProductForm", typeof(ProductForm).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,11 @@ namespace Resources.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to تاریخ ایجاد.
+        ///   Looks up a localized string similar to فرم کالا.
         /// </summary>
-        public static string CreationDate {
+        public static string Title {
             get {
-                return ResourceManager.GetString("CreationDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to تاریخ حذف.
-        /// </summary>
-        public static string DeletionDate {
-            get {
-                return ResourceManager.GetString("DeletionDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to یادداشت.
-        /// </summary>
-        public static string Description {
-            get {
-                return ResourceManager.GetString("Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to فعال است.
-        /// </summary>
-        public static string IsActive {
-            get {
-                return ResourceManager.GetString("IsActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to تاریخ آخرین تغییر.
-        /// </summary>
-        public static string LastModifiedDate {
-            get {
-                return ResourceManager.GetString("LastModifiedDate", resourceCulture);
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }

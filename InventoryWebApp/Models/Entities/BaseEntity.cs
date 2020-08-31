@@ -26,7 +26,7 @@ namespace Models
         [Display(Name = "LastModifiedDate", ResourceType = typeof(Resources.Models.BaseEntity))]
         public System.DateTime? LastModifiedDate { get; set; }
 
-        [Display(Name = "IsDeleted", ResourceType = typeof(Resources.Models.BaseEntity))]
+    
         [System.ComponentModel.DefaultValue(false)]
         public bool IsDeleted { get; set; }
 

@@ -1,8 +1,4 @@
-﻿
-using System.Data.Entity.ModelConfiguration;
-using Resources;
-
-namespace Models
+﻿namespace Models
 {
     using System;
     using System.Collections.Generic;
@@ -36,17 +32,7 @@ namespace Models
         public string   Email { get; set; }
 
         public virtual Role Role { get; set; }
-        internal class configuration : EntityTypeConfiguration<User>
-        {
-            public configuration()
-            {
-                HasRequired(p => p.Parent).WithMany(t => t.Users).HasForeignKey(p => p.ParentId);
-
-                HasRequired(p => p.Role).WithMany(j => j.Users).HasForeignKey(p => p.RoleId);
-
-                
-            }
-        }
+       
     }
 }
 

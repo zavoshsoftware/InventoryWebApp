@@ -22,14 +22,14 @@ namespace Resources.Models {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class BaseEntity {
+    public class Product {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BaseEntity() {
+        internal Product() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resources.Models {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Models.BaseEntity", typeof(BaseEntity).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Models.Product", typeof(Product).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,74 @@ namespace Resources.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to تاریخ ایجاد.
+        ///   Looks up a localized string similar to گرید.
         /// </summary>
-        public static string CreationDate {
+        public static string Grid {
             get {
-                return ResourceManager.GetString("CreationDate", resourceCulture);
+                return ResourceManager.GetString("Grid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to تاریخ حذف.
+        ///   Looks up a localized string similar to وزن خالص.
         /// </summary>
-        public static string DeletionDate {
+        public static string IsPureWeight {
             get {
-                return ResourceManager.GetString("DeletionDate", resourceCulture);
+                return ResourceManager.GetString("IsPureWeight", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to یادداشت.
+        ///   Looks up a localized string similar to طول.
         /// </summary>
-        public static string Description {
+        public static string Length {
             get {
-                return ResourceManager.GetString("Description", resourceCulture);
+                return ResourceManager.GetString("Length", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to فعال است.
+        ///   Looks up a localized string similar to سایر.
         /// </summary>
-        public static string IsActive {
+        public static string Other {
             get {
-                return ResourceManager.GetString("IsActive", resourceCulture);
+                return ResourceManager.GetString("Other", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to تاریخ آخرین تغییر.
+        ///   Looks up a localized string similar to ضخامت.
         /// </summary>
-        public static string LastModifiedDate {
+        public static string Thickness {
             get {
-                return ResourceManager.GetString("LastModifiedDate", resourceCulture);
+                return ResourceManager.GetString("Thickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام کالا.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to وزن تقریبی.
+        /// </summary>
+        public static string Weight {
+            get {
+                return ResourceManager.GetString("Weight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to عرض.
+        /// </summary>
+        public static string Width {
+            get {
+                return ResourceManager.GetString("Width", resourceCulture);
             }
         }
     }

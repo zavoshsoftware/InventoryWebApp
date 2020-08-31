@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreationDate" xml:space="preserve">
-    <value>تاریخ ایجاد</value>
+  <data name="Code" xml:space="preserve">
+    <value>ردیف</value>
   </data>
-  <data name="DeletionDate" xml:space="preserve">
-    <value>تاریخ حذف</value>
+  <data name="DestinationWeight" xml:space="preserve">
+    <value>وزن مقصد</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>یادداشت</value>
+  <data name="InputId" xml:space="preserve">
+    <value>شماره ورود کالا</value>
   </data>
-  <data name="IsActive" xml:space="preserve">
-    <value>فعال است</value>
+  <data name="Quantity" xml:space="preserve">
+    <value>تعداد</value>
   </data>
-  <data name="LastModifiedDate" xml:space="preserve">
-    <value>تاریخ آخرین تغییر</value>
+  <data name="SourceWeight" xml:space="preserve">
+    <value>وزن مبدا</value>
   </data>
 </root>

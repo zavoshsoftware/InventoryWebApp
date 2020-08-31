@@ -117,19 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreationDate" xml:space="preserve">
-    <value>تاریخ ایجاد</value>
+  <data name="CarNumber" xml:space="preserve">
+    <value>شماره ماشین</value>
   </data>
-  <data name="DeletionDate" xml:space="preserve">
-    <value>تاریخ حذف</value>
+  <data name="CityId" xml:space="preserve">
+    <value>مبدا</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>یادداشت</value>
+  <data name="Code" xml:space="preserve">
+    <value>شماره ورود</value>
   </data>
-  <data name="IsActive" xml:space="preserve">
-    <value>فعال است</value>
+  <data name="CommissionAmount" xml:space="preserve">
+    <value>فی کمیسیون</value>
   </data>
-  <data name="LastModifiedDate" xml:space="preserve">
-    <value>تاریخ آخرین تغییر</value>
+  <data name="DestinationWeight" xml:space="preserve">
+    <value>وزن مقصد</value>
+  </data>
+  <data name="EmptyWeight" xml:space="preserve">
+    <value>وزن خالی</value>
+  </data>
+  <data name="FullWeight" xml:space="preserve">
+    <value>وزن پر</value>
+  </data>
+  <data name="InputDate" xml:space="preserve">
+    <value>تاریخ ورود</value>
+  </data>
+  <data name="InputDesc" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
+  <data name="InputTime" xml:space="preserve">
+    <value>ساعت ورود</value>
+  </data>
+  <data name="OtherAmount" xml:space="preserve">
+    <value>هزینه متفرقه</value>
+  </data>
+  <data name="PostRentAmount" xml:space="preserve">
+    <value>پس کرایه</value>
+  </data>
+  <data name="SourceWeight" xml:space="preserve">
+    <value>وزن مبدا</value>
+  </data>
+  <data name="TransporterCode" xml:space="preserve">
+    <value>شماره بارنامه</value>
+  </data>
+  <data name="WeighbridgeAmount" xml:space="preserve">
+    <value>هزینه باسکول</value>
   </data>
 </root>

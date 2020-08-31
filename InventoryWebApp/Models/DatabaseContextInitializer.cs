@@ -11,16 +11,16 @@ namespace Models
 
         internal static void Seed(DatabaseContext databaseContext)
         {
-            //InitialRoles(databaseContext);
+            InitialRoles(databaseContext);
            
         }
 
         #region Role
         public static void InitialRoles(DatabaseContext databaseContext)
         {
-            InsertRole("f1dcedb2-a865-4c73-bc51-1afd28118d39", "SuperAdministrator", "راهبر ویژه", databaseContext);
-            InsertRole("f53d469b-4172-42a9-8355-20032367c627", "Administrator", "راهبر", databaseContext);
-            InsertRole("b999eb27-7330-4062-b81f-62b3d1935885", "operator", "اوپراتور", databaseContext);
+            InsertRole("397cfc9f-251c-48b9-91d7-1836ec64c28e", "superAdministrator", "راهبر ویژه", databaseContext);
+            InsertRole("22b9c114-9b17-43df-9cfa-d925ff30a74e", "administrator", "راهبر", databaseContext);
+            InsertRole("c6b7338a-f0bc-4296-9d33-4fb719242d8a", "operator", "اوپراتور", databaseContext);
         }
 
         public static void InsertRole(string roleId, string roleName, string roleTitle, DatabaseContext databaseContext)

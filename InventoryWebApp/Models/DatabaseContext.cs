@@ -7,7 +7,7 @@ namespace Models
     {
         static DatabaseContext()
         {
-       //  System.Data.Entity.Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Migrations.Configuration>());
+          System.Data.Entity.Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Migrations.Configuration>());
         }
 
         public DbSet<Role> Roles { get; set; }
