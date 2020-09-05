@@ -16,6 +16,14 @@ namespace DAL
         IProvinceRepository ProvinceRepository { get; }
       
         IProductGroupRepository ProductGroupRepository { get; }
+        ITransporterRepository TransporterRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
+        IProductGroupUnitRepository ProductGroupUnitRepository { get; }
+        IInputRepository InputRepository { get; }
+        IInputDetailsRepository InputDetailsRepository { get; }
+        IProductCreatorRepository ProductCreatorRepository { get; }
+        IProductFormRepository ProductFormRepository { get; }
+        IProductStatusRepository ProductStatusRepository { get; }
        
         void Save();
     }

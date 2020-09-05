@@ -180,6 +180,123 @@ namespace DAL
             }
         }
 
+
+        private ITransporterRepository _transporterRepository;
+        public ITransporterRepository TransporterRepository
+        {
+            get
+            {
+                if (_transporterRepository == null)
+                {
+                    _transporterRepository =
+                        new TransporterRepository(DatabaseContext);
+                }
+                return (_transporterRepository);
+            }
+        }
+
+
+        private ICustomerRepository _customerRepository;
+        public ICustomerRepository  CustomerRepository
+        {
+            get
+            {
+                if (_customerRepository == null)
+                {
+                    _customerRepository =
+                        new CustomerRepository(DatabaseContext);
+                }
+                return (_customerRepository);
+            }
+        }
+
+
+        private IProductGroupUnitRepository _productGroupUnitRepository;
+        public IProductGroupUnitRepository ProductGroupUnitRepository
+        {
+            get
+            {
+                if (_productGroupUnitRepository == null)
+                {
+                    _productGroupUnitRepository =
+                        new ProductGroupUnitRepository(DatabaseContext);
+                }
+                return (_productGroupUnitRepository);
+            }
+        }
+
+
+        private IInputRepository _inputRepository;
+        public IInputRepository InputRepository
+        {
+            get
+            {
+                if (_inputRepository == null)
+                {
+                    _inputRepository =
+                        new InputRepository(DatabaseContext);
+                }
+                return (_inputRepository);
+            }
+        }
+
+        private IInputDetailsRepository _inputDetailsRepository;
+        public IInputDetailsRepository InputDetailsRepository
+        {
+            get
+            {
+                if (_inputDetailsRepository == null)
+                {
+                    _inputDetailsRepository =
+                        new InputDetailsRepository(DatabaseContext);
+                }
+                return (_inputDetailsRepository);
+            }
+        }
+
+        private IProductCreatorRepository _productCreatorRepository;
+        public IProductCreatorRepository  ProductCreatorRepository
+        {
+            get
+            {
+                if (_productCreatorRepository == null)
+                {
+                    _productCreatorRepository =
+                        new ProductCreatorRepository(DatabaseContext);
+                }
+                return (_productCreatorRepository);
+            }
+        }
+
+        private IProductFormRepository _productFormRepository;
+        public IProductFormRepository ProductFormRepository
+        {
+            get
+            {
+                if (_productFormRepository == null)
+                {
+                    _productFormRepository =
+                        new ProductFormRepository(DatabaseContext);
+                }
+                return (_productFormRepository);
+            }
+        }
+
+
+        private IProductStatusRepository _productStatusRepository;
+        public IProductStatusRepository ProductStatusRepository
+        {
+            get
+            {
+                if (_productStatusRepository == null)
+                {
+                    _productStatusRepository =
+                        new ProductStatusRepository(DatabaseContext);
+                }
+                return (_productStatusRepository);
+            }
+        }
+
         #endregion Inserting custom Respositories
 
     }
