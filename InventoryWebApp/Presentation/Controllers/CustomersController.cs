@@ -10,65 +10,43 @@ using Models;
 
 namespace Presentation.Controllers
 {
-    public class CustomersController : Controller
+    public class CustomersController : Infrastructure.BaseControllerWithUnitOfWork
     {
-        private DatabaseContext db = new DatabaseContext();
 
-        // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.Where(a=>a.IsDeleted==false).OrderByDescending(a=>a.CreationDate).ToList());
-        }
-
-        // GET: Customers/Details/5
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
-        }
-
-        // GET: Customers/Create
+            return View(UnitOfWork.CustomerRepository.Get().OrderByDescending(a=>a.CreationDate).ToList());
+        } 
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FullName,IsActive,CreationDate,LastModifiedDate,IsDeleted,DeletionDate,Description")] Customer customer)
+        public ActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
 				customer.IsDeleted=false;
 				customer.CreationDate= DateTime.Now; 
                 customer.Id = Guid.NewGuid();
-                db.Customers.Add(customer);
-                db.SaveChanges();
+                UnitOfWork.CustomerRepository.Insert(customer);
+                UnitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
             return View(customer);
         }
 
-        // GET: Customers/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            Customer customer = UnitOfWork.CustomerRepository.GetById(id.Value);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -76,31 +54,30 @@ namespace Presentation.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FullName,IsActive,CreationDate,LastModifiedDate,IsDeleted,DeletionDate,Description")] Customer customer)
+        public ActionResult Edit(Customer customer)
         {
             if (ModelState.IsValid)
             {
 				customer.IsDeleted=false;
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
+
+                UnitOfWork.CustomerRepository.Update(customer);
+                UnitOfWork.Save();
+                
                 return RedirectToAction("Index");
             }
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            Customer customer = UnitOfWork.CustomerRepository.GetById(id.Value);
+
             if (customer == null)
             {
                 return HttpNotFound();
@@ -108,26 +85,14 @@ namespace Presentation.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Customer customer = db.Customers.Find(id);
-			customer.IsDeleted=true;
-			customer.DeletionDate=DateTime.Now;
- 
-            db.SaveChanges();
+            UnitOfWork.CustomerRepository.DeleteById(id);
+            UnitOfWork.Save();
+           
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

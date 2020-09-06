@@ -1,0 +1,152 @@
+﻿@model Models.Input
+
+@{
+    ViewBag.Title = "حذف " + Server.HtmlDecode(Html.DisplayNameFor(model => model).ToString());
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>آیا از حذف این مورد اطمینان دارید؟</h3>
+<div>    
+    <hr />
+    <div class="form-horizontal">        
+    
+         <div class="form-group">
+            @Html.LabelFor(model => model.City.Title, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.City.Title)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Customer.Description, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Customer.Description)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Transporter.Title, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Transporter.Title)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Code, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Code)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.InputDate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.InputDate)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.InputTime, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.InputTime)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.PostRentAmount, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.PostRentAmount)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.WeighbridgeAmount, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.WeighbridgeAmount)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.OtherAmount, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.OtherAmount)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.CommissionAmount, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.CommissionAmount)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.SourceWeight, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.SourceWeight)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.DestinationWeight, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.DestinationWeight)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.FullWeight, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.FullWeight)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.EmptyWeight, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.EmptyWeight)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.TransporterCode, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.TransporterCode)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.CarNumber, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.CarNumber)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.InputDesc, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.InputDesc)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.IsActive)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.CreationDate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.CreationDate)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.LastModifiedDate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.LastModifiedDate)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Description)
+      </div></div>
+
+  </div>  
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+       <div class="form-group" id="buttons">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="تایید حذف" class="btn btn-primary" />
+				@Html.ActionLink("بازگشت به فهرست", "Index")
+            </div>
+        </div>
+    }
+</div>

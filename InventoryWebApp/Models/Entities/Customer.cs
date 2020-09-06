@@ -14,7 +14,7 @@ namespace Models
             Inputs=new List<Input>();
         }
         [Display(Name = "FullName", ResourceType = typeof(Resources.Models.Customer))]
-        public Guid FullName { get; set; }
+        public string FullName { get; set; }
 
         public virtual ICollection<Input> Inputs { get; set; }
     }
