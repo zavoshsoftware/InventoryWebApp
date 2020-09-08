@@ -33,6 +33,7 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
+				input.IsActive=true;
 				input.IsDeleted=false;
 				input.CreationDate= DateTime.Now; 
                 input.Id = Guid.NewGuid();

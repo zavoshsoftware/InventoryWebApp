@@ -148,7 +148,7 @@
     <Content Include="Content\Admin\admin-font-awesome.min.css" />
     <Content Include="Content\Admin\app.v2.css" />
     <Content Include="Content\Admin\app.v2.min.css" />
-    <Content Include="Content\Admin\Style-RTL.css" />
+    <Content Include="Content\Admin\Style.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\kendo\2017.3.913\Black\editor.png" />
@@ -489,6 +489,7 @@
     <Content Include="Content\kendo\2017.3.913\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo\2017.3.913\Uniform\sprite_kpi_2x.png" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\fontAwesome\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Admin\app.v2.js" />
@@ -500,6 +501,15 @@
     <Content Include="Scripts\Admin\landing.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\IranSans\IRANSansWebFaNum.eot" />
+    <Content Include="fonts\IranSans\IRANSansWebFaNum.ttf" />
+    <Content Include="fonts\IranSans\IRANSansWebFaNum.woff" />
+    <Content Include="fonts\IranSans\IRANSansWebFaNum.woff2" />
+    <Content Include="fonts\fontAwesome\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontAwesome\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontAwesome\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontAwesome\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontAwesome\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

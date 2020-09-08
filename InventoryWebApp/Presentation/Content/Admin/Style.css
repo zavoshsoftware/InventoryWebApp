@@ -1,0 +1,20 @@
+﻿@font-face {
+    font-family: 'Iransans';
+    src: url(/Fonts/IranSans/IRANSansWebFaNum.eot) format('embedded-opentype'),
+         url(/Fonts/IranSans/IRANSansWebFaNum.woff2) format('woff2'),
+         url(/Fonts/IranSans/IRANSansWebFaNum.woff) format('woff'),
+         url(/Fonts/IranSans/IRANSansWebFaNum.ttf) format('truetype');
+}
+body {
+    font-family:Iransans;
+
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: Iransans;
+}
+.panel-row {
+    padding:5px 25px;
+}
+.full-width-text-area {
+    width: 100%;
+}

@@ -65,6 +65,7 @@ namespace Models
         public string CarNumber { get; set; }
 
         [Display(Name = "InputDesc", ResourceType = typeof(Resources.Models.Input))]
+        [DataType(DataType.MultilineText)]
         public string InputDesc { get; set; }
 
         public virtual ICollection<InputDetail> InputDetails { get; set; }
