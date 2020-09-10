@@ -12825,3 +12825,19 @@ a:hover .caret-white {
         display: inherit !important;
     }
 }
+.k-ff input.k-textbox
+{
+    width:100% !important;
+}
+.form-group select {
+    background-color: #fff;
+    color: #2e2e2e;
+    height: 2.17em;
+    width: 100% !important;
+    border-color: #b6b6b6;
+    text-indent: .33em;
+    line-height: 1.6em;
+    padding: 2px .3em;
+    border-radius: 4px;
+    font-family: Iransans;
+}

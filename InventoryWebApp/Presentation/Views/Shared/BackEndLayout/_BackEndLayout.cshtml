@@ -8,8 +8,8 @@
     <title> پنل مدیریتی زاوش | @ViewBag.Title</title>
     <link href="~/Content/Admin/app.v2.css" rel="stylesheet" />
     <script src="~/Scripts/Admin/app.v2.js"></script>
-
-    <link href="~/Content/font.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.png" />
+    @*<link href="~/Content/font.css" rel="stylesheet" />*@
     <link href="~/Content/Admin/admin-font-awesome.css" rel="stylesheet" />
     <link href="~/Content/Admin/style.css" rel="stylesheet" />
 
@@ -23,10 +23,10 @@
     <script src="@Url.Content("~/Scripts/kendo/2017.3.913/jszip.min.js")"></script>
   
     @*<script src="@Url.Content("~/Scripts/kendo/2016.2.504/kendo.all.min.js")"></script>*@
-    
+    @*<script src="~/Scripts/kendo/2017.3.913/kendo.all.min.js"></script>*@
     <script src="~/Scripts/KendoPersianDate/JalaliDate.js"></script>
-    @*<script src="~/Scripts/KendoPersianDate/kendo.web.js"></script>*@
-    <script src="~/Scripts/kendo/2017.3.913/kendo.all.min.js"></script>
+    <script src="~/Scripts/KendoPersianDate/kendo.web.js"></script>
+    @*<script src="~/Scripts/kendo/2017.3.913/kendo.all.min.js"></script>*@
     <script src="~/Scripts/KendoPersianDate/fa-IR.js"></script>
 
     <script src="@Url.Content("~/Scripts/kendo/2017.3.913/kendo.aspnetmvc.min.js")"></script>
@@ -38,7 +38,7 @@
         <header class="bg-dark dk header navbar navbar-fixed-top-xs">
             <div class="navbar-header aside-md">
                 <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav"><i class="fa fa-bars"></i></a><a href="/" class="navbar-brand">
-                    <img src="~/images/logo.png" class="m-r-sm">
+                    @*<img src="~/images/logo.png" class="m-r-sm">*@
                 </a><a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user"><i class="fa fa-cog"></i></a>
             </div>
             <ul class="nav navbar-nav hidden-xs"></ul>
@@ -146,6 +146,76 @@
 
         });
     </script>
+    <script>
+         function format(input) {
+             var nStr = input.value + '';
+             nStr = nStr.replace(/\,/g, "");
+             x = nStr.split('.');
+             x1 = x[0];
+             x2 = x.length > 1 ? '.' + x[1] : '';
+             var rgx = /(\d+)(\d{3})/;
+             while (rgx.test(x1)) {
+                 x1 = x1.replace(rgx, '$1' + ',' + '$2');
+             }
+             input.value = x1 + x2;
+         }
+    </script>
+    <script>
+         $(document).ready(function () {
+
+             var costs = $(".cost");
+             for (var i = 0; i < costs.length; i++) {
+                 FormatCost(costs[i]);
+             }
+
+             
+         })
+
+         function FormatCost(item)
+         {
+             var nStr = parseInt(item.value) + '';
+             nStr = nStr.replace(/\,/g, "");
+             x = nStr.split('.');
+             x1 = x[0];
+             x2 = x.length > 1 ? '.' + x[1] : '';
+             var rgx = /(\d+)(\d{3})/;
+             while (rgx.test(x1)) {
+                 x1 = x1.replace(rgx, '$1' + ',' + '$2');
+             }
+             if (x1 + x2 != 'NaN') {
+                 item.value =x1 + x2;
+             }
+             else {
+                 item.value ='';
+             }
+         }
+    </script>
+    <script>
+         function ChangeDecimal() {
+
+             var costs = $(".cost");
+             for (var i = 0; i < costs.length; i++) {
+                 UnFormatCost(costs[i]);
+             }
+
+            
+        
+         }
+         function UnFormatCost(item)
+         {
+             var nStr = item.value + '';
+             var ddd = nStr.split(',');
+             var result = '';
+             for (var i = 0; i < ddd.length; i++) {
+                 if (ddd[i] != 'undefined') {
+                     result += ddd[i];
+                 }
+
+             }
+             item.value = result;
+         }
+    </script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

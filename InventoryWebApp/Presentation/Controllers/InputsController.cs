@@ -37,6 +37,7 @@ namespace Presentation.Controllers
 				input.IsDeleted=false;
 				input.CreationDate= DateTime.Now; 
                 input.Id = Guid.NewGuid();
+                input.Code = ReturnInputCode();
 
                 UnitOfWork.InputRepository.Insert(input);
                 UnitOfWork.Save();
@@ -106,6 +107,15 @@ namespace Presentation.Controllers
             
  
             return RedirectToAction("Index");
+        }
+
+        public string ReturnInputCode()
+        {
+            string result = "1000";
+            Input input = UnitOfWork.InputRepository.Get().OrderByDescending(current => current.Code).FirstOrDefault();
+            if (!string.IsNullOrEmpty(input.Code))
+                result = (Convert.ToInt32(input.Code) + 1).ToString();
+            return result;
         }
     }
 }

@@ -1,35 +1,36 @@
 ﻿@model IEnumerable<Models.Input>
 
 @{
-ViewBag.Title = "فهرست ورودی ها" ;
-    
+    ViewBag.Title = "فهرست ورودی ها";
+
 }
 
 <h2>@ViewBag.Title</h2>
 
-        @(Html.Kendo().Grid(Model)
-									.Name("Grid")
-									.Columns(columns =>
-									{
-									columns.Bound(model => model.Code);
-									columns.Bound(model => model.Customer.FullName);
-									columns.Bound(model => model.Transporter.Title);
-									columns.Bound(model => model.InputDate);
-									columns.Bound(model => model.CreationDate);
-									columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
-									.Template(@<text>
-									@Html.ActionLink("ویرایش", "Edit", new {id = @item.Id}, new {@class = "k-button"})
-									@Html.ActionLink("حذف", "Delete", new {id = @item.Id}, new {@class = "k-button"})
-									</text>).Width(200);  
-		})
-		.ToolBar(toolbar =>
-					{				
-						toolbar.Custom().Action("Create","Inputs").Text("افزودن");                          
-					}
-		)         
-		.DataSource(dataSource => dataSource
-									.Server()
-							
-									.Model(model => model.Id(item => item.Id))
-					)              
-	)
+@(Html.Kendo().Grid(Model)
+                                    .Name("Grid")
+                                    .Columns(columns =>
+                                    {
+                                    columns.Bound(model => model.Code);
+                                    columns.Bound(model => model.Customer.FullName);
+                                    columns.Bound(model => model.Transporter.Title);
+                                    columns.Bound(model => model.InputDate);
+                                    columns.Bound(model => model.CreationDate);
+                                    columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+                                    .Template(@<text>
+                                            @Html.ActionLink("جزئیات ورود", "Index", "InputDetails", new { id = @item.Id }, new { @class = "k-button" })
+                                            @Html.ActionLink("ویرایش", "Edit", new { id = @item.Id }, new { @class = "k-button" })
+                                            @Html.ActionLink("حذف", "Delete", new { id = @item.Id }, new { @class = "k-button" })
+                                    </text>).Width(200);
+                                    })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("Create", "Inputs").Text("افزودن");
+        }
+        )
+        .DataSource(dataSource => dataSource
+                                    .Server()
+
+                                    .Model(model => model.Id(item => item.Id))
+                    )
+)

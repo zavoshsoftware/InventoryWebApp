@@ -1,0 +1,303 @@
+﻿@model ViewModels.InputDetailViewModel
+@{
+    ViewBag.Title = " جزئیات ورود کالا ";
+
+    Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+}
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+
+    <div class="form-group">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                اطلاعات ورود کالا
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Input.Code, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DisplayTextFor(model => model.Input.Code)
+                                @Html.ValidationMessageFor(model => model.Input.Code)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Input.Customer.FullName, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DisplayTextFor(model => model.Input.Customer.FullName)
+                                @Html.ValidationMessageFor(model => model.Input.Customer.FullName)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                   @Html.Raw(TempData["Error"])
+                    
+                </div>
+                @using (Html.BeginForm("Create", "InputDetails", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Input.Id)
+                    @Html.HiddenFor(model => model.EditMode)
+                    @Html.HiddenFor(model => model.Detail.CreationDate)
+                    @Html.HiddenFor(model => model.Detail.Id)
+                    <div class="row panel-row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">فرم ورود جزئیات</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ProductId, new { @class = "control-label col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.DropDownList("ProductId", String.Empty)
+                                                @Html.ValidationMessageFor(model => model.ProductId)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Detail.Code, new { @class = "control-label col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.Detail.Code)
+                                                @Html.ValidationMessageFor(model => model.Detail.Code)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Detail.Quantity, new { @class = "control-label col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.Detail.Quantity, new { htmlAttributes = new { @class = "k-textbox" } })
+                                                @Html.ValidationMessageFor(model => model.Detail.Quantity)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Detail.DestinationWeight, new { @class = "control-label col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.Detail.DestinationWeight, new { htmlAttributes = new { @class = "k-textbox" } })
+                                                @Html.ValidationMessageFor(model => model.Detail.DestinationWeight)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Detail.SourceWeight, new { @class = "control-label col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.Detail.SourceWeight, new { htmlAttributes = new { @class = "k-textbox" } })
+                                                @Html.ValidationMessageFor(model => model.Detail.SourceWeight)
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <input type="submit" value="ثبت" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row panel-row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">جزئیات ورود کالا</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @*<div id="grid"></div>*@
+                                    @(Html.Kendo().Grid(Model.InputDetails)
+                               .Name("Grid")
+                               .Columns(columns =>
+                               {
+                               columns.Bound(model => model.Id).Hidden(true);
+                               columns.Bound(model => model.Product.Title);
+                               columns.Bound(model => model.Code);
+                               columns.Bound(model => model.Quantity);
+                               columns.Bound(model => model.DestinationWeight);
+                               columns.Bound(item => @item.Id).Title("").Filterable(false).Groupable(false)
+                               .Template(@<text>
+                                    <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-2x fa-trash"></i></a>
+                            </text>).Width(50);
+
+                               })
+
+                                    .DataSource(dataSource => dataSource
+                                                                .Server()
+
+                                                                .Model(model => model.Id(item => item.Id))
+                                                ).Editable()
+                                                .Selectable()
+                                    )
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">حذف</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               آیا از حذف مطمئن هستید؟
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
+                <button type="button" class="btn btn-primary" onclick="DeleteFunction();">حذف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $("#Grid table tbody tr").on("dblclick", function () {
+            var grid = $("#Grid");
+            var dataItem =  $(this)[0].firstChild.innerText;
+
+            $.ajax({
+                url: "/InputDetails/Edit",
+                data: { id: dataItem },
+                type: "POST",
+            }).done(function (result) {
+                $("#Detail_Code").val(result.code);
+                $("#Detail_Quantity").val(result.quantity);
+                $("#Detail_DestinationWeight").val(result.destinationWeight);
+                $("#Detail_SourceWeight").val(result.sourceWeight);
+                $("#ProductId").val(result.productId);
+                $("#Detail_Id").val(result.id);
+                $("#EditMode").val('true');
+            });
+        });
+    </script>
+
+    <script>
+        function DeleteFunction() {
+            var selectedRowId = $("#Grid table tbody tr.k-state-selected")[0].firstChild.innerText;
+
+            $("#closeModal").click();
+            $.ajax({
+                url: "/InputDetails/DeleteConfirmed",
+                data: { id: selectedRowId },
+                type: 'POST'
+            }).done(function () {
+                window.location.reload();
+            });
+        }
+    </script>
+
+
+
+
+
+
+    @*<script>
+                 $(document).ready(function () {
+                     var crudServiceBaseUrl = "/InputDetails",
+                         dataSource = new kendo.data.DataSource({
+                             transport: {
+                                 read: {
+                                     url: crudServiceBaseUrl + "/LoadGrid",
+                                     data: {id:'@Model.Input.Id'},
+                                     dataType: "json"
+                                 },
+                                 update: {
+                                     url: crudServiceBaseUrl + "/Edit",
+                                     dataType: "json",
+                                     contentType: 'application/json; charset=utf-8',
+                                     type: 'POST',
+                                 },
+                                 //destroy: {
+                                 //    url: crudServiceBaseUrl + "/Products/Destroy",
+                                 //    dataType: "jsonp"
+                                 //},
+                                 //create: {
+                                 //    url: crudServiceBaseUrl + "/Products/Create",
+                                 //    dataType: "jsonp"
+                                 //},
+                                 //parameterMap: function (options, operation) {
+                                 //    if (operation !== "read" && options.models) {
+                                 //        return { models: kendo.stringify(options.models) };
+                                 //    }
+                                 //}
+                             },
+                             batch: true,
+                             pageSize: 20,
+                             schema: {
+                                 model: {
+                                     id: "Id",
+                                     fields: {
+                                         Id: { hidden: true, editable: false },
+                                         ProductTitle: { editable: true },
+                                         Code: { editable: true },
+                                         Quantity: { type: "number", editable: true},
+                                         DestinationWeight: { type: "number", editable: true },
+                                     }
+                                 }
+                             }
+                         });
+
+                     $("#grid").kendoGrid({
+                         dataSource: dataSource,
+                         pageable: false,
+                         height: 350,
+                         //toolbar: ["create"],
+                         columns: [
+                             { field: "Id", title: "شناسه کالا", width: "300px" },
+                             { field: "ProductTitle", title: "نام کالا", width: "300px" },
+                             { field: "Code", title: "ردیف", width: "200px" },
+                             { field: "Quantity", title: "تعداد", width: "200px" },
+                             { field: "DestinationWeight", title: "وزن مقصد", width: "200px"},],
+                         editable: "popup",
+                         dataBound: onDataBound
+                     });
+                 });
+
+                 function onDataBound() {
+                     var grid = this;
+
+                     grid.element.off('dblclick');
+
+                     grid.element.on('dblclick', 'tbody tr[data-uid]', function (e) {
+                         grid.editRow($(e.target).closest('tr'));
+                     })
+                 }
+
+                 //function customBoolEditor(container, options) {
+                 //    var guid = kendo.guid();
+                 //    $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="Discontinued" data-type="boolean" data-bind="checked:Discontinued">').appendTo(container);
+                 //    $('<label class="k-checkbox-label" for="' + guid + '">​</label>').appendTo(container);
+                 //}
+        </script>*@
+
+}
+

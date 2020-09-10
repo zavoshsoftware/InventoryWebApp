@@ -65,7 +65,7 @@
 											<div class="form-group">
 												@Html.LabelFor(model => model.PostRentAmount, new { @class = "control-label col-md-3" })
 												<div class="col-md-9">
-													@Html.EditorFor(model => model.PostRentAmount)
+													@Html.EditorFor(model => model.PostRentAmount, new { htmlAttributes = new { @onkeyup = "format(this)", @class = "cost" } })
 
 													@Html.ValidationMessageFor(model => model.PostRentAmount)
 												</div>
@@ -76,7 +76,7 @@
 											<div class="form-group">
 												@Html.LabelFor(model => model.WeighbridgeAmount, new { @class = "control-label col-md-3" })
 												<div class="col-md-9">
-													@Html.EditorFor(model => model.WeighbridgeAmount)
+													@Html.EditorFor(model => model.WeighbridgeAmount, new { htmlAttributes = new { @onkeyup = "format(this)", @class = "cost" } })
 
 													@Html.ValidationMessageFor(model => model.WeighbridgeAmount)
 												</div>
@@ -89,7 +89,7 @@
 											<div class="form-group">
 												@Html.LabelFor(model => model.CommissionAmount, new { @class = "control-label col-md-3" })
 												<div class="col-md-9">
-													@Html.EditorFor(model => model.CommissionAmount)
+													@Html.EditorFor(model => model.CommissionAmount, new { htmlAttributes = new { @onkeyup = "format(this)", @class = "cost" } })
 
 													@Html.ValidationMessageFor(model => model.CommissionAmount)
 												</div>
@@ -99,7 +99,7 @@
 											<div class="form-group">
 												@Html.LabelFor(model => model.OtherAmount, new { @class = "control-label col-md-3" })
 												<div class="col-md-9">
-													@Html.EditorFor(model => model.OtherAmount)
+													@Html.EditorFor(model => model.OtherAmount, new { htmlAttributes = new { @onkeyup = "format(this)", @class = "cost" } })
 
 													@Html.ValidationMessageFor(model => model.OtherAmount)
 												</div>
@@ -233,7 +233,7 @@
 				 
 				<div class="form-group" id="buttons">
 					<div class="col-md-offset-2 col-md-10">
-						<input type="submit" value="ایجاد" class="btn btn-primary" />
+						<input type="submit" value="ایجاد" class="btn btn-primary"  onclick="ChangeDecimal();"/>
 						@Html.ActionLink("بازگشت به فهرست", "Index")
 					</div>
 				</div>

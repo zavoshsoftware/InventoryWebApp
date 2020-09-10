@@ -24,21 +24,25 @@ namespace Models
         public Guid CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
-        [Display(Name = "PostRentAmount", ResourceType = typeof(Resources.Models.Input))] 
+        [Display(Name = "PostRentAmount", ResourceType = typeof(Resources.Models.Input))]
+        [DisplayFormat(DataFormatString = "{0:0}", ApplyFormatInEditMode = true)]
         public decimal? PostRentAmount { get; set; }
 
         [Display(Name = "InputTime", ResourceType = typeof(Resources.Models.Input))]
         public string InputTime { get; set; }
 
         [Display(Name = "OtherAmount", ResourceType = typeof(Resources.Models.Input))]
+        [DisplayFormat(DataFormatString = "{0:0}", ApplyFormatInEditMode = true)]
         public decimal? OtherAmount { get; set; }
         [Display(Name = "WeighbridgeAmount", ResourceType = typeof(Resources.Models.Input))]
+        [DisplayFormat(DataFormatString = "{0:0}", ApplyFormatInEditMode = true)]
         public decimal? WeighbridgeAmount { get; set; }
 
         [Display(Name = "SourceWeight", ResourceType = typeof(Resources.Models.Input))]
         public decimal? SourceWeight { get; set; }
 
         [Display(Name = "CommissionAmount", ResourceType = typeof(Resources.Models.Input))]
+        [DisplayFormat(DataFormatString = "{0:0}", ApplyFormatInEditMode = true)]
         public decimal? CommissionAmount { get; set; }
 
         [Display(Name = "FullWeight", ResourceType = typeof(Resources.Models.Input))] 
