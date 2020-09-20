@@ -12,9 +12,12 @@ namespace Models
         public Customer()
         {
             Inputs=new List<Input>();
+            Orders = new List<Order>();
         }
         [Display(Name = "FullName", ResourceType = typeof(Resources.Models.Customer))]
         public string FullName { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<Input> Inputs { get; set; }
     }

@@ -60,6 +60,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InputDetail.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Order.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Order.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -123,6 +128,10 @@
     <EmbeddedResource Include="Models\InputDetail.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>InputDetail.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Order.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Order.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Product.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

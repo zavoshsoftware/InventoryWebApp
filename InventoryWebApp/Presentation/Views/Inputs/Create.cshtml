@@ -32,6 +32,19 @@
 								</div>
 							</div>
 
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.OrderId, new { @class = "control-label col-md-3" })
+									<div class="col-md-9">
+										@Html.DropDownList("OrderId", null, new { @id = "OrderId" })
+
+										
+										@*@Html.DropDownList("OrderId", String.Empty)*@
+										@Html.ValidationMessageFor(model => model.OrderId)
+									</div>
+								</div>
+							</div>
+
 						</div>
 						<div class="row">
 							<div class="col-md-6">
@@ -241,3 +254,42 @@
 		</div>
 }
 
+@section scripts{
+	<script>
+		$( document ).ready(function() {
+			$("#OrderId").append($("<option />").val("0").html("-- ایجاد حواله مادر جدید --"));
+
+		});
+
+		$('#CustomerId').on('change',
+			function () {
+				var selectedValue = $(this).val(); // < added test values
+
+				if (selectedValue !== "") {
+					var procemessage = "<option value='00000000-0000-0000-0000-000000000000'> صبرکنید...</option>";
+
+					$("#OrderId").html(procemessage).show();
+
+					$.ajax(
+						{
+							url: "/Orders/GetCustomerOrders",
+							data: { id: selectedValue },
+							cache: false,
+							type: "POST",
+							success: function (data) {
+								var markup = "<option value='0'>شماره حواله</option>";
+								for (var x = 0; x < data.length; x++) {
+									markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+								}
+								markup += "<option value='00000000-0000-0000-0000-000000000000'>-- ایجاد حواله مادر جدید --</option>";
+
+								$("#OrderId").html(markup).show();
+							},
+							error: function (reponse) {
+								alert("error : " + reponse);
+							}
+						});
+				}
+			});
+	</script>
+}

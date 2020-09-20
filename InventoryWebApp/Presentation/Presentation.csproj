@@ -513,6 +513,7 @@
     <Content Include="fonts\fontAwesome\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontAwesome\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\function.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\kendo.modernizr.custom.js" />
@@ -771,15 +772,24 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\InputDetailsController.cs" />
     <Compile Include="Controllers\InputsController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductCreatorsController.cs" />
+    <Compile Include="Controllers\ProductFormsController.cs" />
     <Compile Include="Controllers\ProductGroupsController.cs" />
+    <Compile Include="Controllers\ProductGroupUnitsController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProductStatusesController.cs" />
     <Compile Include="Controllers\TransportersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\GenerateCode.cs" />
+    <Compile Include="Helper\GetPersianDate.cs" />
     <Compile Include="Helper\PersianCulture.cs" />
     <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Infrastructure\BaseControllerWithUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DropDownKeyValueViewModel.cs" />
     <Compile Include="ViewModels\InputDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -947,6 +957,33 @@
     <Content Include="Views\InputDetails\Details.cshtml" />
     <Content Include="Views\InputDetails\Edit.cshtml" />
     <Content Include="Views\InputDetails\Index.cshtml" />
+    <Content Include="Views\ProductGroupUnits\Create.cshtml" />
+    <Content Include="Views\ProductGroupUnits\Delete.cshtml" />
+    <Content Include="Views\ProductGroupUnits\Edit.cshtml" />
+    <Content Include="Views\ProductGroupUnits\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\ProductForms\Create.cshtml" />
+    <Content Include="Views\ProductForms\Delete.cshtml" />
+    <Content Include="Views\ProductForms\Edit.cshtml" />
+    <Content Include="Views\ProductForms\Index.cshtml" />
+    <Content Include="Views\ProductCreators\Create.cshtml" />
+    <Content Include="Views\ProductCreators\Delete.cshtml" />
+    <Content Include="Views\ProductCreators\Edit.cshtml" />
+    <Content Include="Views\ProductCreators\Index.cshtml" />
+    <Content Include="Views\ProductStatuses\Create.cshtml" />
+    <Content Include="Views\ProductStatuses\Delete.cshtml" />
+    <Content Include="Views\ProductStatuses\Edit.cshtml" />
+    <Content Include="Views\ProductStatuses\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

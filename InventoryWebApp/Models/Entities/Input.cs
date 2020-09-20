@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Models
         }
 
         [Display(Name = "Code", ResourceType = typeof(Resources.Models.Input))]
-        public string Code { get; set; }
+        public int Code { get; set; }
 
         [Display(Name = "InputDate", ResourceType = typeof(Resources.Models.Input))]
         public DateTime InputDate { get; set; }
@@ -73,5 +74,19 @@ namespace Models
         public string InputDesc { get; set; }
 
         public virtual ICollection<InputDetail> InputDetails { get; set; }
+
+
+        [Display(Name = "Code", ResourceType = typeof(Resources.Models.Order))]
+        public Guid? OrderId { get; set; }
+        public virtual Order Order { get; set; }
+
+
+        internal class configuration : EntityTypeConfiguration<Input>
+        {
+            public configuration()
+            {
+                HasOptional(p => p.Order).WithMany(t => t.Inputs).HasForeignKey(p => p.OrderId);
+            }
+        }
     }
 }

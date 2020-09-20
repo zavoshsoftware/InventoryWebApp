@@ -1,0 +1,163 @@
+﻿@model Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCreator.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCreator.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductForm.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductForm.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductGroup.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductGroup.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductStatus.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductStatus.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Length)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Length)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Thickness)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Thickness)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Width)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Width)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPureWeight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPureWeight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Grid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Other)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Other)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

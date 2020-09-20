@@ -1,0 +1,123 @@
+﻿@model Models.Product
+
+@{
+    ViewBag.Title = "حذف " + Server.HtmlDecode(Html.DisplayNameFor(model => model).ToString());
+    Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>آیا از حذف این مورد اطمینان دارید؟</h3>
+<div>    
+    <hr />
+    <div class="form-horizontal">        
+    
+         <div class="form-group">
+            @Html.LabelFor(model => model.ProductCreator.Title, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.ProductCreator.Title)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.ProductForm.Title, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.ProductForm.Title)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.ProductGroup.Title, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.ProductGroup.Title)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.ProductStatus.Title, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.ProductStatus.Title)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Title)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Length, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Length)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Thickness, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Thickness)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Width, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Width)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Weight, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Weight)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.IsPureWeight, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.IsPureWeight)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Grid, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Grid)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Other, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Other)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.IsActive)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.CreationDate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.CreationDate)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.LastModifiedDate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.LastModifiedDate)
+      </div></div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Description)
+      </div></div>
+
+  </div>  
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+       <div class="form-group" id="buttons">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="تایید حذف" class="btn btn-primary" />
+				@Html.ActionLink("بازگشت به فهرست", "Index")
+            </div>
+        </div>
+    }
+</div>

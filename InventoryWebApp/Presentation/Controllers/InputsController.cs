@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Helper;
 using Models;
 
 namespace Presentation.Controllers
@@ -18,12 +19,13 @@ namespace Presentation.Controllers
 
             return View(inputs.ToList());
         }
-         
+
         public ActionResult Create()
         {
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title");
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title");
+            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code");
             return View();
         }
 
@@ -33,11 +35,9 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-				input.IsActive=true;
-				input.IsDeleted=false;
-				input.CreationDate= DateTime.Now; 
-                input.Id = Guid.NewGuid();
-                input.Code = ReturnInputCode();
+                input.OrderId = GetOrderId(input.OrderId, input.CustomerId);
+                input.IsActive = true;
+                input.Code = GenerateCode.GetInputCode();
 
                 UnitOfWork.InputRepository.Insert(input);
                 UnitOfWork.Save();
@@ -46,8 +46,10 @@ namespace Presentation.Controllers
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title", input.TransporterId);
+            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code", input.OrderId);
             return View(input);
         }
+
 
         public ActionResult Edit(Guid? id)
         {
@@ -63,6 +65,7 @@ namespace Presentation.Controllers
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title", input.TransporterId);
+            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c=>c.CustomerId==input.CustomerId), "Id", "Code", input.OrderId);
             return View(input);
         }
 
@@ -72,7 +75,7 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-				input.IsDeleted=false;
+                input.IsDeleted = false;
 
                 UnitOfWork.InputRepository.Update(input);
                 UnitOfWork.Save();
@@ -81,6 +84,7 @@ namespace Presentation.Controllers
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title", input.TransporterId);
+            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.CustomerId == input.CustomerId), "Id", "Code", input.OrderId);
             return View(input);
         }
 
@@ -104,18 +108,39 @@ namespace Presentation.Controllers
         {
             UnitOfWork.InputRepository.DeleteById(id);
             UnitOfWork.Save();
-            
- 
+
+
             return RedirectToAction("Index");
         }
 
-        public string ReturnInputCode()
+        #region HelperMethods
+
+        public Guid? GetOrderId(Guid? orderId, Guid customerId)
         {
-            string result = "1000";
-            Input input = UnitOfWork.InputRepository.Get().OrderByDescending(current => current.Code).FirstOrDefault();
-            if (!string.IsNullOrEmpty(input.Code))
-                result = (Convert.ToInt32(input.Code) + 1).ToString();
-            return result;
+           
+            Guid newOrderId = new Guid(System.Web.Configuration.WebConfigurationManager.AppSettings["newOrderId"]);
+
+            if (orderId == newOrderId)
+                return CreateParentOrder(customerId);
+
+            return orderId;
         }
+
+        public Guid CreateParentOrder(Guid customerId)
+        {
+            Order order = new Order()
+            {
+                Code = GenerateCode.GetOrderCode(),
+                ParentId = null,
+                CustomerId = customerId
+            };
+
+            UnitOfWork.OrderRepository.Insert(order);
+            return order.Id;
+        }
+
+
+        #endregion
+
     }
 }

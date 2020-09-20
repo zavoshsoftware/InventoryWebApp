@@ -282,7 +282,6 @@ namespace DAL
             }
         }
 
-
         private IProductStatusRepository _productStatusRepository;
         public IProductStatusRepository ProductStatusRepository
         {
@@ -294,6 +293,20 @@ namespace DAL
                         new ProductStatusRepository(DatabaseContext);
                 }
                 return (_productStatusRepository);
+            }
+        }
+
+        private IOrderRepository _orderRepository;
+        public IOrderRepository OrderRepository
+        {
+            get
+            {
+                if (_orderRepository == null)
+                {
+                    _orderRepository =
+                        new OrderRepository(DatabaseContext);
+                }
+                return (_orderRepository);
             }
         }
 

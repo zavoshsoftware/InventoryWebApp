@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,10 @@ namespace Models
 {
     public class InputDetail : BaseEntity
     {
+        public InputDetail()
+        {
+            InputDetails=new List<InputDetail>();
+        }
        
         [Display(Name = "InputId", ResourceType = typeof(Resources.Models.InputDetail))]
         public Guid InputId { get; set; }
@@ -31,5 +36,20 @@ namespace Models
 
         [Display(Name = "SourceWeight", ResourceType = typeof(Resources.Models.InputDetail))]
         public decimal SourceWeight { get; set; }
+
+
+        public Guid? ParentId { get; set; }
+        public virtual InputDetail Parent { get; set; }
+        public virtual ICollection<InputDetail> InputDetails { get; set; }
+
+
+        internal class configuration : EntityTypeConfiguration<InputDetail>
+        {
+            public configuration()
+            {
+                HasOptional(p => p.Parent).WithMany(t => t.InputDetails).HasForeignKey(p => p.ParentId);
+                HasRequired(p => p.Input).WithMany(t => t.InputDetails).HasForeignKey(p => p.InputId);
+            }
+        }
     }
 }

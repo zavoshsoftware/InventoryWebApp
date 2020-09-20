@@ -54,6 +54,7 @@
     <Compile Include="DatabaseContextInitializerBeforeTheFirstRelease.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\City.cs" />
+    <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\InputDetail.cs" />
     <Compile Include="Entities\ProductGroup.cs" />
@@ -75,6 +76,18 @@
     <Compile Include="Migrations\202009060416040_V02.Designer.cs">
       <DependentUpon>202009060416040_V02.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009200959507_V03.cs" />
+    <Compile Include="Migrations\202009200959507_V03.Designer.cs">
+      <DependentUpon>202009200959507_V03.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009201214044_V04.cs" />
+    <Compile Include="Migrations\202009201214044_V04.Designer.cs">
+      <DependentUpon>202009201214044_V04.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009201403397_V05.cs" />
+    <Compile Include="Migrations\202009201403397_V05.Designer.cs">
+      <DependentUpon>202009201403397_V05.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -94,6 +107,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009060416040_V02.resx">
       <DependentUpon>202009060416040_V02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009200959507_V03.resx">
+      <DependentUpon>202009200959507_V03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009201214044_V04.resx">
+      <DependentUpon>202009201214044_V04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009201403397_V05.resx">
+      <DependentUpon>202009201403397_V05.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

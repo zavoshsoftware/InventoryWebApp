@@ -23,5 +23,6 @@ namespace Models
         public DbSet<ProductCreator> ProductCreators { get; set; }
         public DbSet<ProductForm> ProductForms { get; set; }
         public DbSet<ProductStatus> ProductStatuses { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
