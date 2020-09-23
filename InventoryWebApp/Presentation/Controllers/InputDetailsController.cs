@@ -16,7 +16,7 @@ namespace Presentation.Controllers
         private DatabaseContext db = new DatabaseContext();
 
         // GET: InputDetails
-        public ActionResult Index(Guid id,string error)
+        public ActionResult Index(Guid id, string error)
         {
             InputDetailViewModel viewModel = new InputDetailViewModel();
             viewModel.Input = UnitOfWork.InputRepository.GetById(id);
@@ -29,7 +29,9 @@ namespace Presentation.Controllers
             {
                 TempData["Error"] = @"<p class='alert alert-danger'>خطایی رخ داد! مجددا تلاش نمایید</p> ";
             }
-           
+
+            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c=>c.CustomerId==viewModel.Input.CustomerId&&c.IsActive), "Id", "Code");
+
             return View(viewModel);
         }
 
@@ -46,28 +48,33 @@ namespace Presentation.Controllers
                     ViewModel.Detail.Id = Guid.NewGuid();
                     ViewModel.Detail.ProductId = ViewModel.ProductId;
                     ViewModel.Detail.InputId = ViewModel.Input.Id;
+                    ViewModel.Detail.RemainDestinationWeight = ViewModel.Detail.DestinationWeight;
+                    ViewModel.Detail.RemainQuantity = ViewModel.Detail.Quantity;
                     UnitOfWork.InputDetailsRepository.Insert(ViewModel.Detail);
                 }
                 else
                 {
                     InputDetail inputDetail = UnitOfWork.InputDetailsRepository.GetById(ViewModel.Detail.Id);
+
                     inputDetail.IsDeleted = false;
                     inputDetail.ProductId = ViewModel.ProductId;
                     inputDetail.Code = ViewModel.Detail.Code;
                     inputDetail.Quantity = ViewModel.Detail.Quantity;
                     inputDetail.SourceWeight = ViewModel.Detail.SourceWeight;
                     inputDetail.DestinationWeight = ViewModel.Detail.DestinationWeight;
-
+                    inputDetail.RemainDestinationWeight = ViewModel.Detail.DestinationWeight;
+                    inputDetail.RemainQuantity= ViewModel.Detail.Quantity;
 
                     UnitOfWork.InputDetailsRepository.Update(inputDetail);
-
                 }
                 UnitOfWork.Save();
+                ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.CustomerId == ViewModel.Input.CustomerId && c.IsActive), "Id", "Code");
+
                 return RedirectToAction("Index", new { id = ViewModel.Input.Id });
             }
             catch (Exception)
             {
-                return RedirectToAction("Index", new { id = ViewModel.Input.Id,error= "error" });
+                return RedirectToAction("Index", new { id = ViewModel.Input.Id, error = "error" });
             }
         }
 
@@ -100,8 +107,35 @@ namespace Presentation.Controllers
             }
             catch (Exception)
             {
-                 return RedirectToAction("Index", new { id = inputDetail.InputId , error= "error" });
+                return RedirectToAction("Index", new { id = inputDetail.InputId, error = "error" });
             }
+        }
+
+
+        [HttpPost]
+        public ActionResult Details(string orderId,string productId)
+        {
+            Guid orderIdGuid=new Guid(orderId);
+            Guid productIdGuid = new Guid(productId);
+
+            List<InputDetail> inputDetails = UnitOfWork.InputDetailsRepository
+                .Get(c => c.OrderId == orderIdGuid && c.ProductId == productIdGuid).ToList();
+
+            List<InputDetailParentsViewModel> inputDetailParents=new List<InputDetailParentsViewModel>();
+
+            foreach (InputDetail inputDetail in inputDetails)
+            {
+                inputDetailParents.Add(new InputDetailParentsViewModel()
+                {
+                    InputCode = inputDetail.Input.Code.ToString(),
+                    DestinationWeight = inputDetail.DestinationWeight,
+                    InputDate = inputDetail.Input.InputDate.ToShortDateString(),
+                    Quantity = inputDetail.Quantity,
+                    SourceWeight = inputDetail.SourceWeight
+                });
+            }
+
+            return Json(inputDetailParents, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

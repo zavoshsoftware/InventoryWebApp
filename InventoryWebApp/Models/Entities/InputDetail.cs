@@ -34,6 +34,12 @@ namespace Models
         [Display(Name = "DestinationWeight", ResourceType = typeof(Resources.Models.InputDetail))]
         public decimal DestinationWeight { get; set; }
 
+        [Display(Name = "RemainQuantity", ResourceType = typeof(Resources.Models.InputDetail))]
+        public int RemainQuantity { get; set; }
+
+        [Display(Name = "RemainDestinationWeight", ResourceType = typeof(Resources.Models.InputDetail))]
+        public decimal RemainDestinationWeight { get; set; }
+
         [Display(Name = "SourceWeight", ResourceType = typeof(Resources.Models.InputDetail))]
         public decimal SourceWeight { get; set; }
 
@@ -43,11 +49,16 @@ namespace Models
         public virtual ICollection<InputDetail> InputDetails { get; set; }
 
 
+        [Display(Name = "Code", ResourceType = typeof(Resources.Models.Order))]
+        public Guid? OrderId { get; set; }
+        public virtual Order Order { get; set; }
+
         internal class configuration : EntityTypeConfiguration<InputDetail>
         {
             public configuration()
             {
                 HasOptional(p => p.Parent).WithMany(t => t.InputDetails).HasForeignKey(p => p.ParentId);
+                HasOptional(p => p.Order).WithMany(t => t.InputDetails).HasForeignKey(p => p.OrderId);
                 HasRequired(p => p.Input).WithMany(t => t.InputDetails).HasForeignKey(p => p.InputId);
             }
         }

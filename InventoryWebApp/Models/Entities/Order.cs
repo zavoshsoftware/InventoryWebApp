@@ -13,6 +13,7 @@ namespace Models
         public Order()
         {
             Orders = new List<Order>();
+            InputDetails = new List<InputDetail>();
         }
         [Display(Name = "Code", ResourceType = typeof(Resources.Models.Order))]
         public string Code { get; set; }
@@ -26,7 +27,7 @@ namespace Models
         public virtual Order Parent { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
 
-        public virtual ICollection<Input> Inputs { get; set; }
+        public virtual ICollection<InputDetail> InputDetails { get; set; }
         
         internal class configuration : EntityTypeConfiguration<Order>
         {

@@ -36,18 +36,15 @@
                         </div>
 											
 											
-	                    <div class="col-md-6">
+	                    @*<div class="col-md-6">
 		                    <div class="form-group">
 			                    @Html.LabelFor(model => model.OrderId, new { @class = "control-label col-md-3" })
 			                    <div class="col-md-9">
 				                    @Html.DropDownList("OrderId", null, new { @id = "OrderId" })
-
-										
-				                    @*@Html.DropDownList("OrderId", String.Empty)*@
-				                    @Html.ValidationMessageFor(model => model.OrderId)
+												    @Html.ValidationMessageFor(model => model.OrderId)
 			                    </div>
 		                    </div>
-	                    </div>
+	                    </div>*@
 
                     </div>
                     <div class="row">
@@ -259,7 +256,7 @@
 }
 
 
-@section scripts{
+@*@section scripts{
 	<script>
 		$(document).ready(function () {
 			$("#OrderId").append($("<option />").val("0").html("-- ایجاد حواله مادر جدید --"));
@@ -297,4 +294,4 @@
 				}
 			});
 	</script>
-}
+}*@

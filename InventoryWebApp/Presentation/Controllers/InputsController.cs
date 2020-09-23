@@ -25,7 +25,7 @@ namespace Presentation.Controllers
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title");
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title");
-            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code");
+            //ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code");
             return View();
         }
 
@@ -35,7 +35,7 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                input.OrderId = GetOrderId(input.OrderId, input.CustomerId);
+                //input.OrderId = GetOrderId(input.OrderId, input.CustomerId);
                 input.IsActive = true;
                 input.Code = GenerateCode.GetInputCode();
 
@@ -46,7 +46,7 @@ namespace Presentation.Controllers
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title", input.TransporterId);
-            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code", input.OrderId);
+            //ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code", input.OrderId);
             return View(input);
         }
 
@@ -65,7 +65,7 @@ namespace Presentation.Controllers
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title", input.TransporterId);
-            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c=>c.CustomerId==input.CustomerId), "Id", "Code", input.OrderId);
+            //ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c=>c.CustomerId==input.CustomerId), "Id", "Code", input.OrderId);
             return View(input);
         }
 
@@ -84,7 +84,7 @@ namespace Presentation.Controllers
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title", input.TransporterId);
-            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.CustomerId == input.CustomerId), "Id", "Code", input.OrderId);
+            //ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.CustomerId == input.CustomerId), "Id", "Code", input.OrderId);
             return View(input);
         }
 
@@ -113,34 +113,6 @@ namespace Presentation.Controllers
             return RedirectToAction("Index");
         }
 
-        #region HelperMethods
-
-        public Guid? GetOrderId(Guid? orderId, Guid customerId)
-        {
-           
-            Guid newOrderId = new Guid(System.Web.Configuration.WebConfigurationManager.AppSettings["newOrderId"]);
-
-            if (orderId == newOrderId)
-                return CreateParentOrder(customerId);
-
-            return orderId;
-        }
-
-        public Guid CreateParentOrder(Guid customerId)
-        {
-            Order order = new Order()
-            {
-                Code = GenerateCode.GetOrderCode(),
-                ParentId = null,
-                CustomerId = customerId
-            };
-
-            UnitOfWork.OrderRepository.Insert(order);
-            return order.Id;
-        }
-
-
-        #endregion
-
+    
     }
 }

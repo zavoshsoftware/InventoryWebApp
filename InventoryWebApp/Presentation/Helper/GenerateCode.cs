@@ -44,6 +44,27 @@ namespace Helper
 
             return result;
         }
+    public static string GetChildOrderCode(Guid parentOrderId)
+        {
+            DatabaseContext db = new DatabaseContext();
+
+            Order order = db.Orders.Find(parentOrderId);
+
+            Order lastOrderChild = db.Orders.Where(c => c.ParentId == parentOrderId && c.IsDeleted == false)
+                .OrderByDescending(c => c.Code).FirstOrDefault();
+
+            if (lastOrderChild == null)
+                return order.Code + "/1";
+
+            else
+            {
+                string[] orderCodeitems = lastOrderChild.Code.Split('/');
+                int newCode = Convert.ToInt32(orderCodeitems.LastOrDefault()) + 1;
+
+                return order.Code + "/" + newCode;
+            }
+
+        }
 
         public static int GetInputCode()
         {

@@ -12,26 +12,26 @@ namespace Presentation.Controllers
 {
     public class CustomersController : Infrastructure.BaseControllerWithUnitOfWork
     {
+        #region CRUD
 
         public ActionResult Index()
         {
-            return View(UnitOfWork.CustomerRepository.Get().OrderByDescending(a=>a.CreationDate).ToList());
-        } 
-     
+            return View(UnitOfWork.CustomerRepository.Get().OrderByDescending(a => a.CreationDate).ToList());
+        }
+
         public ActionResult Create()
         {
             return View();
         }
-
-       
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
-				customer.IsDeleted=false;
-				customer.CreationDate= DateTime.Now; 
+                customer.IsDeleted = false;
+                customer.CreationDate = DateTime.Now;
                 customer.Id = Guid.NewGuid();
                 UnitOfWork.CustomerRepository.Insert(customer);
                 UnitOfWork.Save();
@@ -61,11 +61,11 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-				customer.IsDeleted=false;
+                customer.IsDeleted = false;
 
                 UnitOfWork.CustomerRepository.Update(customer);
                 UnitOfWork.Save();
-                
+
                 return RedirectToAction("Index");
             }
             return View(customer);
@@ -92,8 +92,15 @@ namespace Presentation.Controllers
         {
             UnitOfWork.CustomerRepository.DeleteById(id);
             UnitOfWork.Save();
-           
+
             return RedirectToAction("Index");
+        }
+
+        #endregion
+
+        public ActionResult List()
+        {
+            return View(UnitOfWork.CustomerRepository.Get().OrderByDescending(o => o.CreationDate).ToList());
         }
     }
 }

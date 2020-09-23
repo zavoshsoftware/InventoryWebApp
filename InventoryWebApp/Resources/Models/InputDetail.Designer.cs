@@ -97,6 +97,24 @@ namespace Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to وزن باقی مانده.
+        /// </summary>
+        public static string RemainDestinationWeight {
+            get {
+                return ResourceManager.GetString("RemainDestinationWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تعداد باقی مانده.
+        /// </summary>
+        public static string RemainQuantity {
+            get {
+                return ResourceManager.GetString("RemainQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to وزن مبدا.
         /// </summary>
         public static string SourceWeight {

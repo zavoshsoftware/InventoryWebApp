@@ -129,6 +129,12 @@
   <data name="Quantity" xml:space="preserve">
     <value>تعداد</value>
   </data>
+  <data name="RemainDestinationWeight" xml:space="preserve">
+    <value>وزن باقی مانده</value>
+  </data>
+  <data name="RemainQuantity" xml:space="preserve">
+    <value>تعداد باقی مانده</value>
+  </data>
   <data name="SourceWeight" xml:space="preserve">
     <value>وزن مبدا</value>
   </data>

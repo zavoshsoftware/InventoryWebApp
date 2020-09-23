@@ -1,0 +1,139 @@
+﻿@model ViewModels.TransferViewModel
+
+@{
+		ViewBag.Title = "فهرست محصولات موجود " + Model.Customer.FullName;
+
+		Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+}
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		@ViewBag.Title
+	</div>
+	<div class="panel-body">
+
+		@(Html.Kendo().Grid(Model.InputDetails.ToList())
+				.Name("Grid")
+				.Columns(columns =>
+				{
+				columns.Bound(model => model.OrderCode);
+				columns.Bound(model => model.ProductTitle);
+				columns.Bound(model => model.RemainQuantity);
+				columns.Bound(model => model.RemainWeight);
+				columns.Bound(item => @item.ProductId).Title("دستورات").Filterable(false).Groupable(false)
+				.Template(@<text>
+											<button class="btn btn-info" onclick="openModal('@item.ProductId','@item.OrderId','@item.OrderCode','@item.ProductTitle');">مشاهده جزییات ورود</button>
+											<button class="btn btn-warning" onclick="openTransferModal('@item.ProductId','@item.OrderId');">انتقال</button>
+
+				</text>).Width(200);
+				})
+				.ToolBar(toolbar =>
+				{
+					toolbar.Custom().Action("Create", "Orders").Text("افزودن");
+				}
+				)
+				.DataSource(dataSource => dataSource
+				.Server()
+				.Model(model => model.Id(item => item.ProductId))
+				)
+		)
+
+	</div>
+</div>
+
+
+<div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="transferModalLabel">
+					انتقال
+
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<table class="table table-responsive table-bordered">
+					<tr>
+						<td class="td-title">نام کالا</td>
+						<td colspan="3" id="productTitle"></td>
+					</tr>
+					<tr>
+						<td class="td-title">حواله</td>
+						<td colspan="3" id="orderCode"></td>
+					</tr>
+
+					<tr>
+						<td class="td-title">نام تاجر</td>
+						<td id="customerName"></td>
+						<td class="td-title">خریدار</td>
+						<td>
+							@Html.DropDownList("CustomerId", String.Empty)
+						</td>
+					</tr>
+					<tr>
+						<td class="td-title">تعداد مانده</td>
+						<td id="remainQty"></td>
+						<td class="td-title">وزن مانده</td>
+						<td id="remainWeight">
+						</td>
+					</tr>
+					<tr>
+						<td class="td-title">تعداد</td>
+						<td>
+							<input type="text" class="form-control"/>
+						</td>
+						<td class="td-title">وزن</td>
+						<td>
+							<input type="text" class="form-control" />
+					  </td>
+					</tr>
+				</table>
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
+				<button type="button" class="btn btn-primary" onclick="postTransfer();">انتقال</button>
+				<a href="/customers"  class="btn btn-default">تعریف مشتری جدید</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="detailModalLabel"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table id="factor" class="table table-responsive table-bordered">
+					<thead>
+						<tr>
+							<th>شماره ورود</th>
+							<th>تاریخ ورود</th>
+							<th>تعداد</th>
+							<th>وزن مبدا</th>
+							<th>وزن مقصد</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+	<script src="~/Scripts/functions/transferFunctions.js"></script>
+}

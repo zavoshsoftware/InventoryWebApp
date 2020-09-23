@@ -76,17 +76,17 @@ namespace Models
         public virtual ICollection<InputDetail> InputDetails { get; set; }
 
 
-        [Display(Name = "Code", ResourceType = typeof(Resources.Models.Order))]
-        public Guid? OrderId { get; set; }
-        public virtual Order Order { get; set; }
+        //[Display(Name = "Code", ResourceType = typeof(Resources.Models.Order))]
+        //public Guid? OrderId { get; set; }
+        //public virtual Order Order { get; set; }
 
 
-        internal class configuration : EntityTypeConfiguration<Input>
-        {
-            public configuration()
-            {
-                HasOptional(p => p.Order).WithMany(t => t.Inputs).HasForeignKey(p => p.OrderId);
-            }
-        }
+        //internal class configuration : EntityTypeConfiguration<Input>
+        //{
+        //    public configuration()
+        //    {
+        //        HasOptional(p => p.Order).WithMany(t => t.Inputs).HasForeignKey(p => p.OrderId);
+        //    }
+        //}
     }
 }

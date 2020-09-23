@@ -1,0 +1,53 @@
+﻿ @model IEnumerable<Models.Order>
+@{
+    ViewBag.Title = "Hierarchy";
+}
+
+<h2>Hierarchy</h2>
+
+
+@(Html.Kendo().Grid(Model)
+	  .Name("grid")
+	  .Columns(columns =>
+	  {
+		  columns.Bound(e => e.Code).Width(110);
+		  columns.Bound(e => e.Id).Width(110);
+           
+	  })               
+	  .Sortable()
+	  .Pageable()
+	  .Scrollable()
+	  .ClientDetailTemplateId("template")
+	  .HtmlAttributes(new { style = "height:600px;" })
+	  .DataSource(dataSource => dataSource
+		  .Server()
+
+		  .Model(model => model.Id(item => item.Id))
+	  )        
+	  
+	  )
+@section scripts{
+	<script id="template" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<Models.InputDetail>()
+				.Name("grid_#=Id#") // template expression, to be evaluated in the master context
+				.Columns(columns =>
+				{
+					columns.Bound(o => o.Product.Title).Width(110);
+					columns.Bound(o => o.Quantity).Width(110);
+				})
+				.DataSource(dataSource => dataSource
+					.Ajax()
+					.PageSize(10)
+					.Read(read => read.Action("HierarchyBinding_InputDetail", "Grid", new {employeeID = "#=Id#" }))
+				)
+				.Pageable()
+				.Sortable()
+				.ToClientTemplate()
+	      )
+</script>
+	<script>
+		function dataBound() {
+			this.expandRow(this.tbody.find("tr.k-master-row").first());
+		}
+	</script>
+}
