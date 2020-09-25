@@ -21,7 +21,7 @@ namespace ViewModels
         [Display(Name = "Code", ResourceType = typeof(Resources.Models.Order))]
         public string OrderCode { get; set; }
         [Display(Name = "RemainQuantity", ResourceType = typeof(Resources.Models.InputDetail))]
-        public int RemainQuantity { get; set; }
+        public decimal RemainQuantity { get; set; }
         [Display(Name = "RemainDestinationWeight", ResourceType = typeof(Resources.Models.InputDetail))]
         public decimal RemainWeight { get; set; }
         [Display(Name = "Title", ResourceType = typeof(Resources.Models.Product))]

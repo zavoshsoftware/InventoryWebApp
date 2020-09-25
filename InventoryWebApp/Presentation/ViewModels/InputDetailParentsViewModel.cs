@@ -9,7 +9,7 @@ namespace ViewModels
     {
         public string InputCode { get; set; }
         public string InputDate { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public decimal DestinationWeight { get; set; }
         public decimal SourceWeight { get; set; }
     }

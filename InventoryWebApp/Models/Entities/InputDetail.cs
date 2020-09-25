@@ -29,13 +29,13 @@ namespace Models
         public string Code { get; set; }
 
         [Display(Name = "Quantity", ResourceType = typeof(Resources.Models.InputDetail))]
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [Display(Name = "DestinationWeight", ResourceType = typeof(Resources.Models.InputDetail))]
         public decimal DestinationWeight { get; set; }
 
         [Display(Name = "RemainQuantity", ResourceType = typeof(Resources.Models.InputDetail))]
-        public int RemainQuantity { get; set; }
+        public decimal RemainQuantity { get; set; }
 
         [Display(Name = "RemainDestinationWeight", ResourceType = typeof(Resources.Models.InputDetail))]
         public decimal RemainDestinationWeight { get; set; }

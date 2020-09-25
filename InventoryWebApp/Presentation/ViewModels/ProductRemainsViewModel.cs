@@ -8,7 +8,7 @@ namespace ViewModels
     public class ProductRemainsViewModel
     {
        
-        public int RemainQuantity { get; set; }
+        public decimal RemainQuantity { get; set; }
         public decimal RemainWeight { get; set; }
        
     }
