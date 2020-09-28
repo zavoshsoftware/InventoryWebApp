@@ -94,5 +94,20 @@ namespace Helper
 
             return result;
         }
+
+        public static int GetExitCode()
+        {
+            DatabaseContext db = new DatabaseContext();
+
+            int result = 1;
+
+            Exit exit = db.Exits.Where(current => current.IsDeleted == false)
+                .OrderByDescending(current => current.CreationDate).FirstOrDefault();
+
+            if (exit != null)
+                return exit.Code + 1;
+
+            return result;
+        }
     }
 }

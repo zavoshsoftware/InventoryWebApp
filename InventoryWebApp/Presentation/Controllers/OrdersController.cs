@@ -143,9 +143,9 @@ namespace Presentation.Controllers
                     exit.ParentCustomerName = order.Parent.Customer.FullName;
                 }
 
-                exit.InputDetails = GetInputDetailsGroupByOrderId(id);
+                exit.InputDetails = inputDetails;
             }
-
+            //ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
             return View(exit);
         }
 
@@ -212,6 +212,31 @@ namespace Presentation.Controllers
             return Json(transfer, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        public ActionResult ShowLoadingData(string inputDetailId)
+        {
+            Guid inputDetailIdGuid = new Guid(inputDetailId);
+
+            InputDetail inputDetail = UnitOfWork.InputDetailsRepository.GetById(inputDetailIdGuid);
+
+            Order order = UnitOfWork.OrderRepository.GetById(inputDetail.OrderId.Value);
+
+            Product product = UnitOfWork.ProductRepository.GetById(inputDetail.ProductId);
+
+
+            TransferDetailViewModel transfer = new TransferDetailViewModel()
+            {
+                RemainQuantity = inputDetail.RemainQuantity,
+                RemainWight = inputDetail.RemainDestinationWeight,
+                OrderCode = GenerateCode.GetChildOrderCode(order.Id),
+                ProductTitle = product.Title,
+                CustomerFullName = order.Customer.FullName,
+                ParentOrderId = order.Id.ToString(),
+                ProductId = product.Id.ToString()
+            };
+
+            return Json(transfer, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
         public ActionResult PostTransfer(string orderId, string productId, string weight, string qty, string customerId)
         {
             try
@@ -270,6 +295,81 @@ namespace Presentation.Controllers
             }
         }
 
+
+        [HttpPost]
+        public ActionResult PostLoading(string orderId, string productId, string weight, string qty,string inputDetailId)
+        {
+            try
+            {
+                decimal weightDecimal = 0;
+                int qtyInt = 0;
+                string message = "message-";
+                Guid orderIdGuid = new Guid(orderId);
+                Guid productIdGuid = new Guid(productId);
+                Guid inputDetailIdGuid = new Guid(inputDetailId);
+
+                if (!string.IsNullOrEmpty(weight))
+                    weightDecimal = Convert.ToDecimal(weight);
+
+                if (!string.IsNullOrEmpty(qty))
+                    qtyInt = Convert.ToInt32(qty);
+
+                //Guid customerIdGuid = new Guid(customerId);
+
+                Order order = UnitOfWork.OrderRepository.GetById(orderIdGuid);
+
+                Product product = UnitOfWork.ProductRepository.GetById(productIdGuid);
+
+                //ProductRemainsViewModel remain = GetRemainProduct(productIdGuid, orderIdGuid, order.CustomerId);
+                InputDetail inputDetail = UnitOfWork.InputDetailsRepository.GetById(inputDetailIdGuid);
+                decimal unit = inputDetail.RemainDestinationWeight / inputDetail.RemainQuantity;
+
+                if (!string.IsNullOrEmpty(qty) && inputDetail.RemainQuantity < qtyInt)
+                {
+                    return Json(message + "تعداد وارد شده بیش از تعداد باقی مانده می باشد", JsonRequestBehavior.AllowGet);
+
+                }
+
+                if (!string.IsNullOrEmpty(weight) && inputDetail.RemainDestinationWeight < weightDecimal)
+                {
+                    return Json(message + "وزن وارد شده بیش از وزن باقی مانده می باشد", JsonRequestBehavior.AllowGet);
+
+                }
+
+                Exit exit = UnitOfWork.ExitRepository.Get(current => current.CustomerId == order.CustomerId && current.IsOpen==true).FirstOrDefault();
+                if(exit != null)
+                {
+                    CreateExitDetail(exit.Id, inputDetailIdGuid , qtyInt, weightDecimal,unit);
+                    UpdateInputDetail(inputDetailIdGuid, qtyInt, weightDecimal,unit);
+                }
+                else
+                {
+                    exit = CreateExit(order.CustomerId);
+                    CreateExitDetail(exit.Id, inputDetailIdGuid, qtyInt, weightDecimal,unit);
+                    UpdateInputDetail(inputDetailIdGuid, qtyInt, weightDecimal,unit);
+
+                }
+                //if (customerIdGuid == order.CustomerId)
+                //    return Json(message + "امکان انتقال حواله به مالک قبلی آن وجود ندارد", JsonRequestBehavior.AllowGet);
+
+
+                //Guid childOrderId = CreateChildOrder(orderIdGuid, customerIdGuid);
+
+                //decimal unit = remain.RemainWeight / remain.RemainQuantity;
+
+                //SeprateInputDetail(productIdGuid, orderIdGuid, order.CustomerId, qtyInt, weightDecimal, childOrderId, unit);
+
+                //UnitOfWork.Save();
+
+                return Json("true", JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception e)
+            {
+                return Json("false", JsonRequestBehavior.AllowGet);
+
+            }
+        }
 
         #region HelperMethods
 
@@ -525,7 +625,8 @@ namespace Presentation.Controllers
                         RemainQuantity = inputDetail.RemainQuantity,
                         ProductId = inputDetail.ProductId,
                         RemainWeight = inputDetail.RemainDestinationWeight,
-                        ProductTitle = inputDetail.Product.Title
+                        ProductTitle = inputDetail.Product.Title,
+                        InputDetailId = inputDetail.Id
                     });
                 }
             }
@@ -580,7 +681,91 @@ namespace Presentation.Controllers
 
         #endregion
 
+        #region ExitMethods
 
+        public Exit CreateExit(Guid customerId)
+        {
+            try
+            {
+                Exit exit = new Exit()
+                {
+                    CreationDate = DateTime.Now,
+                    CustomerId = customerId,
+                    ExitDate = DateTime.Now,
+                    IsActive = true,
+                    IsDeleted=false,
+                    IsOpen=true,
+                    Code = GenerateCode.GetExitCode()
+                };
+                UnitOfWork.ExitRepository.Insert(exit);
+                UnitOfWork.Save();
+                return exit;
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+        }
+        public ActionResult CreateExitDetail(Guid exitId,Guid inputDetailId,decimal quantity,decimal weight,decimal unit)
+        {
+            try
+            {
+                decimal weightMain = quantity * unit;
+                if(quantity == 0 && weight > 0)
+                {
+                    weightMain = weight;
+                    quantity = weight / unit;
+                    
+                }
+                ExitDetail exitDetail = new ExitDetail()
+                {
+                    CreationDate=DateTime.Now,
+                    ExitId= exitId,
+                    InputDetailId= inputDetailId,
+                    IsActive=true,
+                    IsDeleted=false,
+                    Quantity= quantity,
+                    Weight = weightMain
+                };
+                UnitOfWork.ExitDetailRepository.Insert(exitDetail);
+                UnitOfWork.Save();
+                
+                return Json("true", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+
+                return Json("false", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult UpdateInputDetail(Guid inputDetailId, decimal quantity, decimal weight, decimal unit)
+        {
+            try
+            {
+                decimal weightMain = quantity * unit;
+                if (quantity == 0 && weight > 0)
+                {
+                    weightMain = weight;
+                    quantity = weight / unit;
+
+                }
+
+                InputDetail inputDetail = UnitOfWork.InputDetailsRepository.GetById(inputDetailId);
+                inputDetail.RemainQuantity = inputDetail.RemainQuantity - quantity;
+                inputDetail.RemainDestinationWeight = inputDetail.RemainDestinationWeight - weightMain;
+                UnitOfWork.InputDetailsRepository.Update(inputDetail);
+                UnitOfWork.Save();
+                return Json("true", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+
+                return Json("false", JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
     }
 }
 

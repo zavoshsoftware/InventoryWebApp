@@ -12,7 +12,7 @@ namespace Models
     {
         public Exit()
         {
-            ExitDetails=new List<ExitDetail>();
+            ExitDetails = new List<ExitDetail>();
         }
 
         [Display(Name = "Code", ResourceType = typeof(Resources.Models.Input))]
@@ -27,6 +27,8 @@ namespace Models
 
 
         public virtual ICollection<ExitDetail> ExitDetails { get; set; }
-         
-    }
+
+        public bool IsOpen { get; set; }
+
+}
 }

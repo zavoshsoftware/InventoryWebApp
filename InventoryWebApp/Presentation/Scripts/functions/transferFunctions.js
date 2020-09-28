@@ -69,6 +69,41 @@ function openTransferModal(productId, orderId) {
         });
 }
 
+function openLoadingModal(productId, orderId, inputDetailId)
+{
+    $('#hdnInputDetailId').val(inputDetailId);
+    jQuery.noConflict();
+    $('#qty').val('');
+    $('#weight').val('');
+    $('#transfer-error').css('display', 'none');
+
+    $('#transferModal').modal('show');
+
+    $.ajax(
+        {
+            url: "/Orders/ShowLoadingData",
+            data: {
+                inputDetailId: inputDetailId,
+            },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                $('#productTitle').html(data.ProductTitle);
+                $('#orderCode').html(data.OrderCode);
+                $('#customerName').html(data.CustomerFullName);
+                $('#remainWeight').html(data.RemainWight);
+                $('#remainQty').html(data.RemainQuantity);
+                $('#orderId').val(data.ParentOrderId);
+                $('#productId').val(data.ProductId);
+                console.log(data);
+            },
+            error: function (reponse) {
+                alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
+            }
+        });
+
+}
+
 
 function loadInputInfo(inputCode, inputDate, quantity, sourceWeight, destinationWeight) {
     return "<tr><td>" +
@@ -137,4 +172,57 @@ function postTransferAction(productId, orderId, qty, weight, customerId) {
 function showErrorMessage(message) {
     $('#transfer-error').css('display', 'block');
     $('#transfer-error').html(message);
+}
+
+
+function Loading() {
+    var qty = $('#qty').val();
+    var weight = $('#weight').val();
+    //var customerId = $('#CustomerId').val();
+    var productId = $('#productId').val();
+    var orderId = $('#orderId').val();
+    var inputDetailId = $('#hdnInputDetailId').val();
+
+    if (qty !== '' && weight !== '') {
+        showErrorMessage('یکی از دو مقادیر تعداد و وزن باید تکمیل شوند.');
+    } else {
+        LoadingAction(productId, orderId, qty, weight, inputDetailId);
+        //if (customerId === '') {
+
+        //    showErrorMessage('خریدار را انتخاب نمایید.');
+        //} else {
+        //    LoadingAction(productId, orderId, qty, weight, inputDetailId);
+        //}
+    }
+}
+
+function LoadingAction(productId, orderId, qty, weight, inputDetailId) {
+    $.ajax(
+        {
+            url: "/Orders/PostLoading",
+            data: {
+                productId: productId,
+                orderId: orderId,
+                weight: weight,
+                qty: qty,
+                //customerId: customerId,
+                inputDetailId: inputDetailId
+            },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                if (data.includes('message')) {
+                    showErrorMessage(data.split('-')[1]);
+                }
+                else if (data === 'true') {
+                    $('#transfer-success').css('display', 'block');
+                    $('#transfer-error').css('display', 'none');
+                    window.location.reload();
+                }
+                console.log(data);
+            },
+            error: function (reponse) {
+                alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
+            }
+        });
 }

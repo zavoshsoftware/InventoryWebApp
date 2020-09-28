@@ -26,5 +26,6 @@ namespace ViewModels
         public decimal RemainWeight { get; set; }
         [Display(Name = "Title", ResourceType = typeof(Resources.Models.Product))]
         public string ProductTitle { get; set; }
+        public Guid InputDetailId { get; set; }
     }
 }

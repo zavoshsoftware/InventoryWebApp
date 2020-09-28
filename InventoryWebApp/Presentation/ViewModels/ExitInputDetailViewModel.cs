@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Models;
 
 namespace ViewModels
 {
@@ -12,7 +13,7 @@ namespace ViewModels
         public string ParentOrderCode { get; set; }
         public string ParentCustomerName { get; set; }
         public string ChildCustomerName { get; set; }
- 
-        public List<InputDetailTransferViewModel> InputDetails { get; set; }
+        public List<InputDetail> InputDetails { get; set; }
+        //public List<InputDetailTransferViewModel> InputDetails { get; set; }
     }
 }
