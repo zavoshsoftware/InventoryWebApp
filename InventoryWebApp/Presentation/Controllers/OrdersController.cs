@@ -122,6 +122,34 @@ namespace Presentation.Controllers
 
         #endregion
 
+        public ActionResult InputDetails(Guid id)
+        {
+            List<InputDetail> inputDetails =
+                UnitOfWork.InputDetailsRepository.Get(current => current.OrderId == id).ToList();
+
+            Order order = UnitOfWork.OrderRepository.GetById(id);
+
+            ExitInputDetailViewModel exit=new ExitInputDetailViewModel();
+
+            if (order != null)
+            {
+                exit.ChildOrderId = id;
+                exit.ChildOrderCode = order.Code;
+                exit.ChildCustomerName = order.Customer.FullName;
+
+                if (order.ParentId != null)
+                {
+                    exit.ParentOrderCode = order.Parent.Code;
+                    exit.ParentCustomerName = order.Parent.Customer.FullName;
+                }
+
+                exit.InputDetails = GetInputDetailsGroupByOrderId(id);
+            }
+
+            return View(exit);
+        }
+
+
         public ActionResult AllocateOrder(string orderId, string inputId)
         {
             Guid orderIdGuid = new Guid(orderId);
@@ -150,7 +178,7 @@ namespace Presentation.Controllers
         {
             TransferViewModel transfer = new TransferViewModel()
             {
-                InputDetails = GetInputDetailsGroupByProductId(id),
+                InputDetails = GetInputDetailsGroupByCustomerId(id),
 
                 Customer = UnitOfWork.CustomerRepository.GetById(id)
             };
@@ -429,10 +457,48 @@ namespace Presentation.Controllers
             return order.Id;
         }
 
-        public List<InputDetailTransferViewModel> GetInputDetailsGroupByProductId(Guid customerId)
+        public List<InputDetailTransferViewModel> GetInputDetailsGroupByCustomerId(Guid customerId)
         {
             List<InputDetail> inputDetails = UnitOfWork.InputDetailsRepository
                 .Get(current => current.Order.CustomerId == customerId && current.OrderId != null).ToList();
+
+            List<InputDetailTransferViewModel> transferInputDetail = new List<InputDetailTransferViewModel>();
+
+            foreach (InputDetail inputDetail in inputDetails)
+            {
+                InputDetailTransferViewModel oInputDetailTransferViewModel =
+                    transferInputDetail.FirstOrDefault(current =>
+                        current.OrderId == inputDetail.OrderId && current.ProductId == inputDetail.ProductId);
+
+                if (oInputDetailTransferViewModel != null)
+                {
+                    oInputDetailTransferViewModel.RemainQuantity =
+                        oInputDetailTransferViewModel.RemainQuantity + inputDetail.RemainQuantity;
+
+                    oInputDetailTransferViewModel.RemainWeight =
+                        oInputDetailTransferViewModel.RemainWeight + inputDetail.RemainDestinationWeight;
+                }
+                else
+                {
+                    transferInputDetail.Add(new InputDetailTransferViewModel()
+                    {
+                        OrderCode = inputDetail.Order.Code,
+                        OrderId = inputDetail.OrderId.Value,
+                        RemainQuantity = inputDetail.RemainQuantity,
+                        ProductId = inputDetail.ProductId,
+                        RemainWeight = inputDetail.RemainDestinationWeight,
+                        ProductTitle = inputDetail.Product.Title
+                    });
+                }
+            }
+
+            return transferInputDetail;
+        }
+
+        public List<InputDetailTransferViewModel> GetInputDetailsGroupByOrderId(Guid orderId)
+        {
+            List<InputDetail> inputDetails = UnitOfWork.InputDetailsRepository
+                .Get(current => current.OrderId == orderId).ToList();
 
             List<InputDetailTransferViewModel> transferInputDetail = new List<InputDetailTransferViewModel>();
 

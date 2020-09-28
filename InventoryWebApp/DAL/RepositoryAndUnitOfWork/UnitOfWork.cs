@@ -310,6 +310,48 @@ namespace DAL
             }
         }
 
+        private IExitRepository _exitRepository;
+        public IExitRepository ExitRepository
+        {
+            get
+            {
+                if (_exitRepository == null)
+                {
+                    _exitRepository =
+                        new ExitRepository(DatabaseContext);
+                }
+                return (_exitRepository);
+            }
+        }
+        
+        private IExitDetailRepository _exitDetailRepository;
+        public IExitDetailRepository ExitDetailRepository
+        {
+            get
+            {
+                if (_exitDetailRepository == null)
+                {
+                    _exitDetailRepository =
+                        new ExitDetailRepository(DatabaseContext);
+                }
+                return (_exitDetailRepository);
+            }
+        }
+
+        private IInputDetailStatusRepository _inputDetailStatusRepository;
+        public IInputDetailStatusRepository InputDetailStatusRepository
+        {
+            get
+            {
+                if (_inputDetailStatusRepository == null)
+                {
+                    _inputDetailStatusRepository =
+                        new InputDetailStatusRepository(DatabaseContext);
+                }
+                return (_inputDetailStatusRepository);
+            }
+        }
+
         #endregion Inserting custom Respositories
 
     }

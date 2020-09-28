@@ -50,6 +50,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Customer.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExitDetail.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExitDetail.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Input.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -120,6 +125,10 @@
     <EmbeddedResource Include="Models\Customer.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Customer.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\ExitDetail.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExitDetail.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Input.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

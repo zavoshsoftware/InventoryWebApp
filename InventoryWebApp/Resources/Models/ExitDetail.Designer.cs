@@ -22,14 +22,14 @@ namespace Resources.Models {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class InputDetail {
+    public class ExitDetail {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal InputDetail() {
+        internal ExitDetail() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resources.Models {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Models.InputDetail", typeof(InputDetail).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Models.ExitDetail", typeof(ExitDetail).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,42 +61,6 @@ namespace Resources.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ردیف.
-        /// </summary>
-        public static string Code {
-            get {
-                return ResourceManager.GetString("Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to وزن مقصد.
-        /// </summary>
-        public static string DestinationWeight {
-            get {
-                return ResourceManager.GetString("DestinationWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to وضعیت.
-        /// </summary>
-        public static string InputDetailStatus {
-            get {
-                return ResourceManager.GetString("InputDetailStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to شماره ورود کالا.
-        /// </summary>
-        public static string InputId {
-            get {
-                return ResourceManager.GetString("InputId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to تعداد.
         /// </summary>
         public static string Quantity {
@@ -106,29 +70,11 @@ namespace Resources.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to وزن باقی مانده.
+        ///   Looks up a localized string similar to وزن.
         /// </summary>
-        public static string RemainDestinationWeight {
+        public static string Weight {
             get {
-                return ResourceManager.GetString("RemainDestinationWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to تعداد باقی مانده.
-        /// </summary>
-        public static string RemainQuantity {
-            get {
-                return ResourceManager.GetString("RemainQuantity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to وزن مبدا.
-        /// </summary>
-        public static string SourceWeight {
-            get {
-                return ResourceManager.GetString("SourceWeight", resourceCulture);
+                return ResourceManager.GetString("Weight", resourceCulture);
             }
         }
     }

@@ -25,6 +25,9 @@ namespace DAL
         IProductFormRepository ProductFormRepository { get; }
         IProductStatusRepository ProductStatusRepository { get; }
         IOrderRepository OrderRepository { get; }
+        IExitRepository ExitRepository { get; }
+        IExitDetailRepository ExitDetailRepository { get; }
+        IInputDetailStatusRepository InputDetailStatusRepository { get; }
        
         void Save();
     }

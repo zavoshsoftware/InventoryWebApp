@@ -24,5 +24,8 @@ namespace Models
         public DbSet<ProductForm> ProductForms { get; set; }
         public DbSet<ProductStatus> ProductStatuses { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Exit> Exits { get; set; }
+        public DbSet<ExitDetail> ExitDetails { get; set; }
+        public DbSet<InputDetailStatus> InputDetailStatuses { get; set; }
     }
 }

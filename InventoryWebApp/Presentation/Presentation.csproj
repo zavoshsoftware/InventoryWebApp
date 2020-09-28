@@ -792,6 +792,7 @@
     <Compile Include="Infrastructure\BaseControllerWithUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DropDownKeyValueViewModel.cs" />
+    <Compile Include="ViewModels\ExitInputDetailViewModel.cs" />
     <Compile Include="ViewModels\ProductRemainsViewModel.cs" />
     <Compile Include="ViewModels\TransferDetailViewModel.cs" />
     <Compile Include="ViewModels\InputDetailParentsViewModel.cs" />
@@ -993,6 +994,7 @@
     <Content Include="Views\Customers\List.cshtml" />
     <Content Include="Views\Orders\Transfer.cshtml" />
     <Content Include="Views\Grid\Hierarchy.cshtml" />
+    <Content Include="Views\Orders\InputDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

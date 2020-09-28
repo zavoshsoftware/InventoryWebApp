@@ -13,6 +13,7 @@ namespace Models
         public InputDetail()
         {
             InputDetails=new List<InputDetail>();
+            ExitDetails=new List<ExitDetail>();
         }
        
         [Display(Name = "InputId", ResourceType = typeof(Resources.Models.InputDetail))]
@@ -47,11 +48,16 @@ namespace Models
         public Guid? ParentId { get; set; }
         public virtual InputDetail Parent { get; set; }
         public virtual ICollection<InputDetail> InputDetails { get; set; }
+        public virtual ICollection<ExitDetail> ExitDetails { get; set; }
 
 
         [Display(Name = "Code", ResourceType = typeof(Resources.Models.Order))]
         public Guid? OrderId { get; set; }
         public virtual Order Order { get; set; }
+
+        [Display(Name = "InputDetailStatus", ResourceType = typeof(Resources.Models.InputDetail))]
+        public Guid? InputDetailStatusId { get; set; }
+        public virtual InputDetailStatus InputDetailStatus { get; set; }
 
         internal class configuration : EntityTypeConfiguration<InputDetail>
         {
@@ -59,6 +65,7 @@ namespace Models
             {
                 HasOptional(p => p.Parent).WithMany(t => t.InputDetails).HasForeignKey(p => p.ParentId);
                 HasOptional(p => p.Order).WithMany(t => t.InputDetails).HasForeignKey(p => p.OrderId);
+                HasOptional(p => p.InputDetailStatus).WithMany(t => t.InputDetails).HasForeignKey(p => p.InputDetailStatusId);
                 HasRequired(p => p.Input).WithMany(t => t.InputDetails).HasForeignKey(p => p.InputId);
             }
         }

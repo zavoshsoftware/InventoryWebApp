@@ -54,6 +54,9 @@
     <Compile Include="DatabaseContextInitializerBeforeTheFirstRelease.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\City.cs" />
+    <Compile Include="Entities\Exit.cs" />
+    <Compile Include="Entities\InputDetailStatus.cs" />
+    <Compile Include="Entities\ExitDetail.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\InputDetail.cs" />
@@ -100,6 +103,10 @@
     <Compile Include="Migrations\202009251509142_V08.Designer.cs">
       <DependentUpon>202009251509142_V08.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009270816288_V09.cs" />
+    <Compile Include="Migrations\202009270816288_V09.Designer.cs">
+      <DependentUpon>202009270816288_V09.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -137,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009251509142_V08.resx">
       <DependentUpon>202009251509142_V08.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009270816288_V09.resx">
+      <DependentUpon>202009270816288_V09.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
