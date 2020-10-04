@@ -50,6 +50,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Customer.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cut.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cut.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Exit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Exit.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\ExitDetail.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,6 +135,14 @@
     <EmbeddedResource Include="Models\Customer.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Customer.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Cut.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Cut.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Exit.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Exit.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\ExitDetail.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

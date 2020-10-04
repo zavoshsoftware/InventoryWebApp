@@ -1,0 +1,130 @@
+﻿@model ViewModels.CutOrderViewModel
+@{
+    ViewBag.Title = "فهرست محصولات موجود ";
+    Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        مشخصات حواله
+    </div>
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-2">شماره حواله</div>
+            <div class="col-md-4">@Model.InputDetail.Order.Code</div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2">محصول</div>
+            <div class="col-md-4">@Model.InputDetail.Product.Title</div>
+        </div>
+    </div>
+    @using (Html.BeginForm("details", "cut", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.CutOrderId)
+        <div class="row panel-row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">فرم ورود جزئیات برش</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CutDetailTypeId, new { @class = "control-label col-md-3" })
+                                <div class="col-md-3">
+                                    @Html.DropDownList("CutDetailTypeId", String.Empty)
+                                    @Html.ValidationMessageFor(model => model.CutDetailTypeId)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Weight, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Weight, new { @onchange = "QuantityChange();" })
+                                    @Html.ValidationMessageFor(model => model.Weight)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Density, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Density, new { @disabled = "disabled" })
+                                    @Html.HiddenFor(model => model.Density)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Length, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Length, new { @onchange = "QuantityChange();" })
+                                    @Html.ValidationMessageFor(model => model.Length)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Quantity, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Quantity, new { @disabled="disabled"})
+                                    @Html.ValidationMessageFor(model => model.Quantity)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">ثبت</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@(Html.Kendo().Grid(Model.CutOrderDetails.ToList())
+              .Name("Grid")
+              .Columns(columns =>
+              {
+                  columns.Bound(model => model.Weight);
+                  columns.Bound(model => model.Length);
+                  columns.Bound(model => model.Quantity);
+                  columns.Bound(model => model.CutOrder.InputDetail.Product.ProductGroup.Density);
+              })
+
+                  .DataSource(dataSource => dataSource
+                      .Server()
+                      .Model(model => model.Id(item => item.Id))
+                  )
+)
+
+          
+ 
+@section scripts{
+    <script>
+        function QuantityChange() {
+            var weight = parseFloat($("#Weight").val());
+            var length = parseFloat($("#Length").val());
+            var density = parseFloat($("#Density").val());
+            if (weight != '' && length != '') {
+                if (weight != '0' && length != '0') {
+                    var quantity = parseInt(weight / density / length);
+                    $("#Quantity").val(quantity);
+                }
+            }
+        }
+        </script>
+    }

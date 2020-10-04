@@ -54,6 +54,10 @@
     <Compile Include="DatabaseContextInitializerBeforeTheFirstRelease.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\City.cs" />
+    <Compile Include="Entities\CutDetailType.cs" />
+    <Compile Include="Entities\CutOrder.cs" />
+    <Compile Include="Entities\CutOrderDetail.cs" />
+    <Compile Include="Entities\CutType.cs" />
     <Compile Include="Entities\Exit.cs" />
     <Compile Include="Entities\InputDetailStatus.cs" />
     <Compile Include="Entities\ExitDetail.cs" />
@@ -111,6 +115,10 @@
     <Compile Include="Migrations\202009280817490_V10.Designer.cs">
       <DependentUpon>202009280817490_V10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010030816532_V11.cs" />
+    <Compile Include="Migrations\202010030816532_V11.Designer.cs">
+      <DependentUpon>202010030816532_V11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -154,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009280817490_V10.resx">
       <DependentUpon>202009280817490_V10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010030816532_V11.resx">
+      <DependentUpon>202010030816532_V11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

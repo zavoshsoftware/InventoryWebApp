@@ -69,8 +69,7 @@ function openTransferModal(productId, orderId) {
         });
 }
 
-function openLoadingModal(productId, orderId, inputDetailId)
-{
+function openLoadingModal(productId, orderId, inputDetailId) {
     $('#hdnInputDetailId').val(inputDetailId);
     jQuery.noConflict();
     $('#qty').val('');
@@ -93,6 +92,38 @@ function openLoadingModal(productId, orderId, inputDetailId)
                 $('#customerName').html(data.CustomerFullName);
                 $('#remainWeight').html(data.RemainWight);
                 $('#remainQty').html(data.RemainQuantity);
+                $('#orderId').val(data.ParentOrderId);
+                $('#productId').val(data.ProductId);
+                console.log(data);
+            },
+            error: function (reponse) {
+                alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
+            }
+        });
+
+}
+
+function openCutModal(productId, orderId, inputDetailId) {
+    $('#hdnInputDetailId').val(inputDetailId);
+    jQuery.noConflict();
+    $('#qty').val('');
+    $('#weight').val('');
+    $('#transfer-error').css('display', 'none');
+
+    $('#cutModal').modal('show');
+
+    $.ajax(
+        {
+            url: "/Orders/ShowLoadingData",
+            data: {
+                inputDetailId: inputDetailId,
+            },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                $('#productTitle').html(data.ProductTitle);
+                $('#orderCode').html(data.OrderCode);
+                $('#customerName').html(data.CustomerFullName);
                 $('#orderId').val(data.ParentOrderId);
                 $('#productId').val(data.ProductId);
                 console.log(data);
@@ -226,3 +257,46 @@ function LoadingAction(productId, orderId, qty, weight, inputDetailId) {
             }
         });
 }
+
+
+function PostCutOrder() {
+
+    var cutTypeId = $('#CutTypeId').val();
+    var inputDetailId = $('#hdnInputDetailId').val();
+    if (inputDetailId != '' && cutTypeId != '') {
+        CutOrder(inputDetailId, cutTypeId);
+    }
+    else {
+        showErrorMessage('نوع برش را مشخص نمایید');
+    }
+
+}
+
+function CutOrder(inputDetailId, cutTypeId) {
+    $.ajax(
+        {
+            url: "/Cut/PostCutOrder",
+            data: {
+                cutTypeId: cutTypeId,
+                inputDetailId: inputDetailId
+            },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                if (data.includes('message')) {
+                    showErrorMessage(data.split('-')[1]);
+                }
+                else if (data === 'false') {
+                    showErrorMessage("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
+                }
+                else {
+                    window.location.href = "/cut/Details/" + data;
+                }
+                console.log(data);
+            },
+            error: function (reponse) {
+                alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
+            }
+        });
+}
+

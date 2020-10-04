@@ -1,0 +1,124 @@
+﻿@model ViewModels.ExitInputDetailViewModel
+
+@{
+    ViewBag.Title = "فهرست محصولات موجود ";
+
+    Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+}
+
+@*<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.Title
+    </div>
+    <div class="panel-body">*@
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        مشخصات حواله
+    </div>
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-2">شماره حواله</div>
+            <div class="col-md-4">@Model.ChildOrderCode</div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2">شماره حواله مادر</div>
+            <div class="col-md-4">@Model.ParentOrderCode</div>
+        </div>
+        @*</div>
+            </div>*@
+
+        @(Html.Kendo().Grid(Model.InputDetails.ToList())
+              .Name("Grid")
+              .Columns(columns =>
+              {
+              columns.Bound(model => model.Order.Code);
+              columns.Bound(model => model.Product.Title);
+              columns.Bound(model => model.RemainQuantity);
+              columns.Bound(model => model.RemainDestinationWeight);
+              columns.Bound(item => @item.ProductId).Title("دستورات").Filterable(false).Groupable(false)
+                      .Template(@<text>
+                    <button class="btn btn-warning" onclick="openCutModal('@item.ProductId','@item.OrderId','@item.Id');">برش</button>
+
+                    </text>).Width(200);
+              })
+                  //            .ToolBar(toolbar =>
+                  //            {
+                  //                toolbar.Custom().Action("Create", "Orders").Text("افزودن");
+                  //            }
+                  //)
+                  .DataSource(dataSource => dataSource
+                      .Server()
+                      .Model(model => model.Id(item => item.Id))
+                  )
+        )
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="cutModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transferModalLabel">
+                    برش
+
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnInputDetailId" />
+                <table class="table table-responsive table-bordered">
+                    <tr>
+                        <td class="td-title">نام کالا</td>
+                        <td colspan="3" id="productTitle"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">حواله</td>
+                        <td colspan="3" id="orderCode"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="td-title">نام خریدار</td>
+                        <td colspan="3" id="customerName"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="td-title">نوع برش</td>
+                        <td>
+                            @Html.DropDownList("CutTypeId", String.Empty)
+                        </td>
+                       
+                    </tr>
+                    <tr>
+                        <td class="td-title">توضیحات</td>
+                        <td>
+                            <input id="qty" type="text" class="form-control" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="alert alert-danger" id="transfer-error"></div>
+                <div class="alert alert-success" id="transfer-success">
+                    انتقال با موفقیت انجام شد.
+                </div>
+                <input id="productId" type="hidden" class="form-control" />
+                <input id="orderId" type="hidden" class="form-control" />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
+                <button type="button" class="btn btn-primary" onclick="PostCutOrder();">ذخیره</button>
+                @*<a href="/customers" class="btn btn-default">تعریف مشتری جدید</a>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/Scripts/functions/transferFunctions.js"></script>
+}

@@ -351,7 +351,61 @@ namespace DAL
                 return (_inputDetailStatusRepository);
             }
         }
+        private ICutDetailTypeRepository _ICutDetailTypeRepository;
+        public ICutDetailTypeRepository CutDetailTypeRepository
+        {
+            get
+            {
+                if (_ICutDetailTypeRepository == null)
+                {
+                    _ICutDetailTypeRepository =
+                        new CutDetailTypeRepository(DatabaseContext);
+                }
+                return (_ICutDetailTypeRepository);
+            }
+        }
 
+        private ICutOrderDetailRepository _ICutOrderDetailRepository;
+        public ICutOrderDetailRepository CutOrderDetailRepository
+        {
+            get
+            {
+                if (_ICutOrderDetailRepository == null)
+                {
+                    _ICutOrderDetailRepository =
+                        new CutOrderDetailRepository(DatabaseContext);
+                }
+                return (_ICutOrderDetailRepository);
+            }
+        }
+
+        private ICutOrderRepository _ICutOrderRepository;
+        public ICutOrderRepository CutOrderRepository
+        {
+            get
+            {
+                if (_ICutOrderRepository == null)
+                {
+                    _ICutOrderRepository =
+                        new CutOrderRepository(DatabaseContext);
+                }
+                return (_ICutOrderRepository);
+            }
+        }
+
+        private ICutTypeRepository _ICutTypeRepository;
+        public ICutTypeRepository CutTypeRepository
+        {
+            get
+            {
+                if (_ICutTypeRepository == null)
+                {
+                    _ICutTypeRepository =
+                        new CutTypeRepository(DatabaseContext);
+                }
+                return (_ICutTypeRepository);
+            }
+        }
         #endregion Inserting custom Respositories
 
     }

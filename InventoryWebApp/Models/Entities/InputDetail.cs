@@ -14,6 +14,7 @@ namespace Models
         {
             InputDetails=new List<InputDetail>();
             ExitDetails=new List<ExitDetail>();
+            CutOrders = new List<CutOrder>();
         }
        
         [Display(Name = "InputId", ResourceType = typeof(Resources.Models.InputDetail))]
@@ -49,7 +50,7 @@ namespace Models
         public virtual InputDetail Parent { get; set; }
         public virtual ICollection<InputDetail> InputDetails { get; set; }
         public virtual ICollection<ExitDetail> ExitDetails { get; set; }
-
+        public virtual ICollection<CutOrder> CutOrders { get; set; }
 
         [Display(Name = "Code", ResourceType = typeof(Resources.Models.Order))]
         public Guid? OrderId { get; set; }

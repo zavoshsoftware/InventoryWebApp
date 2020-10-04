@@ -28,7 +28,10 @@ namespace DAL
         IExitRepository ExitRepository { get; }
         IExitDetailRepository ExitDetailRepository { get; }
         IInputDetailStatusRepository InputDetailStatusRepository { get; }
-       
+        ICutTypeRepository CutTypeRepository { get; }
+        ICutOrderRepository CutOrderRepository { get; }
+        ICutDetailTypeRepository CutDetailTypeRepository { get; }
+        ICutOrderDetailRepository CutOrderDetailRepository { get; }
         void Save();
     }
 }

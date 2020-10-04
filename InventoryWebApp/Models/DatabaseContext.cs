@@ -27,5 +27,9 @@ namespace Models
         public DbSet<Exit> Exits { get; set; }
         public DbSet<ExitDetail> ExitDetails { get; set; }
         public DbSet<InputDetailStatus> InputDetailStatuses { get; set; }
+        public DbSet<CutType> CutTypes { get; set; }
+        public DbSet<CutOrder> CutOrders { get; set; }
+        public DbSet<CutDetailType> CutDetailTypes { get; set; }
+        public DbSet<CutOrderDetail> CutOrderDetails { get; set; }
     }
 }

@@ -55,6 +55,10 @@
     <Compile Include="RepositoryAndUnitOfWork\IUnitOfWork.cs" />
     <Compile Include="RepositoryAndUnitOfWork\Repository.cs" />
     <Compile Include="RepositoryAndUnitOfWork\UnitOfWork.cs" />
+    <Compile Include="RepositoryClasses\CutDetailTypeRepository.cs" />
+    <Compile Include="RepositoryClasses\CutOrderDetailRepository.cs" />
+    <Compile Include="RepositoryClasses\CutOrderRepository.cs" />
+    <Compile Include="RepositoryClasses\CutTypeRepository.cs" />
     <Compile Include="RepositoryClasses\InputDetailStatusRepository.cs" />
     <Compile Include="RepositoryClasses\ExitDetailRepository.cs" />
     <Compile Include="RepositoryClasses\ExitRepository.cs" />
@@ -73,6 +77,10 @@
     <Compile Include="RepositoryClasses\ProductFormRepository.cs" />
     <Compile Include="RepositoryClasses\ProductStatusRepository.cs" />
     <Compile Include="RepositoryClasses\UserRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ICutDetailTypeRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ICutOrderDetailRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ICutOrderRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ICutTypeRepository.cs" />
     <Compile Include="RepositoryInterfaces\IInputDetailStatusRepository.cs" />
     <Compile Include="RepositoryInterfaces\IExitDetailRepository.cs" />
     <Compile Include="RepositoryInterfaces\IExitRepository.cs" />

@@ -771,6 +771,11 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\CutController.cs" />
+    <Compile Include="Controllers\CutDetailTypesController.cs" />
+    <Compile Include="Controllers\CutOrderDetailsController.cs" />
+    <Compile Include="Controllers\CutTypesController.cs" />
+    <Compile Include="Controllers\ExitsController.cs" />
     <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\InputDetailsController.cs" />
     <Compile Include="Controllers\InputsController.cs" />
@@ -791,6 +796,7 @@
     <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Infrastructure\BaseControllerWithUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CutOrderViewModel.cs" />
     <Compile Include="ViewModels\DropDownKeyValueViewModel.cs" />
     <Compile Include="ViewModels\ExitInputDetailViewModel.cs" />
     <Compile Include="ViewModels\ProductRemainsViewModel.cs" />
@@ -995,6 +1001,24 @@
     <Content Include="Views\Orders\Transfer.cshtml" />
     <Content Include="Views\Grid\Hierarchy.cshtml" />
     <Content Include="Views\Orders\InputDetails.cshtml" />
+    <Content Include="Views\Exits\Create.cshtml" />
+    <Content Include="Views\Exits\Delete.cshtml" />
+    <Content Include="Views\Exits\Details.cshtml" />
+    <Content Include="Views\Exits\Edit.cshtml" />
+    <Content Include="Views\Exits\Index.cshtml" />
+    <Content Include="Views\Cut\Index.cshtml" />
+    <Content Include="Views\Cut\InputDetails.cshtml" />
+    <Content Include="Views\CutTypes\Create.cshtml" />
+    <Content Include="Views\CutTypes\Delete.cshtml" />
+    <Content Include="Views\CutTypes\Details.cshtml" />
+    <Content Include="Views\CutTypes\Edit.cshtml" />
+    <Content Include="Views\CutTypes\Index.cshtml" />
+    <Content Include="Views\Cut\Details.cshtml" />
+    <Content Include="Views\CutDetailTypes\Create.cshtml" />
+    <Content Include="Views\CutDetailTypes\Delete.cshtml" />
+    <Content Include="Views\CutDetailTypes\Details.cshtml" />
+    <Content Include="Views\CutDetailTypes\Edit.cshtml" />
+    <Content Include="Views\CutDetailTypes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1005,6 +1029,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\CutOrderDetails\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

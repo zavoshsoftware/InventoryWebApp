@@ -27,7 +27,6 @@ namespace Models
 
 
         public virtual ICollection<ExitDetail> ExitDetails { get; set; }
-
         public bool IsOpen { get; set; }
 
 }

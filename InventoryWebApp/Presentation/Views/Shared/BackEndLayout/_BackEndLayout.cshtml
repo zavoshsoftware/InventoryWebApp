@@ -108,38 +108,27 @@
                 $('.menuitem').removeClass('active');
                 $('#orderLi').addClass('active');
             }
-            else if (URL.toLowerCase().includes('/texts')) {
+            else if (URL.toLowerCase().includes('/inputs')) {
                 $('.menuitem').removeClass('active');
-                $('#textLi').addClass('active');
+                $('#inputLi').addClass('active');
             }
-            else if (URL.toLowerCase().includes('/sliders')) {
+            else if (URL.toLowerCase().includes('/customers/list')) {
                 $('.menuitem').removeClass('active');
-                $('#sliderLi').addClass('active');
+                $('#custLi').addClass('active');
             }
-            else if (URL.toLowerCase().includes('/blog')) {
+            else if (URL.toLowerCase().includes('/exits')) {
                 $('.menuitem').removeClass('active');
-                $('#blogLi').addClass('active');
+                $('#exitLi').addClass('active');
             }
-            else if (URL.toLowerCase().includes('/sellers')) {
+            else if (URL.toLowerCase().includes('/cut')) {
                 $('.menuitem').removeClass('active');
-                $('#sellersLi').addClass('active');
+                $('#cutLi').addClass('active');
             }
-            else if (URL.toLowerCase().includes('/users')) {
-                $('.menuitem').removeClass('active');
-                $('#userLi').addClass('active');
-            }
-            else if (URL.toLowerCase().includes('/discountcodes')) {
-                $('.menuitem').removeClass('active');
-                $('#discountLi').addClass('active');
-            }
-            else if (URL.toLowerCase().includes('/products')) {
-                $('.menuitem').removeClass('active');
-                $('#productLi').addClass('active');
-            }
-           
-            else if (URL.toLowerCase().includes('productgroups') || URL.toLowerCase().includes('productthemes')
-                || URL.toLowerCase().includes('productmediums') || URL.toLowerCase().includes('productorientations')
-                || URL.toLowerCase().includes('producttypes') || URL.toLowerCase().includes('productcolors')) {
+            else if (URL.toLowerCase().includes('productgroups') || URL.toLowerCase().includes('products')
+                || URL.toLowerCase().includes('customers') || URL.toLowerCase().includes('transporters')
+                || URL.toLowerCase().includes('productgroupunits') || URL.toLowerCase().includes('productcreators')
+                || URL.toLowerCase().includes('productforms') || URL.toLowerCase().includes('productstatuses')
+                || URL.toLowerCase().includes('cuttypes') || URL.toLowerCase().includes('cutdetailtypes')) {
                 $('.menuitem').removeClass('active');
                 $('#infoLi').addClass('active');
             }
