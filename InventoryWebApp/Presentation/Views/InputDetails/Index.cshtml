@@ -45,6 +45,7 @@
 						@Html.HiddenFor(model => model.EditMode)
 						@Html.HiddenFor(model => model.Detail.CreationDate)
 						@Html.HiddenFor(model => model.Detail.Id)
+						@Html.HiddenFor(model => model.Input.CustomerId)
 						<div class="row panel-row">
 							<div class="panel panel-primary">
 								<div class="panel-heading">فرم ورود جزئیات</div>
@@ -61,10 +62,9 @@
 										</div>
 										<div class="col-md-4 col-md-offset-4">
 											<div class="form-group">
-												@Html.LabelFor(model => model.Detail.Code, new { @class = "control-label col-md-3" })
+												@Html.LabelFor(model => model.OrderId, new { @class = "control-label col-md-3" })
 												<div class="col-md-9">
-													@Html.EditorFor(model => model.Detail.Code)
-													@Html.ValidationMessageFor(model => model.Detail.Code)
+													<select id="OrderId" name="OrderId" class="form-control"></select>
 												</div>
 											</div>
 										</div>
@@ -122,43 +122,42 @@
 								<div class="col-md-8">
 									@*<div id="grid"></div>*@
 									@(Html.Kendo().Grid(Model.InputDetails)
-																																		.Name("Grid")
-																																		.Columns(columns =>
-																																		{
-																																		columns.Bound(model => model.Id).Hidden(true);
-																																		columns.Bound(model => model.Code);
-																																		columns.Bound(model => model.Product.Title);
-																																		columns.Bound(model => model.Order.Code);
-																																		columns.Bound(model => model.Quantity);
-																																		columns.Bound(model => model.DestinationWeight);
-																																		columns.Bound(item => @item.Id).Title("").Filterable(false).Groupable(false)
-																																						.Template(@<text>
-																																						 <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-2x fa-trash"></i></a>
-																																						</text>).Width(50);
+ 					.Name("Grid")
+ 					.Columns(columns =>
+ 					{
+ 					columns.Bound(model => model.Id).Hidden(true);
+ 				
+ 					columns.Bound(model => model.Product.Title);
+ 					columns.Bound(model => model.Order.Code);
+ 					columns.Bound(model => model.Quantity);
+ 					columns.Bound(model => model.DestinationWeight);
+ 					columns.Bound(item => @item.Id).Title("").Filterable(false).Groupable(false)
+ 													.Template(@<text>
+ 				 																															<a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-2x fa-trash"></i></a>
+				 																															</text>).Width(50);
+				  
+				 																							})
+				  
+																																										.DataSource(dataSource => dataSource
+																																														.Server()
 
-																																		})
-
-																					.DataSource(dataSource => dataSource
-																							.Server()
-
-																							.Model(model => model.Id(item => item.Id))
-																					).Editable()
-																					.Selectable()
+																																														.Model(model => model.Id(item => item.Id))
+																																										).Editable()
+																																										.Selectable()
 									)
 								</div>
 
-								<div class="col-md-4">
-									<div class="panel panel-primary">
-										<div class="panel-heading">انتخاب حواله</div>
-										<div class="panel-body">
-											<p class="alert alert-info">از بین حواله های قبلی این تاجر یک حواله را انتخاب کنید یا حواله جدید به این ورودی ها اختصاص دهید.</p>
-											@Html.DropDownList("OrderId", null, new { @id = "OrderId" })
-											@*<input type="button" value="اختصاص حواله" class="btn btn-primary btn-order-allocate" onclick="allocateOrder('@Model.Input.Id');" />*@
-											<a href="#" class="btn btn-primary btn-order-allocate"  data-toggle="modal" data-target="#confirmOrderAllocation">اختصاص حواله</a>
+								@*<div class="col-md-4">
+										<div class="panel panel-primary">
+											<div class="panel-heading">انتخاب حواله</div>
+											<div class="panel-body">
+												<p class="alert alert-info">از بین حواله های قبلی این تاجر یک حواله را انتخاب کنید یا حواله جدید به این ورودی ها اختصاص دهید.</p>
+												@Html.DropDownList("OrderId", null, new { @id = "OrderId" })
+												<a href="#" class="btn btn-primary btn-order-allocate"  data-toggle="modal" data-target="#confirmOrderAllocation">اختصاص حواله</a>
 
+											</div>
 										</div>
-									</div>
-								</div>
+									</div>*@
 							</div>
 						</div>
 					</div>
@@ -192,25 +191,25 @@
 </div>
 
 
-<div class="modal fade" id="confirmOrderAllocation" tabindex="-1" role="dialog" aria-labelledby="confirmOrderAllocationLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="confirmOrderAllocationLabel">اختصاص حواله</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				آیا از اختصاص حواله به این محصولات مطمئن هستید؟
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
-				<button type="button" class="btn btn-primary" onclick="allocateOrder('@Model.Input.Id');">اختصاص حواله</button>
+@*<div class="modal fade" id="confirmOrderAllocation" tabindex="-1" role="dialog" aria-labelledby="confirmOrderAllocationLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="confirmOrderAllocationLabel">اختصاص حواله</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					آیا از اختصاص حواله به این محصولات مطمئن هستید؟
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
+					<button type="button" class="btn btn-primary" onclick="allocateOrder('@Model.Input.Id');">اختصاص حواله</button>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
+	</div>*@
 
 @section scripts{
 	<script>
@@ -235,9 +234,40 @@
 		});
 
 		$(document).ready(function () {
-			$("#OrderId").append($("<option />").val("00000000-0000-0000-0000-000000000000").html("-- ایجاد حواله مادر جدید --"));
+			//$("#OrderId").append($("<option />").val("00000000-0000-0000-0000-000000000000").html("-- ایجاد حواله مادر جدید --"));
+			$('#ProductId').on('change',
+				function() {
+					var productId = $(this).val();
+					var inputId='@Model.Input.Id';
+					if (productId !== "") {
+						var procemessage = "<option value='0'> صبرکنید...</option>";
 
+						$("#OrderId").html(procemessage).show();
+
+						$.ajax(
+							{
+								url: "/Orders/GetOrderByProduct",
+								data: { productId: productId,inputId:inputId },
+								cache: false,
+								type: "POST",
+								success: function(data) {
+									var markup = "<option value='00000000-0000-0000-0000-000000000000'>انتخاب حواله</option>";
+									for (var x = 0; x < data.length; x++) {
+										markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+									}
+
+									markup += "<option value='11111111-1111-1111-1111-111111111111'>اختصاص حواله مادر جدید</option>";
+									$("#OrderId").html(markup).show();
+								},
+								error: function(reponse) {
+									alert("error : " + reponse);
+								}
+							});
+					}
+				});
 		});
+
+	
 
 		function allocateOrder(inputId) {
 			var orderId = $("#OrderId").val();
@@ -257,7 +287,7 @@
 						} else {
 							alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
 						}
-				 
+
 					},
 					error: function (reponse) {
 						alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");

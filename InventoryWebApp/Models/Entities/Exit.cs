@@ -13,6 +13,7 @@ namespace Models
         public Exit()
         {
             ExitDetails = new List<ExitDetail>();
+            ExitDrivers = new List<ExitDriver>();
         }
 
         [Display(Name = "Code", ResourceType = typeof(Resources.Models.Input))]
@@ -27,7 +28,13 @@ namespace Models
 
 
         public virtual ICollection<ExitDetail> ExitDetails { get; set; }
+        public virtual ICollection<ExitDriver> ExitDrivers { get; set; }
         public bool IsOpen { get; set; }
 
-}
+        [Display(Name = "CarNumber", ResourceType = typeof(Resources.Models.Input))]
+        public string CarNumber { get; set; }
+
+        public string DriverPhone { get; set; }
+
+    }
 }

@@ -80,20 +80,20 @@ namespace Helper
 
             return result;
         }
-        public static string GetInputDetailCode(Guid orderId)
-        {
-            DatabaseContext db = new DatabaseContext();
+        //public static string GetInputDetailCode(Guid orderId)
+        //{
+        //    DatabaseContext db = new DatabaseContext();
 
-           string result = "1";
+        //   string result = "1";
 
-            InputDetail inputDetail = db.InputDetails.Where(current =>current.OrderId==orderId&& current.IsDeleted == false)
-                .OrderByDescending(current => current.CreationDate).FirstOrDefault();
+        //    InputDetail inputDetail = db.InputDetails.Where(current =>current.OrderId==orderId&& current.IsDeleted == false)
+        //        .OrderByDescending(current => current.CreationDate).FirstOrDefault();
 
-            if (inputDetail != null)
-                return (Convert.ToInt32(inputDetail.Code) + 1).ToString();
+        //    if (inputDetail != null)
+        //        return (Convert.ToInt32(inputDetail.Code) + 1).ToString();
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public static int GetExitCode()
         {

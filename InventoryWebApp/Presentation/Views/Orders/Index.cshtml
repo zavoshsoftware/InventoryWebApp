@@ -14,6 +14,7 @@ ViewBag.Title = "فهرست حواله ها" ;
                   {
                           columns.Bound(model => model.Customer.FullName);
         columns.Bound(model => model.Code);
+        columns.Bound(model => model.IsMultyProduct);
         columns.Bound(model => model.CreationDate);
 					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
 							.Template(@<text>

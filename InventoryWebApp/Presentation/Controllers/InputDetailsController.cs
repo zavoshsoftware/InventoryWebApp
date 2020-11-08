@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Helper;
 using Models;
 using ViewModels;
 
@@ -30,7 +31,7 @@ namespace Presentation.Controllers
                 TempData["Error"] = @"<p class='alert alert-danger'>خطایی رخ داد! مجددا تلاش نمایید</p> ";
             }
 
-            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c=>c.CustomerId==viewModel.Input.CustomerId&&c.IsActive), "Id", "Code");
+            ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.CustomerId == viewModel.Input.CustomerId && c.IsActive), "Id", "Code");
 
             return View(viewModel);
         }
@@ -47,9 +48,13 @@ namespace Presentation.Controllers
                     ViewModel.Detail.CreationDate = DateTime.Now;
                     ViewModel.Detail.Id = Guid.NewGuid();
                     ViewModel.Detail.ProductId = ViewModel.ProductId;
+                    ViewModel.Detail.OrderId = SetOrder(ViewModel.OrderId,ViewModel.Input.CustomerId,ViewModel.ProductId);
                     ViewModel.Detail.InputId = ViewModel.Input.Id;
                     ViewModel.Detail.RemainDestinationWeight = ViewModel.Detail.DestinationWeight;
                     ViewModel.Detail.RemainQuantity = ViewModel.Detail.Quantity;
+                    ViewModel.Detail.InputDetailStatusId = UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 1)
+                        .FirstOrDefault()?.Id;
+
                     UnitOfWork.InputDetailsRepository.Insert(ViewModel.Detail);
                 }
                 else
@@ -58,12 +63,13 @@ namespace Presentation.Controllers
 
                     inputDetail.IsDeleted = false;
                     inputDetail.ProductId = ViewModel.ProductId;
-                    inputDetail.Code = ViewModel.Detail.Code;
+                    ViewModel.Detail.OrderId = SetOrder(ViewModel.OrderId, ViewModel.Input.CustomerId, ViewModel.ProductId);
                     inputDetail.Quantity = ViewModel.Detail.Quantity;
                     inputDetail.SourceWeight = ViewModel.Detail.SourceWeight;
                     inputDetail.DestinationWeight = ViewModel.Detail.DestinationWeight;
                     inputDetail.RemainDestinationWeight = ViewModel.Detail.DestinationWeight;
-                    inputDetail.RemainQuantity= ViewModel.Detail.Quantity;
+                    inputDetail.RemainQuantity = ViewModel.Detail.Quantity;
+                  
 
                     UnitOfWork.InputDetailsRepository.Update(inputDetail);
                 }
@@ -78,6 +84,33 @@ namespace Presentation.Controllers
             }
         }
 
+        public Guid SetOrder(Guid orderId,Guid customerId,Guid productId)
+        {
+            Guid newOrderId = new Guid(System.Web.Configuration.WebConfigurationManager.AppSettings["newOrderId"]);
+           
+            if (orderId == newOrderId)
+            {
+                Order order = new Order()
+                {
+                    Id = Guid.NewGuid(),
+                    CustomerId = customerId,
+                    IsMultyProduct = false,
+                    CreationDate = DateTime.Now,
+                    Code = GenerateCode.GetOrderCode(),
+                    ProductId = productId,
+                    IsActive = true,
+                    IsDeleted = false,
+                    ParentId = null,
+                };
+
+                UnitOfWork.OrderRepository.Insert(order);
+
+                return order.Id;
+            }
+
+            return orderId;
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Edit(string id)
@@ -87,7 +120,7 @@ namespace Presentation.Controllers
             InputDetail inputDetail = UnitOfWork.InputDetailsRepository.GetById(detailId);
             return new JsonResult()
             {
-                Data = new { id = inputDetail.Id, productId = inputDetail.ProductId, code = inputDetail.Code, quantity = inputDetail.Quantity, destinationWeight = inputDetail.DestinationWeight.ToString(), sourceWeight = inputDetail.SourceWeight.ToString() },
+                Data = new { id = inputDetail.Id, productId = inputDetail.ProductId, quantity = inputDetail.Quantity, destinationWeight = inputDetail.DestinationWeight.ToString(), sourceWeight = inputDetail.SourceWeight.ToString() },
                 JsonRequestBehavior = JsonRequestBehavior.DenyGet
             };
 
@@ -113,15 +146,15 @@ namespace Presentation.Controllers
 
 
         [HttpPost]
-        public ActionResult Details(string orderId,string productId)
+        public ActionResult Details(string orderId, string productId)
         {
-            Guid orderIdGuid=new Guid(orderId);
+            Guid orderIdGuid = new Guid(orderId);
             Guid productIdGuid = new Guid(productId);
 
             List<InputDetail> inputDetails = UnitOfWork.InputDetailsRepository
                 .Get(c => c.OrderId == orderIdGuid && c.ProductId == productIdGuid).ToList();
 
-            List<InputDetailParentsViewModel> inputDetailParents=new List<InputDetailParentsViewModel>();
+            List<InputDetailParentsViewModel> inputDetailParents = new List<InputDetailParentsViewModel>();
 
             foreach (InputDetail inputDetail in inputDetails)
             {
@@ -147,6 +180,6 @@ namespace Presentation.Controllers
             base.Dispose(disposing);
         }
 
-       
+
     }
 }

@@ -11,8 +11,8 @@ namespace Models
 
         internal static void Seed(DatabaseContext databaseContext)
         {
-            InitialRoles(databaseContext);
-           
+            //InitialRoles(databaseContext);
+            InitialInputDetailStatuses(databaseContext);
         }
 
         #region Role
@@ -35,6 +35,36 @@ namespace Models
             role.IsDeleted = false;
 
             databaseContext.Roles.Add(role);
+            databaseContext.SaveChanges();
+        }
+
+        #endregion
+
+
+
+        #region InputDetailStatus
+        public static void InitialInputDetailStatuses(DatabaseContext databaseContext)
+        {
+            InsertInputDetailStatus("d470cf2b-b34b-4043-b5a6-4ac6e84ce314",1, "موجود", databaseContext);
+            InsertInputDetailStatus("2abc7440-f669-4d8c-8852-7c54f394a830", 2, "در حال بارگیری", databaseContext);
+            InsertInputDetailStatus("67c73dd8-d83f-4cdc-8d63-cebbab636510", 3, "ناموجود", databaseContext);
+        }
+
+        public static void InsertInputDetailStatus(string id, int code, string title, DatabaseContext databaseContext)
+        {
+            Guid idGuid = new Guid(id);
+            InputDetailStatus inputDetailStatus = new InputDetailStatus()
+            {
+                CreationDate = DateTime.Now,
+                IsActive = true,
+                IsDeleted = false,
+                Id = idGuid,
+                Title = title,
+                Code = code,
+        };
+             
+
+            databaseContext.InputDetailStatuses.Add(inputDetailStatus);
             databaseContext.SaveChanges();
         }
  

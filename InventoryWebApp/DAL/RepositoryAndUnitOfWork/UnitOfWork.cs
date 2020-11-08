@@ -351,59 +351,72 @@ namespace DAL
                 return (_inputDetailStatusRepository);
             }
         }
-        private ICutDetailTypeRepository _ICutDetailTypeRepository;
+        private ICutDetailTypeRepository _cutDetailTypeRepository;
         public ICutDetailTypeRepository CutDetailTypeRepository
         {
             get
             {
-                if (_ICutDetailTypeRepository == null)
+                if (_cutDetailTypeRepository == null)
                 {
-                    _ICutDetailTypeRepository =
+                    _cutDetailTypeRepository =
                         new CutDetailTypeRepository(DatabaseContext);
                 }
-                return (_ICutDetailTypeRepository);
+                return (_cutDetailTypeRepository);
             }
         }
 
-        private ICutOrderDetailRepository _ICutOrderDetailRepository;
+        private ICutOrderDetailRepository _cutOrderDetailRepository;
         public ICutOrderDetailRepository CutOrderDetailRepository
         {
             get
             {
-                if (_ICutOrderDetailRepository == null)
+                if (_cutOrderDetailRepository == null)
                 {
-                    _ICutOrderDetailRepository =
+                    _cutOrderDetailRepository =
                         new CutOrderDetailRepository(DatabaseContext);
                 }
-                return (_ICutOrderDetailRepository);
+                return (_cutOrderDetailRepository);
             }
         }
 
-        private ICutOrderRepository _ICutOrderRepository;
+        private ICutOrderRepository _cutOrderRepository;
         public ICutOrderRepository CutOrderRepository
         {
             get
             {
-                if (_ICutOrderRepository == null)
+                if (_cutOrderRepository == null)
                 {
-                    _ICutOrderRepository =
+                    _cutOrderRepository =
                         new CutOrderRepository(DatabaseContext);
                 }
-                return (_ICutOrderRepository);
+                return (_cutOrderRepository);
             }
         }
 
-        private ICutTypeRepository _ICutTypeRepository;
+        private ICutTypeRepository _cutTypeRepository;
         public ICutTypeRepository CutTypeRepository
         {
             get
             {
-                if (_ICutTypeRepository == null)
+                if (_cutTypeRepository == null)
                 {
-                    _ICutTypeRepository =
+                    _cutTypeRepository =
                         new CutTypeRepository(DatabaseContext);
                 }
-                return (_ICutTypeRepository);
+                return (_cutTypeRepository);
+            }
+        }
+        private IExitDriverRepository _exitDriverRepository;
+        public IExitDriverRepository ExitDriverRepository
+        {
+            get
+            {
+                if (_exitDriverRepository == null)
+                {
+                    _exitDriverRepository =
+                        new ExitDriverRepository(DatabaseContext);
+                }
+                return (_exitDriverRepository);
             }
         }
         #endregion Inserting custom Respositories

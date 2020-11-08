@@ -28,12 +28,20 @@ namespace Models
         public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<InputDetail> InputDetails { get; set; }
-        
+
+        [Display(Name="چند کالایی هست؟")]
+        public bool IsMultyProduct { get; set; }
+
+        [Display(Name="محصول")]
+        public Guid? ProductId { get; set; }
+        public virtual Product Product { get; set; }
+
         internal class configuration : EntityTypeConfiguration<Order>
         {
             public configuration()
             {
                 HasOptional(p => p.Parent).WithMany(t => t.Orders).HasForeignKey(p => p.ParentId);
+                HasOptional(p => p.Product).WithMany(t => t.Orders).HasForeignKey(p => p.ProductId);
                 HasRequired(p => p.Customer).WithMany(t => t.Orders).HasForeignKey(p => p.CustomerId);
             }
         }

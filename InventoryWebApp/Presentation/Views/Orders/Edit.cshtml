@@ -17,6 +17,10 @@
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.Code)
         @Html.HiddenFor(model => model.IsActive)
+        @Html.HiddenFor(model => model.ParentId)
+			@Html.ValidationMessage("productRequired")
+
+
 
         
         <div class="form-group">
@@ -27,13 +31,23 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ParentId, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ParentId", String.Empty)
-                @Html.ValidationMessageFor(model => model.ParentId)
-            </div>
-        </div>
+			<div class="form-group">
+				<div class="col-md-2">
+				</div>
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.IsMultyProduct)
+
+				</div>
+			</div>
+
+	    <div class="form-group">
+		    @Html.LabelFor(model => model.ProductId, new { @class = "control-label col-md-2" })
+		    <div class="col-md-10">
+			    @Html.DropDownList("ProductId", String.Empty)
+			    @Html.ValidationMessageFor(model => model.ProductId)
+		    </div>
+	    </div>
+ 
 
        
 
@@ -55,3 +69,21 @@
     </div>
 }
 
+
+
+
+@section scripts{
+	<script>
+		$(document).ready(function() {
+
+			$('#IsMultyProduct').change(function() {
+				if (this.checked) {
+					$('#ProductId').attr("disabled", true);
+				} else {
+					$('#ProductId').attr("disabled", false);
+
+				}
+			});
+		});
+	</script>
+}

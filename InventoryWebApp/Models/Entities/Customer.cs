@@ -17,6 +17,7 @@ namespace Models
         [Display(Name = "FullName", ResourceType = typeof(Resources.Models.Customer))]
         public string FullName { get; set; }
 
+        public string CellNumber { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<Input> Inputs { get; set; }

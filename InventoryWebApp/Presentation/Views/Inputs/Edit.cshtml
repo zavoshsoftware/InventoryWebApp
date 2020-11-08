@@ -127,52 +127,54 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading">وزن</div>
                             <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.SourceWeight, new { @class = "control-label col-md-3" })
-                                            <div class="col-md-9">
-                                                @Html.EditorFor(model => model.SourceWeight)
+                             
+	                            <div class="row">
+		                            <div class="col-md-6">
+			                            <div class="form-group">
+				                            @Html.LabelFor(model => model.FullWeight, new { @class = "control-label col-md-3" })
+				                            <div class="col-md-9">
+					                            @Html.EditorFor(model => model.FullWeight)
 
-                                                @Html.ValidationMessageFor(model => model.SourceWeight)
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.DestinationWeight, new { @class = "control-label col-md-3" })
-                                            <div class="col-md-9">
-                                                @Html.EditorFor(model => model.DestinationWeight)
+					                            @Html.ValidationMessageFor(model => model.FullWeight)
+				                            </div>
+			                            </div>
+		                            </div>
+		                            <div class="col-md-6">
 
-                                                @Html.ValidationMessageFor(model => model.DestinationWeight)
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.FullWeight, new { @class = "control-label col-md-3" })
-                                            <div class="col-md-9">
-                                                @Html.EditorFor(model => model.FullWeight)
+			                            <div class="form-group">
+				                            @Html.LabelFor(model => model.EmptyWeight, new { @class = "control-label col-md-3" })
+				                            <div class="col-md-9">
+					                            @Html.EditorFor(model => model.EmptyWeight)
 
-                                                @Html.ValidationMessageFor(model => model.FullWeight)
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
+					                            @Html.ValidationMessageFor(model => model.EmptyWeight)
+				                            </div>
+			                            </div>
 
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.EmptyWeight, new { @class = "control-label col-md-3" })
-                                            <div class="col-md-9">
-                                                @Html.EditorFor(model => model.EmptyWeight)
+		                            </div>
+	                            </div>
+															
+	                            <div class="row">
+		                            <div class="col-md-6">
+			                            <div class="form-group">
+				                            @Html.LabelFor(model => model.SourceWeight, new { @class = "control-label col-md-3" })
+				                            <div class="col-md-9">
+					                            @Html.EditorFor(model => model.SourceWeight)
 
-                                                @Html.ValidationMessageFor(model => model.EmptyWeight)
-                                            </div>
-                                        </div>
+					                            @Html.ValidationMessageFor(model => model.SourceWeight)
+				                            </div>
+			                            </div>
+		                            </div>
+		                            <div class="col-md-6">
+			                            <div class="form-group">
+				                            @Html.LabelFor(model => model.DestinationWeight, new { @class = "control-label col-md-3" })
+				                            <div class="col-md-9">
+					                            @Html.EditorFor(model => model.DestinationWeight)
 
-                                    </div>
-                                </div>
+					                            @Html.ValidationMessageFor(model => model.DestinationWeight)
+				                            </div>
+			                            </div>
+		                            </div>
+	                            </div>
                             </div>
                         </div>
                     </div>
@@ -256,42 +258,31 @@
 }
 
 
-@*@section scripts{
+@section scripts{
 	<script>
-		$(document).ready(function () {
-			$("#OrderId").append($("<option />").val("0").html("-- ایجاد حواله مادر جدید --"));
 
+		$("#FullWeight").focus(function () {
+		}).blur(function () {
+			calculateDestinationWeight();
 		});
 
-		$('#CustomerId').on('change',
-			function () {
-				var selectedValue = $(this).val(); // < added test values
+		$("#EmptyWeight").focus(function () {
+		}).blur(function () {
+			calculateDestinationWeight();
+		});
 
-				if (selectedValue !== "") {
-					var procemessage = "<option value='00000000-0000-0000-0000-000000000000'> صبرکنید...</option>";
+		function calculateDestinationWeight() {
+			var fullWeight = $("#FullWeight").val();
+			if (fullWeight === '')
+				fullWeight = 0;
 
-					$("#OrderId").html(procemessage).show();
+			var emptyWeight = $("#EmptyWeight").val();
+			if (emptyWeight === '')
+				emptyWeight = 0;
 
-					$.ajax(
-						{
-							url: "/Orders/GetCustomerOrders",
-							data: { id: selectedValue },
-							cache: false,
-							type: "POST",
-							success: function (data) {
-								var markup = "<option value='0'>شماره حواله</option>";
-								for (var x = 0; x < data.length; x++) {
-									markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
-								}
-								markup += "<option value='00000000-0000-0000-0000-000000000000'>-- ایجاد حواله مادر جدید --</option>";
-
-								$("#OrderId").html(markup).show();
-							},
-							error: function (reponse) {
-								alert("error : " + reponse);
-							}
-						});
-				}
-			});
+			var destinationWeight = parseInt(fullWeight) - parseInt(emptyWeight);
+			$('#DestinationWeight').val(destinationWeight);
+		}
 	</script>
-}*@
+}
+

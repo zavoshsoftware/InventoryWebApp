@@ -799,6 +799,7 @@
     <Compile Include="ViewModels\CutOrderViewModel.cs" />
     <Compile Include="ViewModels\DropDownKeyValueViewModel.cs" />
     <Compile Include="ViewModels\ExitInputDetailViewModel.cs" />
+    <Compile Include="ViewModels\OrderDetailViewModel.cs" />
     <Compile Include="ViewModels\ProductRemainsViewModel.cs" />
     <Compile Include="ViewModels\TransferDetailViewModel.cs" />
     <Compile Include="ViewModels\InputDetailParentsViewModel.cs" />
@@ -1019,6 +1020,7 @@
     <Content Include="Views\CutDetailTypes\Details.cshtml" />
     <Content Include="Views\CutDetailTypes\Edit.cshtml" />
     <Content Include="Views\CutDetailTypes\Index.cshtml" />
+    <Content Include="Views\Orders\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

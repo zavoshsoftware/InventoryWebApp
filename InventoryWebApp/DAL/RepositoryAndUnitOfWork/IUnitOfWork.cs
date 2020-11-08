@@ -32,6 +32,7 @@ namespace DAL
         ICutOrderRepository CutOrderRepository { get; }
         ICutDetailTypeRepository CutDetailTypeRepository { get; }
         ICutOrderDetailRepository CutOrderDetailRepository { get; }
+        IExitDriverRepository ExitDriverRepository { get; }
         void Save();
     }
 }

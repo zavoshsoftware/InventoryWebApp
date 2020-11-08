@@ -12,6 +12,7 @@ namespace Models
         public Product()
         {
             InputDetails=new List<InputDetail>();
+            Orders=new List<Order>();
         }
         [Display(Name = "Title", ResourceType = typeof(Resources.Models.Product))]
         public string Title { get; set; }
@@ -58,6 +59,7 @@ namespace Models
         public string Other { get; set; }
 
         public virtual ICollection<InputDetail> InputDetails { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
     }
 }

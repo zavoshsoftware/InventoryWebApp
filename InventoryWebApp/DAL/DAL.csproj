@@ -55,6 +55,7 @@
     <Compile Include="RepositoryAndUnitOfWork\IUnitOfWork.cs" />
     <Compile Include="RepositoryAndUnitOfWork\Repository.cs" />
     <Compile Include="RepositoryAndUnitOfWork\UnitOfWork.cs" />
+    <Compile Include="RepositoryClasses\ExitDriverRepository.cs" />
     <Compile Include="RepositoryClasses\CutDetailTypeRepository.cs" />
     <Compile Include="RepositoryClasses\CutOrderDetailRepository.cs" />
     <Compile Include="RepositoryClasses\CutOrderRepository.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="RepositoryClasses\ProductFormRepository.cs" />
     <Compile Include="RepositoryClasses\ProductStatusRepository.cs" />
     <Compile Include="RepositoryClasses\UserRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IExitDriverRepository.cs" />
     <Compile Include="RepositoryInterfaces\ICutDetailTypeRepository.cs" />
     <Compile Include="RepositoryInterfaces\ICutOrderDetailRepository.cs" />
     <Compile Include="RepositoryInterfaces\ICutOrderRepository.cs" />

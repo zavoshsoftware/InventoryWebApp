@@ -13,6 +13,7 @@
     
     <div class="form-horizontal">        
         @Html.ValidationSummary(true)
+	    @Html.ValidationMessage("productRequired")
 
         <div class="form-group">
         
@@ -23,17 +24,30 @@
                 @Html.ValidationMessageFor(model => model.CustomerId)
             </div>
         </div>
+					
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ParentId, new { @class = "control-label col-md-2" })
+
+	        <div class="form-group">
+		        <div class="col-md-2">
+		        </div>
+		        <div class="col-md-10">
+			        @Html.EditorFor(model => model.IsMultyProduct)
+
+		        </div>
+	        </div>
+
+	        <div class="form-group">
+            @Html.LabelFor(model => model.ProductId, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ParentId", String.Empty)
-                @Html.ValidationMessageFor(model => model.ParentId)
+                @Html.DropDownList("ProductId", String.Empty)
+                @Html.ValidationMessageFor(model => model.ProductId)
             </div>
         </div>
  
+					
 
-        <div class="form-group">
+
+	        <div class="form-group">
             @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                     @Html.EditorFor(model => model.Description)
@@ -52,3 +66,19 @@
 </div>
 }
 
+
+@section scripts{
+	<script>
+		$(document).ready(function() {
+
+			$('#IsMultyProduct').change(function() {
+				if (this.checked) {
+					$('#ProductId').attr("disabled", true); 
+				} else {
+					$('#ProductId').attr("disabled", false); 
+					
+				}
+			});
+		});
+	</script>
+}

@@ -15,5 +15,8 @@ namespace ViewModels
         [Display(Name ="نام کالا")]
         public Guid ProductId { get; set; }
         public bool EditMode { get; set; }
+
+        [Display(Name ="شماره حواله")]
+        public Guid OrderId { get; set; }
     }
 }

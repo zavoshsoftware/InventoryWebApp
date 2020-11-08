@@ -1,91 +1,240 @@
-﻿@model Models.Order
+﻿@model ViewModels.OrderDetailViewModel
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+		ViewBag.Title = "ردیف دفتر";
+		Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="panel panel-primary">
+	<div class="panel-heading">@ViewBag.Title</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-6">
+				<label class="col-md-3">شماره حواله مادر</label>
+				<label class="col-md-9">@Model.ParentOrderCode</label>
+			</div>
+			<div class="col-md-6">
+				<label class="col-md-3">نام تاجر</label>
+				<label class="col-md-9">@Model.ParentOrderCustomer</label>
+			</div>
+		</div>
 
-<div>
-    <h4>Order</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Customer.FullName)
-        </dt>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="col-md-3">شماره ردیف</label>
+				<label class="col-md-9">@Model.ChildOrderCode</label>
+			</div>
+			<div class="col-md-6">
+				<label class="col-md-3">صاحب ردیف</label>
+				<label class="col-md-9">@Model.ChildOrderCustomer</label>
+			</div>
+		</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Customer.FullName)
-        </dd>
+	 
+		
+		<div class="panel panel-primary">
+			<div class="panel-heading">مشخصات کالا</div>
+			<div class="panel-body">
+				<table class="table table-bordered">
+					<thead>
+					<tr>
+						<th>نام کالا</th>
+						<th>تعداد اعلام شده</th>
+						<th>وزن اعلام شده</th>
+						<th>تعداد باقی مانده</th>
+						<th>وزن باقی مانده</th>
+						<th>وضعیت</th>
+						<th>دستورات</th>
+					</tr>
+					</thead>
+					<tbody>
+					@foreach (var product in Model.Products)
+					{
+						<tr>
+							<td>@product.ProductTitle</td>
+							<td>@product.InitialQty</td>
+							<td>@product.InitialWeight</td>
+							<td>@product.RemainQty</td>
+							<td>@product.RemainWeight</td>
+							<td>@product.InputDetailStatusTitle</td>
+							<td>
+								<button class="btn btn-warning" onclick="openTransferModal('@product.ProductId','@Model.OrderId');">انتقال</button>
+								<button class="btn btn-warning" onclick="openLoadingModal('@product.ProductId','@Model.OrderId','@product.InputDetailId');">بارگیری</button>
+							</td>
+						</tr>
+					}
+					
+				 
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	<div class="panel panel-primary">
+		<div class="panel-heading">حواله های زیر مجموعه</div>
+		<div class="panel-body">
+			<table class="table table-bordered">
+			<thead>
+			<tr>
+				<th>کد حواله</th>
+				<th>نام صاحب ردیف</th>
+				<th>وزن</th>
+				<th>تعداد</th>
+				<th>وضعیت</th>
+			</tr>
+			</thead>
+				<tbody>
+				@foreach (var order in Model.ChildOrders)
+				{
+					<tr>
+				<td>@order.OrderCode</td>
+						<td>@order.OrderCustomer</td>
+						<td>@order.ProducTitle</td>
+						<td>@order.Quantity</td>
+						<td>@order.Weight</td>
+						
+					</tr>
+				}
+				</tbody>
+				</table>
+				
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Parent.Code)
-        </dt>
+		</div>
+		</div>
+		</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Parent.Code)
-        </dd>
+	</div>
+ 
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Code)
-        </dt>
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="loadingModalLabel">
+					بارگیری
 
-        <dd>
-            @Html.DisplayFor(model => model.Code)
-        </dd>
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="hdnInputDetailId" />
+				<table class="table table-responsive table-bordered">
+					<tr>
+						<td class="td-title">نام کالا</td>
+						<td colspan="3" id="productTitle"></td>
+					</tr>
+					<tr>
+						<td class="td-title">حواله</td>
+						<td colspan="3" id="orderCode"></td>
+					</tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
+					<tr>
+						<td class="td-title">نام خریدار</td>
+						<td colspan="3" id="customerName"></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
+					</tr>
+					<tr>
+						<td class="td-title">تعداد مانده</td>
+						<td id="remainQty"></td>
+						<td class="td-title">وزن مانده</td>
+						<td id="remainWeight"></td>
+					</tr>
+					<tr>
+						<td class="td-title">تعداد</td>
+						<td>
+							<input id="qty" type="text" class="form-control" />
+						</td>
+						<td class="td-title">وزن</td>
+						<td>
+							<input id="weight" type="text" class="form-control" />
+						</td>
+					</tr>
+				</table>
+				<div class="alert alert-danger" id="transfer-error"></div>
+				<div class="alert alert-success" id="transfer-success">
+					عملیات بارگیری با موفقیت انجام شد.
+				</div>
+				<input id="productId" type="hidden" class="form-control" />
+				<input id="orderId" type="hidden" class="form-control" />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastModifiedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastModifiedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DeletionDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DeletionDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-    </dl>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
+				<button type="button" class="btn btn-primary" onclick="Loading();">بارگیری</button>
+				@*<a href="/customers" class="btn btn-default">تعریف مشتری جدید</a>*@
+			</div>
+		</div>
+	</div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="transferModalLabel">
+					انتقال
+
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<table class="table table-responsive table-bordered">
+					<tr>
+						<td class="td-title">نام کالا</td>
+						<td colspan="3" id="productTitle"></td>
+					</tr>
+					<tr>
+						<td class="td-title">حواله</td>
+						<td colspan="3" id="orderCode"></td>
+					</tr>
+
+					<tr>
+						<td class="td-title">نام تاجر</td>
+						<td id="customerName"></td>
+						<td class="td-title">خریدار</td>
+						<td>
+							@Html.DropDownList("CustomerId", String.Empty)
+						</td>
+					</tr>
+					<tr>
+						<td class="td-title">تعداد مانده</td>
+						<td id="remainQty"></td>
+						<td class="td-title">وزن مانده</td>
+						<td id="remainWeight"></td>
+					</tr>
+					<tr>
+						<td class="td-title">تعداد</td>
+						<td>
+							<input id="qty" type="text" class="form-control" />
+						</td>
+						<td class="td-title">وزن</td>
+						<td>
+							<input id="weight" type="text" class="form-control" />
+						</td>
+					</tr>
+				</table>
+				<div class="alert alert-danger" id="transfer-error"></div>
+				<div class="alert alert-success" id="transfer-success">
+					انتقال با موفقیت انجام شد.
+				</div>
+				<input id="productId" type="hidden" class="form-control" />
+				<input id="orderId" type="hidden" class="form-control" />
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
+				<button type="button" class="btn btn-primary" onclick="postTransfer();">انتقال</button>
+				<a href="/customers" class="btn btn-default">تعریف مشتری جدید</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+	<script src="~/Scripts/functions/transferFunctions.js"></script>
+}

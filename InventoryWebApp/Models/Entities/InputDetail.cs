@@ -27,8 +27,8 @@ namespace Models
 
         public virtual Product Product { get; set; }
 
-        [Display(Name = "Code", ResourceType = typeof(Resources.Models.InputDetail))]
-        public string Code { get; set; }
+        //[Display(Name = "Code", ResourceType = typeof(Resources.Models.InputDetail))]
+        //public string Code { get; set; }
 
         [Display(Name = "Quantity", ResourceType = typeof(Resources.Models.InputDetail))]
         public decimal Quantity { get; set; }

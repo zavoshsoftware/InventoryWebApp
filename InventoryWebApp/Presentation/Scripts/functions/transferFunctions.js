@@ -61,7 +61,7 @@ function openTransferModal(productId, orderId) {
                 $('#remainQty').html(data.RemainQuantity);
                 $('#orderId').val(data.ParentOrderId);
                 $('#productId').val(data.ProductId);
-                console.log(data);
+                //console.log(data);
             },
             error: function (reponse) {
                 alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
@@ -76,7 +76,7 @@ function openLoadingModal(productId, orderId, inputDetailId) {
     $('#weight').val('');
     $('#transfer-error').css('display', 'none');
 
-    $('#transferModal').modal('show');
+    $('#loadingModal').modal('show');
 
     $.ajax(
         {
