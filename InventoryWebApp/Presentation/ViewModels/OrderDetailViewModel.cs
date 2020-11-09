@@ -39,8 +39,13 @@ namespace ViewModels
         public Guid OrderId { get; set; }
         public string OrderCode { get; set; }
         public string OrderCustomer { get; set; }
+        public Guid ProductId { get; set; }
         public string ProducTitle { get; set; }
+        public string InitialWeight { get; set; }
+        public string InitialQuantity { get; set; }
         public string Weight { get; set; }
         public string Quantity { get; set; }
+        public string InputDetailStatus { get; set; }
+        public Guid InputDetailId { get; set; }
     }
 }

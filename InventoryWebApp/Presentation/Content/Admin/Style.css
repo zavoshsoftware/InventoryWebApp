@@ -31,10 +31,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     opacity: 0.5;
 }
 
-#transfer-error, #transfer-success {
+#transfer-error, #transfer-success, #transfer-errorTransfer, #transfer-successTransfer, #exitDetailSuccess, #exitDetailDanger,
+#successFinalizeExit, #dangerFinalizeExit {
     display: none;
 }
 
 .field-validation-error {
     color: red;
 }
+

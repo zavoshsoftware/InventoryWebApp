@@ -59,5 +59,32 @@ namespace Resources.Models {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شماره خروج.
+        /// </summary>
+        public static string Code {
+            get {
+                return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاریخ بارگیری.
+        /// </summary>
+        public static string ExitDate {
+            get {
+                return ResourceManager.GetString("ExitDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نوبت بارگیری.
+        /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
     }
 }

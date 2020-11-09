@@ -65,6 +65,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExitDetail.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExitDriver.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExitDriver.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Input.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -147,6 +152,10 @@
     <EmbeddedResource Include="Models\ExitDetail.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ExitDetail.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\ExitDriver.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExitDriver.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Input.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -61,6 +61,33 @@ namespace Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to وزن خالی.
+        /// </summary>
+        public static string EmptyWeight {
+            get {
+                return ResourceManager.GetString("EmptyWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to وزن پر.
+        /// </summary>
+        public static string FullWeight {
+            get {
+                return ResourceManager.GetString("FullWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to وزن خالص.
+        /// </summary>
+        public static string PureWeight {
+            get {
+                return ResourceManager.GetString("PureWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تعداد.
         /// </summary>
         public static string Quantity {

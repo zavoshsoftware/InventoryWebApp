@@ -38,9 +38,9 @@
 
 function openTransferModal(productId, orderId) {
     jQuery.noConflict();
-    $('#qty').val('');
-    $('#weight').val('');
-    $('#transfer-error').css('display', 'none');
+    $('#qtyTransfer').val('');
+    $('#weightTransfer').val('');
+    $('#transfer-errorTransfer').css('display', 'none');
 
     $('#transferModal').modal('show');
 
@@ -54,13 +54,13 @@ function openTransferModal(productId, orderId) {
             cache: false,
             type: "POST",
             success: function (data) {
-                $('#productTitle').html(data.ProductTitle);
-                $('#orderCode').html(data.OrderCode);
-                $('#customerName').html(data.CustomerFullName);
-                $('#remainWeight').html(data.RemainWight);
-                $('#remainQty').html(data.RemainQuantity);
-                $('#orderId').val(data.ParentOrderId);
-                $('#productId').val(data.ProductId);
+                $('#productTitleTransfer').html(data.ProductTitle);
+                $('#orderCodeTransfer').html(data.OrderCode);
+                $('#customerNameTransfer').html(data.CustomerFullName);
+                $('#remainWeightTransfer').html(data.RemainWight);
+                $('#remainQtyTransfer').html(data.RemainQuantity);
+                $('#orderIdTransfer').val(data.ParentOrderId);
+                $('#productIdTransfer').val(data.ProductId);
                 //console.log(data);
             },
             error: function (reponse) {
@@ -152,11 +152,11 @@ function loadInputInfo(inputCode, inputDate, quantity, sourceWeight, destination
 
 
 function postTransfer() {
-    var qty = $('#qty').val();
-    var weight = $('#weight').val();
+    var qty = $('#qtyTransfer').val();
+    var weight = $('#weightTransfer').val();
     var customerId = $('#CustomerId').val();
-    var productId = $('#productId').val();
-    var orderId = $('#orderId').val();
+    var productId = $('#productIdTransfer').val();
+    var orderId = $('#orderIdTransfer').val();
 
 
     if (qty !== '' && weight !== '') {
@@ -189,10 +189,10 @@ function postTransferAction(productId, orderId, qty, weight, customerId) {
                     showErrorMessage(data.split('-')[1]);
                 }
                 else if (data === 'true') {
-                    $('#transfer-success').css('display', 'block');
-                    $('#transfer-error').css('display', 'none');
+                    $('#transfer-successTransfer').css('display', 'block');
+                    $('#transfer-errorTransfer').css('display', 'none');
+                    window.location.reload();
                 }
-                console.log(data);
             },
             error: function (reponse) {
                 alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
@@ -201,33 +201,36 @@ function postTransferAction(productId, orderId, qty, weight, customerId) {
 }
 
 function showErrorMessage(message) {
-    $('#transfer-error').css('display', 'block');
-    $('#transfer-error').html(message);
+    $('#transfer-errorTransfer').css('display', 'block');
+    $('#transfer-errorTransfer').html(message);
 }
 
 
 function Loading() {
     var qty = $('#qty').val();
     var weight = $('#weight').val();
-    //var customerId = $('#CustomerId').val();
+    var exitDriverId = $('#ExitDriverId').val();
     var productId = $('#productId').val();
     var orderId = $('#orderId').val();
     var inputDetailId = $('#hdnInputDetailId').val();
+    var carNumber = $('#carNumber').val();
+    var desc = $('#desc').val();
+    var phone = $('#driverPhone').val();
+    var exitId = $('#ExitId').val();
 
     if (qty !== '' && weight !== '') {
         showErrorMessage('یکی از دو مقادیر تعداد و وزن باید تکمیل شوند.');
-    } else {
-        LoadingAction(productId, orderId, qty, weight, inputDetailId);
-        //if (customerId === '') {
+    }
+    else if (exitDriverId === '') {
+        showErrorMessage('یکی از دو مقادیر تعداد و وزن باید تکمیل شوند.');
 
-        //    showErrorMessage('خریدار را انتخاب نمایید.');
-        //} else {
-        //    LoadingAction(productId, orderId, qty, weight, inputDetailId);
-        //}
+    }
+    else {
+        LoadingAction(productId, orderId, qty, weight, inputDetailId, exitDriverId, carNumber, phone, desc, exitId);
     }
 }
 
-function LoadingAction(productId, orderId, qty, weight, inputDetailId) {
+function LoadingAction(productId, orderId, qty, weight, inputDetailId, driverId, carNumber, phone,desc,exitId) {
     $.ajax(
         {
             url: "/Orders/PostLoading",
@@ -236,8 +239,12 @@ function LoadingAction(productId, orderId, qty, weight, inputDetailId) {
                 orderId: orderId,
                 weight: weight,
                 qty: qty,
-                //customerId: customerId,
-                inputDetailId: inputDetailId
+                driverId: driverId,
+                carNumber: carNumber,
+                phone: phone,
+                desc: desc,
+                inputDetailId: inputDetailId,
+                exitId: exitId
             },
             cache: false,
             type: "POST",
@@ -299,4 +306,4 @@ function CutOrder(inputDetailId, cutTypeId) {
             }
         });
 }
-
+ 

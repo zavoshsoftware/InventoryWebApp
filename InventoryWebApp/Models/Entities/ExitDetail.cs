@@ -15,14 +15,21 @@ namespace Models
         public virtual Exit Exit { get; set; }
 
         [Display(Name = "Quantity", ResourceType = typeof(Resources.Models.ExitDetail))]
-        public decimal Quantity { get; set; }
+        public decimal InitialQuantity { get; set; }
 
         [Display(Name = "Weight", ResourceType = typeof(Resources.Models.ExitDetail))]
-        public decimal Weight { get; set; }
+        public decimal InitialWeight { get; set; }
          
         public Guid InputDetailId { get; set; }
         public virtual InputDetail InputDetail { get; set; }
-        
+
+        [Display(Name = "FullWeight", ResourceType = typeof(Resources.Models.ExitDetail))]
+        public decimal? FullWeight { get; set; }
+        [Display(Name = "EmptyWeight", ResourceType = typeof(Resources.Models.ExitDetail))]
+        public decimal? EmptyWeight { get; set; }
+        [Display(Name = "PureWeight", ResourceType = typeof(Resources.Models.ExitDetail))]
+        public decimal? PureWeight { get; set; }
+
         internal class configuration : EntityTypeConfiguration<ExitDetail>
         {
             public configuration()

@@ -1,0 +1,199 @@
+﻿@model ViewModels.ExitDetailViewModel
+@{
+		ViewBag.Title = "فهرست انتظار خروج";
+
+		Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+}
+
+
+<div class="panel panel-primary">
+	<div class="panel-heading">@ViewBag.Title</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-6">
+				<label class="col-md-3">نوبت بارگیری</label>
+				<label class="col-md-9">@Model.Exit.Order</label>
+			</div>
+			<div class="col-md-6">
+				<label class="col-md-3">شماره خروج</label>
+				<label class="col-md-9">@Model.Exit.Code</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="col-md-3">صاحب کالا</label>
+				<label class="col-md-9">@Model.Exit.Customer.FullName</label>
+			</div>
+			<div class="col-md-6">
+				<label class="col-md-3">نام راننده</label>
+				<label class="col-md-9">@Model.Exit.ExitDriver.FullName</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="col-md-3">شماره ماشین</label>
+				<label class="col-md-9">@Model.Exit.CarNumber</label>
+			</div>
+			<div class="col-md-6">
+				<label class="col-md-3">شماره تماس</label>
+				<label class="col-md-9">@Model.Exit.DriverPhone</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+			</div>
+		 
+		</div>
+
+
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">فهرست کالا</div>
+			<div class="panel-body">
+				<div class="alert alert-success" id="exitDetailSuccess">ویرایش با موفقیت انجام شد.</div>
+				<div class="alert alert-danger" id="exitDetailDanger"></div>
+				<table class="table table-bordered">
+					<thead>
+					<tr>
+						<th>نام کالا</th>
+						<th>شماره ردیف</th>
+						<th>وزن پر</th>
+						<th>وزن خالی</th>
+						<th>وزن خالص</th>
+						<th>فی انبار</th>
+						<th>ویرایش وزن ها</th>
+					</tr>
+					</thead>
+					<tbody>
+					@foreach (var exitDetail in Model.ExitDetails)
+					{
+						<tr>
+							<td>@exitDetail.InputDetail.Product.Title</td>
+							<td>@exitDetail.InputDetail.Order.Code</td>
+							<td><input type="text" class="weight" value="@exitDetail.FullWeight" id="txtfull_@exitDetail.Id" /> </td>
+							<td><input type="text" class="weight" value="@exitDetail.EmptyWeight" id="txtempty_@exitDetail.Id" /> </td>
+							<td id="txtpure_@exitDetail.Id">@exitDetail.PureWeight</td>
+
+							<td>400</td>
+							<td>
+								<button type="button" class="btn btn-warning" onclick="updateWeight('@exitDetail.Id')">ویرایش</button>
+							</td>
+						</tr>
+					}
+
+					</tbody>
+				</table>
+			</div>
+			
+		
+		</div>
+	</div>
+	<div class="panel-footer">
+		<button class="btn btn-success" type="button" onclick="openAccountModal('@Model.Exit.Id')">صدور سند</button>
+				
+	</div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="accountModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="accountModalLabel">
+					انتقال
+
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<table class="table table-responsive table-bordered">
+				 
+					<tr>
+						<td class="td-title">انبار داری</td>
+						<td >
+							<input type="text" class="form-control"  id="txtInventory"/>
+						</td>
+						<td class="td-title">بارگیری</td>
+						<td>
+							<input type="text" class="form-control"  id="txtLoad"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td-title">باسکول</td>
+						<td >
+							<input type="text" class="form-control"   id="txtWeightBridge"/>
+						</td>
+						<td class="td-title">متفرقه</td>
+						<td>
+							<input type="text" class="form-control" id="txtOther"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td-title">صورت برش</td>
+						<td >
+							<input type="text" class="form-control"  id="txtCut"/>
+						</td>
+						<td class="td-title">ارزش افزوده</td>
+						<td>
+							<input type="text" class="form-control"  id="txtVat" readonly="readonly"/>
+						</td>
+					</tr>	
+					<tr>
+						<td class="td-title">جمع کل</td>
+						<td  colspan="3" >
+							<input type="text" class="form-control"  id="txtTotal" readonly="readonly"/>						</td>
+					 
+					</tr>
+				</table>
+			 
+				<div class="alert alert-success" id="successFinalizeExit">برگه خروج با موفقیت صادر شد</div>
+				<div class="alert alert-danger" id="dangerFinalizeExit"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalTransfer">بستن</button>
+				<button type="button" class="btn btn-primary" id="btnSave" onclick="finalizeExit('@Model.Exit.Id');">ذخیره</button>
+				<button type="button" class="btn btn-primary" id="btnAccount" disabled="disabled">مخارج</button>
+				<button type="button" class="btn btn-primary" id="btnAccountPaper" disabled="disabled">برگه خروج</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+<script src="~/Scripts/functions/exitFunctions.js"></script>
+	<script>
+
+		$(".weight").focus(function () {
+		}).blur(function () {
+			var id = $(this).attr('id');
+			var splitId = id.split('_');
+
+			var fullWeight = $("#txtfull_" + splitId[1]).val();
+			var emptyWeight = $("#txtempty_" + splitId[1]).val();
+
+			if (emptyWeight === '')
+				emptyWeight = 0;
+
+			if (fullWeight === '')
+				fullWeight = 0;
+
+			var destinationWeight = parseInt(fullWeight) - parseInt(emptyWeight);
+
+			$("#txtpure_" + splitId[1]).html(destinationWeight);
+
+		});
+
+
+
+
+	</script>
+}
+
+ 

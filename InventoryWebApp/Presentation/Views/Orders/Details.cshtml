@@ -78,9 +78,13 @@
 			<tr>
 				<th>کد حواله</th>
 				<th>نام صاحب ردیف</th>
-				<th>وزن</th>
-				<th>تعداد</th>
+				<th>نام کالا</th>
+				<th>وزن اولیه</th>
+				<th>تعداد اولیه</th>
+				<th>وزن باقی مانده</th>
+				<th>تعداد باقی مانده</th>
 				<th>وضعیت</th>
+				<th>دستورات</th>
 			</tr>
 			</thead>
 				<tbody>
@@ -90,9 +94,15 @@
 				<td>@order.OrderCode</td>
 						<td>@order.OrderCustomer</td>
 						<td>@order.ProducTitle</td>
+						<td>@order.InitialQuantity</td>
+						<td>@order.InitialWeight</td>
 						<td>@order.Quantity</td>
 						<td>@order.Weight</td>
-						
+						<td>@order.InputDetailStatus</td>
+						<td>
+							<button class="btn btn-warning" onclick="openTransferModal('@order.ProductId','@order.OrderId');">انتقال</button>
+							<button class="btn btn-warning" onclick="openLoadingModal('@order.ProductId','@order.OrderId','@order.InputDetailId');">بارگیری</button>
+						</td>
 					</tr>
 				}
 				</tbody>
@@ -122,17 +132,25 @@
 				<input type="hidden" id="hdnInputDetailId" />
 				<table class="table table-responsive table-bordered">
 					<tr>
+						<td class="td-title">نوبت بارگیری</td>
+						<td colspan="3" id="exitCode">
+							@Html.DropDownList("ExitId", String.Empty)
+						</td>
+					</tr>
+					<tr>
 						<td class="td-title">نام کالا</td>
 						<td colspan="3" id="productTitle"></td>
 					</tr>
-					<tr>
+					@*<tr>
 						<td class="td-title">حواله</td>
 						<td colspan="3" id="orderCode"></td>
-					</tr>
+					</tr>*@
 
 					<tr>
-						<td class="td-title">نام خریدار</td>
-						<td colspan="3" id="customerName"></td>
+						<td class="td-title">نام صاحب ردیف</td>
+						<td  id="customerName"></td>
+						<td class="td-title">حواله</td>
+						<td id="orderCode"></td>
 
 					</tr>
 					<tr>
@@ -149,6 +167,27 @@
 						<td class="td-title">وزن</td>
 						<td>
 							<input id="weight" type="text" class="form-control" />
+						</td>
+					</tr>
+					<tr>
+						<td class="td-title">راننده</td>
+						<td>
+							@Html.DropDownList("ExitDriverId", String.Empty)
+						</td>
+						<td class="td-title">شماره ماشین</td>
+						<td>
+							<input id="carNumber" type="text" class="form-control" />
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="td-title">شماره تماس</td>
+						<td>
+							<input id="driverPhone" type="text" class="form-control" />
+						</td>
+						<td class="td-title">توضیحات</td>
+						<td>
+							<input id="desc" type="text" class="form-control" />
 						</td>
 					</tr>
 				</table>
@@ -186,16 +225,16 @@
 				<table class="table table-responsive table-bordered">
 					<tr>
 						<td class="td-title">نام کالا</td>
-						<td colspan="3" id="productTitle"></td>
+						<td colspan="3" id="productTitleTransfer"></td>
 					</tr>
 					<tr>
 						<td class="td-title">حواله</td>
-						<td colspan="3" id="orderCode"></td>
+						<td colspan="3" id="orderCodeTransfer"></td>
 					</tr>
 
 					<tr>
 						<td class="td-title">نام تاجر</td>
-						<td id="customerName"></td>
+						<td id="customerNameTransfer"></td>
 						<td class="td-title">خریدار</td>
 						<td>
 							@Html.DropDownList("CustomerId", String.Empty)
@@ -203,31 +242,31 @@
 					</tr>
 					<tr>
 						<td class="td-title">تعداد مانده</td>
-						<td id="remainQty"></td>
+						<td id="remainQtyTransfer"></td>
 						<td class="td-title">وزن مانده</td>
-						<td id="remainWeight"></td>
+						<td id="remainWeightTransfer"></td>
 					</tr>
 					<tr>
 						<td class="td-title">تعداد</td>
 						<td>
-							<input id="qty" type="text" class="form-control" />
+							<input id="qtyTransfer" type="text" class="form-control" />
 						</td>
 						<td class="td-title">وزن</td>
 						<td>
-							<input id="weight" type="text" class="form-control" />
+							<input id="weightTransfer" type="text" class="form-control" />
 						</td>
 					</tr>
 				</table>
-				<div class="alert alert-danger" id="transfer-error"></div>
-				<div class="alert alert-success" id="transfer-success">
+				<div class="alert alert-danger" id="transfer-errorTransfer"></div>
+				<div class="alert alert-success" id="transfer-successTransfer">
 					انتقال با موفقیت انجام شد.
 				</div>
-				<input id="productId" type="hidden" class="form-control" />
-				<input id="orderId" type="hidden" class="form-control" />
+				<input id="productIdTransfer" type="hidden" class="form-control" />
+				<input id="orderIdTransfer" type="hidden" class="form-control" />
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalTransfer">بستن</button>
 				<button type="button" class="btn btn-primary" onclick="postTransfer();">انتقال</button>
 				<a href="/customers" class="btn btn-default">تعریف مشتری جدید</a>
 			</div>

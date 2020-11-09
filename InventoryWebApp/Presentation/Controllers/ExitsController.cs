@@ -17,7 +17,7 @@ namespace Presentation.Controllers
         // GET: Exits
         public ActionResult Index()
         {
-            var exits = UnitOfWork.ExitRepository.Get(current => current.IsOpen == true).OrderByDescending(current => current.CreationDate);
+            var exits = UnitOfWork.ExitRepository.Get(current => current.ExitComplete == false).OrderByDescending(current => current.CreationDate);
             return View(exits.ToList());
         }
 

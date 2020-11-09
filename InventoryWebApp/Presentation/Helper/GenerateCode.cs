@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 using Models;
@@ -36,7 +38,7 @@ namespace Helper
                     inputParts[2] = "0";
                 }
 
-               string day = (Convert.ToInt32(inputParts[2]) + 1).ToString();
+                string day = (Convert.ToInt32(inputParts[2]) + 1).ToString();
 
                 return inputParts[0] + "/" + inputParts[1] + "/" + day;
 
@@ -44,7 +46,7 @@ namespace Helper
 
             return result;
         }
-    public static string GetChildOrderCode(Guid parentOrderId)
+        public static string GetChildOrderCode(Guid parentOrderId)
         {
             DatabaseContext db = new DatabaseContext();
 
@@ -70,7 +72,7 @@ namespace Helper
         {
             DatabaseContext db = new DatabaseContext();
 
-           int result = 1;
+            int result = 1;
 
             Input input = db.Inputs.Where(current => current.IsDeleted == false)
                 .OrderByDescending(current => current.CreationDate).FirstOrDefault();
@@ -95,17 +97,34 @@ namespace Helper
         //    return result;
         //}
 
-        public static int GetExitCode()
+        public static int GetExitOrder()
         {
             DatabaseContext db = new DatabaseContext();
 
             int result = 1;
 
-            Exit exit = db.Exits.Where(current => current.IsDeleted == false)
+            DateTime today=DateTime.Today;
+
+            Exit exit = db.Exits.Where(current => current.IsDeleted == false && DbFunctions.TruncateTime(current.CreationDate)  == today)
                 .OrderByDescending(current => current.CreationDate).FirstOrDefault();
 
             if (exit != null)
-                return exit.Code + 1;
+                return exit.Order + 1;
+
+            return result;
+        }
+        public static int GetExitCode()
+        {
+            DatabaseContext db = new DatabaseContext();
+
+            int result = 1000;
+
+
+            Exit exit = db.Exits.Where(current => current.IsDeleted == false&&current.Code!=null)
+                .OrderByDescending(current => current.CreationDate).FirstOrDefault();
+
+            if (exit != null)
+                return exit.Code.Value + 1;
 
             return result;
         }

@@ -19,10 +19,16 @@ namespace ViewModels
 
         public decimal UnitWeight
         {
-            get { return RemainWight / RemainQuantity; }
+            get
+            {
+                if (RemainQuantity != 0)
+                    return RemainWight / RemainQuantity;
+
+                return 0;
+            }
         }
 
     }
 
-   
+
 }

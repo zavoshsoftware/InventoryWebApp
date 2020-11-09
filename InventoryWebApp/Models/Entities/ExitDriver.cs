@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
@@ -9,15 +10,13 @@ namespace Models
 {
    public class ExitDriver:BaseEntity
     {
-        public Guid ExitId { get; set; }
-        public virtual Exit Exit { get; set; }
-        public string FullName { get; set; }
-        internal class configuration : EntityTypeConfiguration<ExitDriver>
+        public ExitDriver()
         {
-            public configuration()
-            {
-                HasRequired(p => p.Exit).WithMany(t => t.ExitDrivers).HasForeignKey(p => p.ExitId);
-            }
+            Exits=new List<Exit>();
         }
+        public virtual ICollection<Exit> Exits { get; set; }
+        [Display(Name = "FullName", ResourceType = typeof(Resources.Models.ExitDriver))]
+        public string FullName { get; set; }
+        
     }
 }

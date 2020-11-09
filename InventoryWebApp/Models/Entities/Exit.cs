@@ -13,13 +13,15 @@ namespace Models
         public Exit()
         {
             ExitDetails = new List<ExitDetail>();
-            ExitDrivers = new List<ExitDriver>();
         }
 
-        [Display(Name = "Code", ResourceType = typeof(Resources.Models.Input))]
-        public int Code { get; set; }
+        [Display(Name = "Order", ResourceType = typeof(Resources.Models.Exit))]
+        public int Order { get; set; }
 
-        [Display(Name = "InputDate", ResourceType = typeof(Resources.Models.Input))]
+        [Display(Name = "Code", ResourceType = typeof(Resources.Models.Exit))]
+        public int? Code { get; set; }
+
+        [Display(Name = "ExitDate", ResourceType = typeof(Resources.Models.Exit))]
         public DateTime ExitDate { get; set; }
 
         [Display(Name = "FullName", ResourceType = typeof(Resources.Models.Customer))]
@@ -28,13 +30,34 @@ namespace Models
 
 
         public virtual ICollection<ExitDetail> ExitDetails { get; set; }
-        public virtual ICollection<ExitDriver> ExitDrivers { get; set; }
-        public bool IsOpen { get; set; }
+     
+        public bool ExitComplete { get; set; }
 
         [Display(Name = "CarNumber", ResourceType = typeof(Resources.Models.Input))]
         public string CarNumber { get; set; }
 
         public string DriverPhone { get; set; }
 
+        public Guid? ExitDriverId { get; set; }
+        public virtual ExitDriver ExitDriver { get; set; }
+
+        internal class configuration : EntityTypeConfiguration<Exit>
+        {
+            public configuration()
+            {
+                HasRequired(p => p.ExitDriver).WithMany(t => t.Exits).HasForeignKey(p => p.ExitDriverId);
+            }
+        }
+
+
+        public decimal? InventoryAmount { get; set; }
+        public decimal? LoadAmount { get; set; }
+        public decimal? WeighbridgeAmount { get; set; }
+        public decimal? OtherAmount { get; set; }
+        public decimal? CutAmount { get; set; }
+        public decimal? SubTotalAmount { get; set; }
+
+        public decimal? Vat { get; set; }
+        public decimal? TotalAmount { get; set; }
     }
 }

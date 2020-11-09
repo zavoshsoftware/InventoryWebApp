@@ -27,142 +27,7 @@ namespace Presentation.Controllers
             return View(orders.ToList());
         }
 
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = UnitOfWork.OrderRepository.GetById(id.Value);
 
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-
-            OrderDetailViewModel orderDetail = new OrderDetailViewModel();
-
-            orderDetail.ChildOrderCode = order.Code;
-            orderDetail.ChildOrderCustomer = order.Customer.FullName;
-            orderDetail.OrderId = id.Value;
-
-            if (order.ParentId == null)
-            {
-                orderDetail.ParentOrderCode = order.Code;
-                orderDetail.ParentOrderCustomer = order.Customer.FullName;
-
-            }
-            else
-            {
-                orderDetail.ParentOrderCode = order.Parent.Code;
-                orderDetail.ParentOrderCustomer = order.Parent.Customer.FullName;
-            }
-
-            List<Product> products = GetProductsByOrder(order);
-
-            ViewBag.ProductId = new SelectList(GetProductsByOrder(order), "Id", "Title", products.FirstOrDefault()?.Id);
-
-            orderDetail.Products = GetProductInfo(order.Id);
-
-            orderDetail.ChildOrders = GetChildOrders( order.Id);
-
-
-            ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
-
-            return View(orderDetail);
-        }
-
-        public List<ChildOrderViewModel> GetChildOrders(Guid parentOrderId)
-        {
-            List<ChildOrderViewModel> result = new List<ChildOrderViewModel>();
-
-            List<Order> orders = UnitOfWork.OrderRepository.Get(c => c.ParentId == parentOrderId).ToList();
-
-            foreach (Order order in orders)
-            {
-                InputDetail inputDetail =
-                    UnitOfWork.InputDetailsRepository.Get(c => c.OrderId == order.Id).FirstOrDefault();
-
-                if (inputDetail != null)
-                {
-                    result.Add(new ChildOrderViewModel()
-                    {
-                        OrderId = order.Id,
-                        OrderCustomer = order.Customer.FullName,
-                        ProducTitle = inputDetail.Product.Title,
-                        Quantity = inputDetail.RemainQuantity.ToString(),
-                        OrderCode = order.Code,
-                        Weight = inputDetail.RemainDestinationWeight.ToString()
-                    });
-                }
-
-               
-            }
-
-            return result;
-        }
-        public List<ProductInfoViewModel> GetProductInfo(Guid orderId)
-        {
-            List<ProductInfoViewModel> result = new List<ProductInfoViewModel>();
-
-            List<InputDetail> inputDetails = UnitOfWork.InputDetailsRepository
-                .Get(c => c.OrderId == orderId).ToList();
-
-
-            decimal initialQty = 0;
-            decimal remainQty = 0;
-            decimal remainWeight = 0;
-            decimal initialWeight = 0;
-
-
-
-
-            foreach (InputDetail inputDetail in inputDetails)
-            {
-                initialQty += inputDetail.Quantity;
-                initialWeight += inputDetail.DestinationWeight;
-
-                remainQty += inputDetail.RemainQuantity;
-                remainWeight += inputDetail.RemainDestinationWeight;
-
-                result.Add(new ProductInfoViewModel()
-                {
-                    ProductId = inputDetail.ProductId,
-                    RemainWeight = remainWeight.ToString(),
-                    InitialQty = initialQty.ToString(),
-                    InitialWeight = initialWeight.ToString(),
-                    RemainQty = remainQty.ToString(),
-                    ProductTitle = inputDetail.Product.Title,
-                    InputDetailId = inputDetail.Id,
-                    InputDetailStatusTitle = inputDetail.InputDetailStatus.Title
-                });
-            }
-
-
-
-            return result;
-        }
-
-        public List<Product> GetProductsByOrder(Order order)
-        {
-            List<Product> products = new List<Product>();
-
-            if (!order.IsMultyProduct)
-                products.Add(order.Product);
-
-            else
-            {
-                List<InputDetail> inputDetails =
-                    UnitOfWork.InputDetailsRepository.Get(c => c.OrderId == order.Id).ToList();
-
-                foreach (InputDetail inputDetail in inputDetails)
-                {
-                    products.Add(inputDetail.Product);
-                }
-            }
-
-            return products;
-        }
 
         public ActionResult Create()
         {
@@ -274,6 +139,150 @@ namespace Presentation.Controllers
 
         #endregion
 
+        public ActionResult Details(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = UnitOfWork.OrderRepository.GetById(id.Value);
+
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+
+            OrderDetailViewModel orderDetail = new OrderDetailViewModel();
+
+            orderDetail.ChildOrderCode = order.Code;
+            orderDetail.ChildOrderCustomer = order.Customer.FullName;
+            orderDetail.OrderId = id.Value;
+
+            if (order.ParentId == null)
+            {
+                orderDetail.ParentOrderCode = order.Code;
+                orderDetail.ParentOrderCustomer = order.Customer.FullName;
+
+            }
+            else
+            {
+                orderDetail.ParentOrderCode = order.Parent.Code;
+                orderDetail.ParentOrderCustomer = order.Parent.Customer.FullName;
+            }
+
+            List<Product> products = GetProductsByOrder(order);
+
+            ViewBag.ProductId = new SelectList(GetProductsByOrder(order), "Id", "Title", products.FirstOrDefault()?.Id);
+
+            orderDetail.Products = GetProductInfo(order.Id);
+
+            orderDetail.ChildOrders = GetChildOrders(order.Id);
+
+
+            ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
+            ViewBag.ExitDriverId = new SelectList(UnitOfWork.ExitDriverRepository.Get(), "Id", "FullName");
+            ViewBag.ExitId = new SelectList(UnitOfWork.ExitRepository.Get(c => c.ExitComplete == false), "Id", "Order");
+
+            return View(orderDetail);
+        }
+
+        public List<ChildOrderViewModel> GetChildOrders(Guid parentOrderId)
+        {
+            List<ChildOrderViewModel> result = new List<ChildOrderViewModel>();
+
+            List<Order> orders = UnitOfWork.OrderRepository.Get(c => c.ParentId == parentOrderId).ToList();
+
+            foreach (Order order in orders)
+            {
+                InputDetail inputDetail =
+                    UnitOfWork.InputDetailsRepository.Get(c => c.OrderId == order.Id).FirstOrDefault();
+
+                if (inputDetail != null)
+                {
+                    result.Add(new ChildOrderViewModel()
+                    {
+                        OrderId = order.Id,
+                        OrderCustomer = order.Customer.FullName,
+                        ProductId = inputDetail.ProductId,
+                        ProducTitle = inputDetail.Product.Title,
+                        Quantity = inputDetail.RemainQuantity.ToString(),
+                        OrderCode = order.Code,
+                        Weight = inputDetail.RemainDestinationWeight.ToString(),
+                        InputDetailStatus = inputDetail.InputDetailStatus?.Title,
+                        InitialWeight = inputDetail.DestinationWeight.ToString(),
+                        InitialQuantity = inputDetail.Quantity.ToString(),
+                        InputDetailId = inputDetail.Id
+                    });
+                }
+
+
+            }
+
+            return result;
+        }
+        public List<ProductInfoViewModel> GetProductInfo(Guid orderId)
+        {
+            List<ProductInfoViewModel> result = new List<ProductInfoViewModel>();
+
+            List<InputDetail> inputDetails = UnitOfWork.InputDetailsRepository
+                .Get(c => c.OrderId == orderId).ToList();
+
+
+            decimal initialQty = 0;
+            decimal remainQty = 0;
+            decimal remainWeight = 0;
+            decimal initialWeight = 0;
+
+
+
+
+            foreach (InputDetail inputDetail in inputDetails)
+            {
+                initialQty += inputDetail.Quantity;
+                initialWeight += inputDetail.DestinationWeight;
+
+                remainQty += inputDetail.RemainQuantity;
+                remainWeight += inputDetail.RemainDestinationWeight;
+
+                result.Add(new ProductInfoViewModel()
+                {
+                    ProductId = inputDetail.ProductId,
+                    RemainWeight = remainWeight.ToString(),
+                    InitialQty = initialQty.ToString(),
+                    InitialWeight = initialWeight.ToString(),
+                    RemainQty = remainQty.ToString(),
+                    ProductTitle = inputDetail.Product.Title,
+                    InputDetailId = inputDetail.Id,
+                    InputDetailStatusTitle = inputDetail.InputDetailStatus.Title
+                });
+            }
+
+
+
+            return result;
+        }
+
+        public List<Product> GetProductsByOrder(Order order)
+        {
+            List<Product> products = new List<Product>();
+
+            if (!order.IsMultyProduct)
+                products.Add(order.Product);
+
+            else
+            {
+                List<InputDetail> inputDetails =
+                    UnitOfWork.InputDetailsRepository.Get(c => c.OrderId == order.Id).ToList();
+
+                foreach (InputDetail inputDetail in inputDetails)
+                {
+                    products.Add(inputDetail.Product);
+                }
+            }
+
+            return products;
+        }
+
         public ActionResult InputDetails(Guid id)
         {
             List<InputDetail> inputDetails =
@@ -379,7 +388,7 @@ namespace Presentation.Controllers
             {
                 RemainQuantity = inputDetail.RemainQuantity,
                 RemainWight = inputDetail.RemainDestinationWeight,
-                OrderCode = GenerateCode.GetChildOrderCode(order.Id),
+                OrderCode = order.Code,
                 ProductTitle = product.Title,
                 CustomerFullName = order.Customer.FullName,
                 ParentOrderId = order.Id.ToString(),
@@ -409,7 +418,7 @@ namespace Presentation.Controllers
 
                 Order order = UnitOfWork.OrderRepository.GetById(orderIdGuid);
 
-                Product product = UnitOfWork.ProductRepository.GetById(productIdGuid);
+                //  Product product = UnitOfWork.ProductRepository.GetById(productIdGuid);
 
                 ProductRemainsViewModel remain = GetRemainProduct(productIdGuid, orderIdGuid, order.CustomerId);
 
@@ -449,7 +458,8 @@ namespace Presentation.Controllers
 
 
         [HttpPost]
-        public ActionResult PostLoading(string orderId, string productId, string weight, string qty, string inputDetailId)
+        public ActionResult PostLoading(string orderId, string productId, string weight, string qty, string inputDetailId, string driverId
+            , string carNumber, string phone, string desc, string exitId)
         {
             try
             {
@@ -470,7 +480,7 @@ namespace Presentation.Controllers
 
                 Order order = UnitOfWork.OrderRepository.GetById(orderIdGuid);
 
-                Product product = UnitOfWork.ProductRepository.GetById(productIdGuid);
+                //  Product product = UnitOfWork.ProductRepository.GetById(productIdGuid);
 
                 //ProductRemainsViewModel remain = GetRemainProduct(productIdGuid, orderIdGuid, order.CustomerId);
                 InputDetail inputDetail = UnitOfWork.InputDetailsRepository.GetById(inputDetailIdGuid);
@@ -488,20 +498,25 @@ namespace Presentation.Controllers
 
                 }
 
-                Exit exit = UnitOfWork.ExitRepository.Get(current => current.CustomerId == order.CustomerId && current.IsOpen == true).FirstOrDefault();
 
-                if (exit != null)
+                if (string.IsNullOrEmpty(exitId))
                 {
+                    Exit exit = CreateExit(order.CustomerId, driverId, carNumber, phone, desc);
                     CreateExitDetail(exit.Id, inputDetailIdGuid, qtyInt, weightDecimal, unit);
                     UpdateInputDetail(inputDetailIdGuid, qtyInt, weightDecimal, unit);
                 }
                 else
                 {
-                    exit = CreateExit(order.CustomerId);
+                    int exitOrder = Convert.ToInt32(exitId);
+                    Exit exit = UnitOfWork.ExitRepository.Get(current => current.Order == exitOrder && current.ExitComplete == false).FirstOrDefault();
+
+                    if (exit == null)
+                        return Json(message + "ردیف بارگیری اشتباه است", JsonRequestBehavior.AllowGet);
+
                     CreateExitDetail(exit.Id, inputDetailIdGuid, qtyInt, weightDecimal, unit);
                     UpdateInputDetail(inputDetailIdGuid, qtyInt, weightDecimal, unit);
-
                 }
+
                 //if (customerIdGuid == order.CustomerId)
                 //    return Json(message + "امکان انتقال حواله به مالک قبلی آن وجود ندارد", JsonRequestBehavior.AllowGet);
 
@@ -542,7 +557,7 @@ namespace Presentation.Controllers
 
                     decimal remainQty = inputDetail.RemainQuantity - qty;
 
-                    if (remainQty < 0)
+                    if (remainQty <= 0)
                     {
                         decimal oldQty = inputDetail.RemainQuantity;
 
@@ -551,6 +566,9 @@ namespace Presentation.Controllers
                         inputDetail.RemainQuantity = 0;
 
                         inputDetail.RemainDestinationWeight = 0;
+
+                        inputDetail.InputDetailStatusId = UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 3)
+                            .FirstOrDefault()?.Id;
 
                         UnitOfWork.InputDetailsRepository.Update(inputDetail);
 
@@ -586,7 +604,7 @@ namespace Presentation.Controllers
 
                     decimal remainWeight = inputDetail.RemainDestinationWeight - weight;
 
-                    if (remainWeight < 0)
+                    if (remainWeight <= 0)
                     {
                         decimal oldWeight = inputDetail.RemainDestinationWeight;
 
@@ -596,6 +614,9 @@ namespace Presentation.Controllers
                         inputDetail.RemainQuantity = 0;
 
                         inputDetail.RemainDestinationWeight = 0;
+
+                        inputDetail.InputDetailStatusId = UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 3)
+                            .FirstOrDefault()?.Id;
 
                         UnitOfWork.InputDetailsRepository.Update(inputDetail);
 
@@ -676,7 +697,10 @@ namespace Presentation.Controllers
                 IsDeleted = false,
                 ProductId = inputDetail.ProductId,
                 ParentId = inputDetail.Id,
-                SourceWeight = newWeight
+                SourceWeight = newWeight,
+                InputDetailStatusId = UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 1)
+                    .FirstOrDefault()?.Id
+
             };
 
             UnitOfWork.InputDetailsRepository.Insert(oInputDetail);
@@ -836,10 +860,12 @@ namespace Presentation.Controllers
 
         #region ExitMethods
 
-        public Exit CreateExit(Guid customerId)
+        public Exit CreateExit(Guid customerId, string driverId
+        , string carNumber, string phone, string desc)
         {
             try
             {
+                Guid exitDriverId = new Guid(driverId);
                 Exit exit = new Exit()
                 {
                     CreationDate = DateTime.Now,
@@ -847,8 +873,13 @@ namespace Presentation.Controllers
                     ExitDate = DateTime.Now,
                     IsActive = true,
                     IsDeleted = false,
-                    IsOpen = true,
-                    Code = GenerateCode.GetExitCode()
+                    ExitComplete = false,
+                    Order = GenerateCode.GetExitOrder(),
+                    Code = GenerateCode.GetExitCode(),
+                    ExitDriverId = exitDriverId,
+                    CarNumber = carNumber,
+                    DriverPhone = phone,
+                    Description = desc
                 };
                 UnitOfWork.ExitRepository.Insert(exit);
                 UnitOfWork.Save();
@@ -878,8 +909,11 @@ namespace Presentation.Controllers
                     InputDetailId = inputDetailId,
                     IsActive = true,
                     IsDeleted = false,
-                    Quantity = quantity,
-                    Weight = weightMain
+                   InitialQuantity = quantity,
+                    InitialWeight = weightMain,
+                    FullWeight = 0,
+                    EmptyWeight = 0,
+                    PureWeight = weightMain
                 };
                 UnitOfWork.ExitDetailRepository.Insert(exitDetail);
                 UnitOfWork.Save();
@@ -908,6 +942,8 @@ namespace Presentation.Controllers
                 InputDetail inputDetail = UnitOfWork.InputDetailsRepository.GetById(inputDetailId);
                 inputDetail.RemainQuantity = inputDetail.RemainQuantity - quantity;
                 inputDetail.RemainDestinationWeight = inputDetail.RemainDestinationWeight - weightMain;
+                inputDetail.InputDetailStatusId =
+                    UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 2).FirstOrDefault()?.Id;
                 UnitOfWork.InputDetailsRepository.Update(inputDetail);
                 UnitOfWork.Save();
                 return Json("true", JsonRequestBehavior.AllowGet);

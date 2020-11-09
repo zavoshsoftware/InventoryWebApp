@@ -13,14 +13,12 @@ ViewBag.Title = "فهرست " ;
               .Columns(columns =>
                   {
                             columns.Bound(model => model.Customer.FullName);
-        columns.Bound(model => model.Code);
+        columns.Bound(model => model.Order);
         columns.Bound(model => model.ExitDate);
-        columns.Bound(model => model.CreationDate);
-					@*columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
 							.Template(@<text>
-									@Html.ActionLink("ویرایش", "Edit", new {id = @item.Id}, new {@class = "k-button"})
-									@Html.ActionLink("حذف", "Delete", new {id = @item.Id}, new {@class = "k-button"})
-									</text>).Width(200);*@  
+									@Html.ActionLink("جزییات", "index","ExitDetails", new {id = @item.Id}, new {@class = "k-button"})
+									</text>).Width(200);  
 		})
 		.ToolBar(toolbar =>
 					{				
