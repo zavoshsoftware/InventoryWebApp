@@ -59,5 +59,7 @@ namespace Models
 
         public decimal? Vat { get; set; }
         public decimal? TotalAmount { get; set; }
+        public decimal? PaymentAmount { get; set; }
+        public decimal? RemainAmount { get; set; }
     }
 }

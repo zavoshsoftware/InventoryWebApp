@@ -106,3 +106,8 @@ function finalizeExit(exitId) {
         });
 
 }
+
+
+function redirectTo(url) {
+    window.location.href = url;
+}

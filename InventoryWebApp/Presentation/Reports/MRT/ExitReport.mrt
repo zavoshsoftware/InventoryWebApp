@@ -1,0 +1,681 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="2">
+      <InvoiceReport Ref="2" type="Stimulsoft.Report.Dictionary.StiBusinessObject" isKey="true">
+        <Alias>InvoiceReport</Alias>
+        <BusinessObjects isList="true" count="1">
+          <Products Ref="3" type="Stimulsoft.Report.Dictionary.StiBusinessObject" isKey="true">
+            <Alias>Products</Alias>
+            <BusinessObjects isList="true" count="0" />
+            <Category />
+            <Columns isList="true" count="5">
+              <value>Order,System.String</value>
+              <value>ProductTitle,System.String</value>
+              <value>Weight,System.String</value>
+              <value>Unit,System.String</value>
+              <value>Amount,System.String</value>
+            </Columns>
+            <Dictionary isRef="1" />
+            <Guid>3b669e40f01949458f0f76da7f4b5742</Guid>
+            <Key>c05fd8ad164f47efa4e651ab30977c51</Key>
+            <Name>Products</Name>
+          </Products>
+        </BusinessObjects>
+        <Category>InvoiceReport</Category>
+        <Columns isList="true" count="24">
+          <value>Date,System.String</value>
+          <value>SellerName,System.String</value>
+          <value>ORIGINAL,SellerEcoNumber,SellerEcoNumber,SellerEcoNumber,System.String,_x0039_0345ce10aa24cf5bc57f8b66b7f7267</value>
+          <value>SellerNationamNumber,System.String</value>
+          <value>SellerAddress,System.String</value>
+          <value>SellerPhone,System.String</value>
+          <value>CustomerPhone,System.String</value>
+          <value>CustomerAddress,System.String</value>
+          <value>CustomerNationamNumber,System.String</value>
+          <value>CustomerEcoNumber,System.String</value>
+          <value>CustomerName,System.String</value>
+          <value>CustomerCarNumber,System.String</value>
+          <value>OrderCode,System.String</value>
+          <value>Weight,System.String</value>
+          <value>InventoryAmount,System.String</value>
+          <value>CutAmount,System.String</value>
+          <value>LoadAmount,System.String</value>
+          <value>WeightBridgeAmount,System.String</value>
+          <value>OtherAmount,System.String</value>
+          <value>SubTotal,System.String</value>
+          <value>Vat,System.String</value>
+          <value>Total,System.String</value>
+          <value>PaymentAmount,System.String</value>
+          <value>RemainAmount,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Guid>fcfd5e33b06a4761adbe1ab40ebc0b15</Guid>
+        <Key>4d32113161d14ee0a8ae4daf976fe9f1</Key>
+        <Name>InvoiceReport</Name>
+      </InvoiceReport>
+      <ExitReport Ref="4" type="Stimulsoft.Report.Dictionary.StiBusinessObject" isKey="true">
+        <Alias>ExitReport</Alias>
+        <BusinessObjects isList="true" count="1">
+          <ExitDetails Ref="5" type="Stimulsoft.Report.Dictionary.StiBusinessObject" isKey="true">
+            <Alias>ExitDetails</Alias>
+            <BusinessObjects isList="true" count="0" />
+            <Category />
+            <Columns isList="true" count="7">
+              <value>OrderCode,System.String</value>
+              <value>ProductTitle,System.String</value>
+              <value>ParentCustomerName,System.String</value>
+              <value>Quantity,System.String</value>
+              <value>FullWeight,System.String</value>
+              <value>EmptyWeight,System.String</value>
+              <value>PureWeight,System.String</value>
+            </Columns>
+            <Dictionary isRef="1" />
+            <Guid>8cc2d507ba8649b1be36f82659c1a58c</Guid>
+            <Key>3cfb39eb04e04691ae1393888b954c00</Key>
+            <Name>ExitDetails</Name>
+          </ExitDetails>
+        </BusinessObjects>
+        <Category>ExitReport</Category>
+        <Columns isList="true" count="16">
+          <value>ExitCode,System.String</value>
+          <value>ExitDate,System.String</value>
+          <value>CustomerName,System.String</value>
+          <value>DriverName,System.String</value>
+          <value>CarNumber,System.String</value>
+          <value>InventoryAmount,System.String</value>
+          <value>CutAmount,System.String</value>
+          <value>LoadAmount,System.String</value>
+          <value>Vat,System.String</value>
+          <value>WeightBridgeAmount,System.String</value>
+          <value>OtherAmount,System.String</value>
+          <value>SubTotal,System.String</value>
+          <value>Total,System.String</value>
+          <value>PaymentAmount,System.String</value>
+          <value>RemainAmount,System.String</value>
+          <value>TotalWeight,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Guid>cae1e8e628604e9e9bef081c88bba056</Guid>
+        <Key>e515056d9da046a887aff43b558f131a</Key>
+        <Name>ExitReport</Name>
+      </ExitReport>
+    </BusinessObjects>
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="0" />
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>9de4c88a74dd448e82035605e0367bd6</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="6" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <PageHeaderBand2 Ref="7" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,19,0.8</ClientRectangle>
+          <Components isList="true" count="5">
+            <Text19 Ref="8" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.8,-0.4,3,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Titr,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>انبار داریوش</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+            <Text20 Ref="9" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.2,0.2,4.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Titr,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>برگ تحویل و خروج کالا</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text21 Ref="10" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>14.8,-0.4,4,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Nazanin,9</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>شماره خروج: {ExitReport.ExitCode}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Panel1 Ref="11" type="Panel" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0.8,19,1.6</ClientRectangle>
+              <Components isList="true" count="3">
+                <Text2 Ref="12" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>13.2,0.6,5.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text2</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="11" />
+                  <Text>آقای / شرکت: {ExitReport.CustomerName}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </Text2>
+                <Text4 Ref="13" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.2,0.6,5.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text4</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="11" />
+                  <Text>شماره پلاک: {ExitReport.CarNumber}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </Text4>
+                <Text5 Ref="14" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>13.2,1.2,5.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text5</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="11" />
+                  <Text>نام راننده: {ExitReport.DriverName}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </Text5>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <Name>Panel1</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+            </Panel1>
+            <Text30 Ref="15" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>14.8,0.4,4,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Nazanin,9</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text30</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>تاریخ خروج: {ExitReport.ExitDate}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text30>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand2</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </PageHeaderBand2>
+        <Panel3 Ref="16" type="Panel" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2.8,19,10</ClientRectangle>
+          <Components isList="true" count="3">
+            <Header Ref="17" type="HeaderBand" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0.4,19,0.8</ClientRectangle>
+              <Components isList="true" count="7">
+                <HeaderExitDetails_OrderCode Ref="18" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>17.4,0,1.6,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>HeaderExitDetails_OrderCode</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="17" />
+                  <Text>شماره ردیف</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </HeaderExitDetails_OrderCode>
+                <HeaderExitDetails_ProductTitle Ref="19" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>10.8,0,6.6,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>HeaderExitDetails_ProductTitle</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="17" />
+                  <Text>نام کالا</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </HeaderExitDetails_ProductTitle>
+                <HeaderExitDetails_ParentCustomerName Ref="20" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>8,0,2.8,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>HeaderExitDetails_ParentCustomerName</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="17" />
+                  <Text>نام تاجر</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </HeaderExitDetails_ParentCustomerName>
+                <HeaderExitDetails_Quantity Ref="21" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>HeaderExitDetails_Quantity</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="17" />
+                  <Text>تعداد</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </HeaderExitDetails_Quantity>
+                <HeaderExitDetails_FullWeight Ref="22" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>4,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>HeaderExitDetails_FullWeight</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="17" />
+                  <Text>وزن پر</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </HeaderExitDetails_FullWeight>
+                <HeaderExitDetails_EmptyWeight Ref="23" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>2,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>HeaderExitDetails_EmptyWeight</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="17" />
+                  <Text>وزن خالی</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </HeaderExitDetails_EmptyWeight>
+                <HeaderExitDetails_PureWeight Ref="24" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>HeaderExitDetails_PureWeight</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="17" />
+                  <Text>وزن خالص</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </HeaderExitDetails_PureWeight>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <Name>Header</Name>
+              <Page isRef="6" />
+              <Parent isRef="16" />
+            </Header>
+            <Data Ref="25" type="DataBand" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <BusinessObjectGuid>8cc2d507ba8649b1be36f82659c1a58c</BusinessObjectGuid>
+              <ClientRectangle>0,2,19,0.8</ClientRectangle>
+              <Components isList="true" count="7">
+                <DataExitDetails_OrderCode Ref="26" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>17.4,0,1.6,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,8</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>DataExitDetails_OrderCode</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="25" />
+                  <Text>{ExitReport.ExitDetails.OrderCode}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </DataExitDetails_OrderCode>
+                <DataExitDetails_ProductTitle Ref="27" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>10.8,0,6.6,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,8</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>DataExitDetails_ProductTitle</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="25" />
+                  <Text>{ExitReport.ExitDetails.ProductTitle}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </DataExitDetails_ProductTitle>
+                <DataExitDetails_ParentCustomerName Ref="28" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>8,0,2.8,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,8</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>DataExitDetails_ParentCustomerName</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="25" />
+                  <Text>{ExitReport.ExitDetails.ParentCustomerName}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </DataExitDetails_ParentCustomerName>
+                <DataExitDetails_Quantity Ref="29" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>6,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,8</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>DataExitDetails_Quantity</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="25" />
+                  <Text>{ExitReport.ExitDetails.Quantity}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </DataExitDetails_Quantity>
+                <DataExitDetails_FullWeight Ref="30" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>4,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,8</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>DataExitDetails_FullWeight</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="25" />
+                  <Text>{ExitReport.ExitDetails.FullWeight}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </DataExitDetails_FullWeight>
+                <DataExitDetails_EmptyWeight Ref="31" type="Text" isKey="true">
+                  <Border>Left;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>2,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,8</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>DataExitDetails_EmptyWeight</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="25" />
+                  <Text>{ExitReport.ExitDetails.EmptyWeight}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </DataExitDetails_EmptyWeight>
+                <DataExitDetails_PureWeight Ref="32" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>0,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,8</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,5,0,0</Margins>
+                  <Name>DataExitDetails_PureWeight</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="25" />
+                  <Text>{ExitReport.ExitDetails.PureWeight}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </DataExitDetails_PureWeight>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <DataSourceName isNull="true" />
+              <Filters isList="true" count="0" />
+              <Name>Data</Name>
+              <Page isRef="6" />
+              <Parent isRef="16" />
+              <Sort isList="true" count="0" />
+            </Data>
+            <Footer Ref="33" type="FooterBand" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,3.6,19,2.6</ClientRectangle>
+              <Components isList="true" count="5">
+                <FooterExitDetails_OrderCode Ref="34" type="Text" isKey="true">
+                  <Border>All;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,0,2.8,2.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <HorAlignment>Center</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>FooterExitDetails_OrderCode</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="33" />
+                  <Text>تحویل گیرنده:
+
+
+
+
+
+
+کالای فوق سالم تحویل اینجانب گردید</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <Type>Expression</Type>
+                </FooterExitDetails_OrderCode>
+                <FooterExitDetails_FullWeight Ref="35" type="Text" isKey="true">
+                  <Border>All;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>2.8,0,11.2,2.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>FooterExitDetails_FullWeight</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="33" />
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </FooterExitDetails_FullWeight>
+                <FooterExitDetails_PureWeight Ref="36" type="Text" isKey="true">
+                  <Border>All;Black;1;Solid;False;4;Black</Border>
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>14,0,5,2.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <HorAlignment>Center</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>FooterExitDetails_PureWeight</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="33" />
+                  <Text>ملاحضات:</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <Type>Expression</Type>
+                </FooterExitDetails_PureWeight>
+                <Text1 Ref="37" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>8.4,0.2,5.4,2.2</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text1</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="33" />
+                  <Text>هزینه انبارداری: {ExitReport.InventoryAmount}
+
+هزینه برش: {ExitReport.CutAmount}
+
+هزینه بارگیری: {ExitReport.LoadAmount}
+
+هزینه باسکول: {ExitReport.WeightBridgeAmount}
+
+هزینه های متفرقه: {ExitReport.OtherAmount}
+
+</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </Text1>
+                <Text3 Ref="38" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>3,0.2,5.4,2.2</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text3</Name>
+                  <Page isRef="6" />
+                  <Parent isRef="33" />
+                  <Text>مجموع هزینه ها: {ExitReport.SubTotal}
+
+ارزش افزوده: {ExitReport.Vat}
+
+مبلغ نهایی: {ExitReport.Total}
+
+جمع دریافت: {ExitReport.PaymentAmount}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                  <VertAlignment>Center</VertAlignment>
+                </Text3>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <Name>Footer</Name>
+              <Page isRef="6" />
+              <Parent isRef="16" />
+            </Footer>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>Panel3</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </Panel3>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>c9866a5b4a30491ebbc9887da27e9bad</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <Orientation>Landscape</Orientation>
+      <PageHeight>14.8</PageHeight>
+      <PageWidth>21</PageWidth>
+      <PaperSize>A5</PaperSize>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>11/9/2020 11:19:24 PM</ReportChanged>
+  <ReportCreated>11/9/2020 6:57:31 PM</ReportCreated>
+  <ReportFile>C:\Users\Hossein\Documents\GitHub\InventoryWebApp\InventoryWebApp\Presentation\Reports\MRT\ExitReport.mrt</ReportFile>
+  <ReportGuid>ecacdea2ff784f6eb8966388b89defa6</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2020.4.2.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

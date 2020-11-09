@@ -159,7 +159,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalTransfer">بستن</button>
 				<button type="button" class="btn btn-primary" id="btnSave" onclick="finalizeExit('@Model.Exit.Id');">ذخیره</button>
-				<button type="button" class="btn btn-primary" id="btnAccount" disabled="disabled">مخارج</button>
+				<button type="button" class="btn btn-primary" id="btnAccount" disabled="disabled" onclick="redirectTo('/reports/Invoice/@Model.Exit.Id')">مخارج</button>
 				<button type="button" class="btn btn-primary" id="btnAccountPaper" disabled="disabled">برگه خروج</button>
 			</div>
 		</div>

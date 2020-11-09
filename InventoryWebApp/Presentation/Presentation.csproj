@@ -586,6 +586,7 @@
     <Content Include="fonts\fontAwesome\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontAwesome\FontAwesome.otf" />
     <Content Include="Reports\MRT\InvoiceReport.mrt" />
+    <Content Include="Reports\MRT\ExitReport.mrt" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\function.js" />
     <Content Include="Scripts\functions\exitFunctions.js" />
@@ -874,6 +875,8 @@
     <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Infrastructure\BaseControllerWithUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\Models\ExitReportViewModel.cs" />
+    <Compile Include="Reports\Models\InvoiceReportViewModel.cs" />
     <Compile Include="ViewModels\CutOrderViewModel.cs" />
     <Compile Include="ViewModels\DropDownKeyValueViewModel.cs" />
     <Compile Include="ViewModels\ExitAccountViewModel.cs" />
@@ -1111,6 +1114,8 @@
     <Content Include="Views\ExitDetails\Details.cshtml" />
     <Content Include="Views\ExitDetails\Edit.cshtml" />
     <Content Include="Views\ExitDetails\Index.cshtml" />
+    <Content Include="Views\Reports\Invoice.cshtml" />
+    <Content Include="Views\Reports\Exit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1121,9 +1126,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Reports\Models\" />
     <Folder Include="Views\CutOrderDetails\" />
-    <Folder Include="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

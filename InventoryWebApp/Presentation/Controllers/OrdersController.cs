@@ -879,7 +879,16 @@ namespace Presentation.Controllers
                     ExitDriverId = exitDriverId,
                     CarNumber = carNumber,
                     DriverPhone = phone,
-                    Description = desc
+                    Description = desc,
+                    WeighbridgeAmount = 0,
+                    InventoryAmount = 0,
+                    CutAmount = 0,
+                    LoadAmount = 0,
+                    RemainAmount = 0,
+                    OtherAmount = 0,
+                    SubTotalAmount = 0,
+                    TotalAmount = 0,
+                    PaymentAmount = 0
                 };
                 UnitOfWork.ExitRepository.Insert(exit);
                 UnitOfWork.Save();
