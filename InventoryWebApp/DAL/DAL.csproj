@@ -55,6 +55,7 @@
     <Compile Include="RepositoryAndUnitOfWork\IUnitOfWork.cs" />
     <Compile Include="RepositoryAndUnitOfWork\Repository.cs" />
     <Compile Include="RepositoryAndUnitOfWork\UnitOfWork.cs" />
+    <Compile Include="RepositoryClasses\CustomActionRepository.cs" />
     <Compile Include="RepositoryClasses\ExitDriverRepository.cs" />
     <Compile Include="RepositoryClasses\CutDetailTypeRepository.cs" />
     <Compile Include="RepositoryClasses\CutOrderDetailRepository.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="RepositoryClasses\ExitRepository.cs" />
     <Compile Include="RepositoryClasses\OrderRepository.cs" />
     <Compile Include="RepositoryClasses\InputRepository.cs" />
+    <Compile Include="RepositoryClasses\ProductGroupCustomActionRepository.cs" />
     <Compile Include="RepositoryClasses\ProductGroupUnitRepository.cs" />
     <Compile Include="RepositoryClasses\CustomerRepository.cs" />
     <Compile Include="RepositoryClasses\InputDetailsRepository.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="RepositoryClasses\ProductFormRepository.cs" />
     <Compile Include="RepositoryClasses\ProductStatusRepository.cs" />
     <Compile Include="RepositoryClasses\UserRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ICustomActionRepository.cs" />
     <Compile Include="RepositoryInterfaces\IExitDriverRepository.cs" />
     <Compile Include="RepositoryInterfaces\ICutDetailTypeRepository.cs" />
     <Compile Include="RepositoryInterfaces\ICutOrderDetailRepository.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="RepositoryInterfaces\IExitDetailRepository.cs" />
     <Compile Include="RepositoryInterfaces\IExitRepository.cs" />
     <Compile Include="RepositoryInterfaces\IOrderRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IProductGroupCustomActionRepository.cs" />
     <Compile Include="RepositoryInterfaces\IProductStatusRepository.cs" />
     <Compile Include="RepositoryInterfaces\IProductFormRepository.cs" />
     <Compile Include="RepositoryInterfaces\IProductCreatorRepository.cs" />

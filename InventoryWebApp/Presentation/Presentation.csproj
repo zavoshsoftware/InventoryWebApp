@@ -846,6 +846,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CustomActionsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\CutController.cs" />
     <Compile Include="Controllers\CutDetailTypesController.cs" />
@@ -860,6 +861,7 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductCreatorsController.cs" />
     <Compile Include="Controllers\ProductFormsController.cs" />
+    <Compile Include="Controllers\ProductGroupCustomActionsController.cs" />
     <Compile Include="Controllers\ProductGroupsController.cs" />
     <Compile Include="Controllers\ProductGroupUnitsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -1116,6 +1118,15 @@
     <Content Include="Views\ExitDetails\Index.cshtml" />
     <Content Include="Views\Reports\Invoice.cshtml" />
     <Content Include="Views\Reports\Exit.cshtml" />
+    <Content Include="Views\CustomActions\Create.cshtml" />
+    <Content Include="Views\CustomActions\Delete.cshtml" />
+    <Content Include="Views\CustomActions\Edit.cshtml" />
+    <Content Include="Views\CustomActions\Index.cshtml" />
+    <Content Include="Views\ProductGroupCustomActions\Create.cshtml" />
+    <Content Include="Views\ProductGroupCustomActions\Delete.cshtml" />
+    <Content Include="Views\ProductGroupCustomActions\Details.cshtml" />
+    <Content Include="Views\ProductGroupCustomActions\Edit.cshtml" />
+    <Content Include="Views\ProductGroupCustomActions\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -12,6 +12,7 @@ namespace Models
         public ProductGroup()
         {
            Products=new List<Product>();
+            ProductGroupCustomActions = new List<ProductGroupCustomAction>();
         }
         [Display(Name = "Title", ResourceType = typeof(Resources.Models.ProductGroup))]
         public string Title { get; set; }
@@ -30,5 +31,7 @@ namespace Models
         public decimal Density { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
+
+        public virtual ICollection<ProductGroupCustomAction> ProductGroupCustomActions { get; set; }
     }
 }

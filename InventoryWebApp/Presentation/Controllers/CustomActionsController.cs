@@ -10,15 +10,15 @@ using Models;
 
 namespace Presentation.Controllers
 {
-    public class CustomersController : Infrastructure.BaseControllerWithUnitOfWork
+    public class CustomActionsController : Infrastructure.BaseControllerWithUnitOfWork
     {
-        #region CRUD
 
+        // GET: CustomActions
         public ActionResult Index()
         {
-            return View(UnitOfWork.CustomerRepository.Get().OrderByDescending(a => a.CreationDate).ToList());
+            return View(UnitOfWork.CustomActionRepository.Get().OrderByDescending(a=>a.CreationDate).ToList());
         }
-
+#region Crud
         public ActionResult Create()
         {
             return View();
@@ -26,81 +26,73 @@ namespace Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Customer customer)
+        public ActionResult Create(CustomAction customAction)
         {
             if (ModelState.IsValid)
             {
-                customer.IsDeleted = false;
-                customer.CreationDate = DateTime.Now;
-                customer.Id = Guid.NewGuid();
-                UnitOfWork.CustomerRepository.Insert(customer);
+				customAction.IsDeleted=false;
+				customAction.CreationDate= DateTime.Now; 
+                customAction.Id = Guid.NewGuid();
+                UnitOfWork.CustomActionRepository.Insert(customAction);
                 UnitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
-            return View(customer);
+            return View(customAction);
         }
 
+        // GET: CustomActions/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = UnitOfWork.CustomerRepository.GetById(id.Value);
-            if (customer == null)
+            CustomAction customAction = UnitOfWork.CustomActionRepository.GetById(id.Value);
+            if (customAction == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(customAction);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Customer customer)
+        public ActionResult Edit(CustomAction customAction)
         {
             if (ModelState.IsValid)
             {
-                customer.IsDeleted = false;
-
-                UnitOfWork.CustomerRepository.Update(customer);
+				customAction.IsDeleted=false;
+                UnitOfWork.CustomActionRepository.Update(customAction);
                 UnitOfWork.Save();
-
                 return RedirectToAction("Index");
             }
-            return View(customer);
+            return View(customAction);
         }
-
+        
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = UnitOfWork.CustomerRepository.GetById(id.Value);
-
-            if (customer == null)
+            CustomAction customAction = UnitOfWork.CustomActionRepository.GetById(id.Value);
+            if (customAction == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(customAction);
         }
-
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            UnitOfWork.CustomerRepository.DeleteById(id);
-            UnitOfWork.Save();
-
+            UnitOfWork.CustomActionRepository.DeleteById(id);
             return RedirectToAction("Index");
         }
 
-        #endregion
-
-        public ActionResult List()
-        {
-            return View(UnitOfWork.CustomerRepository.Get().OrderByDescending(o => o.CreationDate).ToList());
-        }
+#endregion
     }
 }

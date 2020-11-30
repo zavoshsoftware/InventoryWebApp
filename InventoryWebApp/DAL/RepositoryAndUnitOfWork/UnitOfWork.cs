@@ -419,6 +419,34 @@ namespace DAL
                 return (_exitDriverRepository);
             }
         }
+
+        private ICustomActionRepository _customActionRepository;
+        public ICustomActionRepository CustomActionRepository
+        {
+            get
+            {
+                if (_customActionRepository == null)
+                {
+                    _customActionRepository =
+                        new CustomActionRepository(DatabaseContext);
+                }
+                return (_customActionRepository);
+            }
+        }
+
+        private IProductGroupCustomActionRepository _productGroupCustomActionRepository;
+        public IProductGroupCustomActionRepository ProductGroupCustomActionRepository
+        {
+            get
+            {
+                if (_productGroupCustomActionRepository == null)
+                {
+                    _productGroupCustomActionRepository =
+                        new ProductGroupCustomActionRepository(DatabaseContext);
+                }
+                return (_productGroupCustomActionRepository);
+            }
+        }
         #endregion Inserting custom Respositories
 
     }

@@ -181,7 +181,8 @@ namespace Presentation.Controllers
 
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
             ViewBag.ExitDriverId = new SelectList(UnitOfWork.ExitDriverRepository.Get(), "Id", "FullName");
-            ViewBag.ExitId = new SelectList(UnitOfWork.ExitRepository.Get(c => c.ExitComplete == false), "Id", "Order");
+            DateTime today = DateTime.Today;
+            ViewBag.ExitId = new SelectList(UnitOfWork.ExitRepository.Get(c => c.ExitComplete == false && DbFunctions.TruncateTime(c.CreationDate) == today), "Id", "Code");
 
             return View(orderDetail);
         }
@@ -459,7 +460,7 @@ namespace Presentation.Controllers
 
         [HttpPost]
         public ActionResult PostLoading(string orderId, string productId, string weight, string qty, string inputDetailId, string driverId
-            , string carNumber, string phone, string desc, string exitId)
+            , string carNumber, string phone, string desc,string exitId)
         {
             try
             {
@@ -507,8 +508,8 @@ namespace Presentation.Controllers
                 }
                 else
                 {
-                    int exitOrder = Convert.ToInt32(exitId);
-                    Exit exit = UnitOfWork.ExitRepository.Get(current => current.Order == exitOrder && current.ExitComplete == false).FirstOrDefault();
+                    Guid id = new Guid(exitId);
+                    Exit exit = UnitOfWork.ExitRepository.Get(current => current.Id == id && current.ExitComplete == false).FirstOrDefault();
 
                     if (exit == null)
                         return Json(message + "ردیف بارگیری اشتباه است", JsonRequestBehavior.AllowGet);

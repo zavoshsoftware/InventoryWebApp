@@ -1,35 +1,36 @@
 ﻿@model IEnumerable<Models.ProductGroup>
 
 @{
-ViewBag.Title = "فهرست گروه محصولات" ;
-    
+    ViewBag.Title = "فهرست گروه محصولات";
+
 }
 
 <h2>@ViewBag.Title</h2>
 
-        @(Html.Kendo().Grid(Model)
-              .Name("Grid")
-              .Columns(columns =>
-                  {
+@(Html.Kendo().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
         columns.Bound(model => model.ProductGroupUnit.Title);
         columns.Bound(model => model.Title);
         columns.Bound(model => model.InventoryAmount);
         columns.Bound(model => model.IsActive);
         columns.Bound(model => model.CreationDate);
-					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
-							.Template(@<text>
-									@Html.ActionLink("ویرایش", "Edit", new {id = @item.Id}, new {@class = "k-button"})
-									@Html.ActionLink("حذف", "Delete", new {id = @item.Id}, new {@class = "k-button"})
-									</text>).Width(200);  
-		})
-		.ToolBar(toolbar =>
-					{				
-						toolbar.Custom().Action("Create","ProductGroups").Text("افزودن");                          
-					}
-		)         
-		.DataSource(dataSource => dataSource
-									.Server()
-							
-									.Model(model => model.Id(item => item.Id))
-					)              
-	)
+        columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+                      .Template(@<text>
+                @Html.ActionLink("ویرایش", "Edit", new { id = @item.Id }, new { @class = "k-button" })
+                @Html.ActionLink("حذف", "Delete", new { id = @item.Id }, new { @class = "k-button" })
+                @Html.ActionLink("قیمت گذاری فعالیت های این دسته", "Index", "ProductGroupCustomActions", new { id = @item.Id }, new { @class = "k-button" })
+                    </text>).Width(200);
+        })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("Create", "ProductGroups").Text("افزودن");
+        }
+        )
+        .DataSource(dataSource => dataSource
+                                    .Server()
+
+                                    .Model(model => model.Id(item => item.Id))
+                    )
+)

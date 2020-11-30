@@ -45,6 +45,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BaseEntity.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomAction.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomAction.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Customer.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -136,6 +141,10 @@
     <EmbeddedResource Include="Models\BaseEntity.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BaseEntity.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\CustomAction.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CustomAction.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Customer.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

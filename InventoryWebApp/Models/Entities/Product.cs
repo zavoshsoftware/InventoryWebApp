@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+    
     public class Product : BaseEntity
     {
         public Product()
@@ -38,6 +39,7 @@ namespace Models
         public virtual ProductStatus ProductStatus { get; set; }
 
         [Display(Name = "Length", ResourceType = typeof(Resources.Models.Product))]
+        [Required(ErrorMessage = "لطفا {0} را وارد نمایید.")]
         public decimal Length { get; set; }
 
         [Display(Name = "Thickness", ResourceType = typeof(Resources.Models.Product))]
@@ -47,6 +49,7 @@ namespace Models
         public decimal Width { get; set; }
 
         [Display(Name = "Weight", ResourceType = typeof(Resources.Models.Product))]
+        [Required(ErrorMessage = "لطفا {0} را وارد نمایید.")]
         public decimal Weight { get; set; }
 
         [Display(Name = "IsPureWeight", ResourceType = typeof(Resources.Models.Product))]

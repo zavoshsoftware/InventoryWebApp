@@ -32,5 +32,10 @@ namespace Models
         public DbSet<CutDetailType> CutDetailTypes { get; set; }
         public DbSet<CutOrderDetail> CutOrderDetails { get; set; }
         public DbSet<ExitDriver> ExitDrivers { get; set; }
+        public DbSet<CustomAction> CustomActions { get; set; }
+        public DbSet<ProductGroupCustomAction> ProductGroupCustomActions { get; set; }
+
+
+
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="DatabaseContextInitializerBeforeTheFirstRelease.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\City.cs" />
+    <Compile Include="Entities\CustomAction.cs" />
     <Compile Include="Entities\CutDetailType.cs" />
     <Compile Include="Entities\CutOrder.cs" />
     <Compile Include="Entities\CutOrderDetail.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Entities\ProductGroup.cs" />
     <Compile Include="Entities\ProductForm.cs" />
     <Compile Include="Entities\ProductCreator.cs" />
+    <Compile Include="Entities\ProductGroupCustomAction.cs" />
     <Compile Include="Entities\ProductStatus.cs" />
     <Compile Include="Entities\ProductGroupUnit.cs" />
     <Compile Include="Entities\Province.cs" />
@@ -160,6 +162,26 @@
     <Compile Include="Migrations\202011091759380_V21.Designer.cs">
       <DependentUpon>202011091759380_V21.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011291323585_V22.cs" />
+    <Compile Include="Migrations\202011291323585_V22.Designer.cs">
+      <DependentUpon>202011291323585_V22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011291400325_V23.cs" />
+    <Compile Include="Migrations\202011291400325_V23.Designer.cs">
+      <DependentUpon>202011291400325_V23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011291453420_V24.cs" />
+    <Compile Include="Migrations\202011291453420_V24.Designer.cs">
+      <DependentUpon>202011291453420_V24.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011291616387_V25.cs" />
+    <Compile Include="Migrations\202011291616387_V25.Designer.cs">
+      <DependentUpon>202011291616387_V25.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011291637421_V26.cs" />
+    <Compile Include="Migrations\202011291637421_V26.Designer.cs">
+      <DependentUpon>202011291637421_V26.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -236,6 +258,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011091759380_V21.resx">
       <DependentUpon>202011091759380_V21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011291323585_V22.resx">
+      <DependentUpon>202011291323585_V22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011291400325_V23.resx">
+      <DependentUpon>202011291400325_V23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011291453420_V24.resx">
+      <DependentUpon>202011291453420_V24.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011291616387_V25.resx">
+      <DependentUpon>202011291616387_V25.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011291637421_V26.resx">
+      <DependentUpon>202011291637421_V26.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

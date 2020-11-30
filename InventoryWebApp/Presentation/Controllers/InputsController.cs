@@ -26,7 +26,8 @@ namespace Presentation.Controllers
             ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title");
             //ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code");
-            return View();
+            Input input = new Input() { InputDate = DateTime.Now, InputTime = DateTime.Now.Hour.ToString() };
+            return View(input);
         }
 
         [HttpPost]

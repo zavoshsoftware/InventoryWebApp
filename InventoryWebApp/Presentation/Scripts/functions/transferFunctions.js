@@ -230,7 +230,7 @@ function Loading() {
     }
 }
 
-function LoadingAction(productId, orderId, qty, weight, inputDetailId, driverId, carNumber, phone,desc,exitId) {
+function LoadingAction(productId, orderId, qty, weight, inputDetailId, driverId, carNumber, phone, desc, exitId) {
     $.ajax(
         {
             url: "/Orders/PostLoading",
