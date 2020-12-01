@@ -306,4 +306,27 @@ function CutOrder(inputDetailId, cutTypeId) {
             }
         });
 }
+
+function ShowDriverModal() {
+    $("#driverModal").modal('show');
+}
+function AddDriver() {
+    var driverName = $("#txtDriverName").val();
+    $.ajax({
+        url: '/orders/CreateDriver',
+        data: { driverName: driverName },
+        type: 'POST',
+        success: function (data) {
+            $("#ExitDriverId").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+            $('#success-insertDriver').css('display', 'block');
+            $('#error-insertDriver').css('display', 'none');
+        },
+        error: function (reponse) {
+            $('#success-insertDriver').css('display', 'none');
+            $('#error-insertDriver').css('display', 'block');
+            $('#error-insertDriver').innerHtml = "خطایی رخ داده است. لطفا مجدادا تلاش کنید";
+        }
+
+    });
+}
  

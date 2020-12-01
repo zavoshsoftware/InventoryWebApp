@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Helper;
 using Models;
 using ViewModels;
+using Stimulsoft.Base.Json;
 
 namespace Presentation.Controllers
 {
@@ -460,7 +461,7 @@ namespace Presentation.Controllers
 
         [HttpPost]
         public ActionResult PostLoading(string orderId, string productId, string weight, string qty, string inputDetailId, string driverId
-            , string carNumber, string phone, string desc,string exitId)
+            , string carNumber, string phone, string desc, string exitId)
         {
             try
             {
@@ -538,6 +539,36 @@ namespace Presentation.Controllers
                 return Json("false", JsonRequestBehavior.AllowGet);
 
             }
+        }
+
+        [HttpPost]
+        public ActionResult CreateDriver(string driverName)
+        {
+            try
+            {
+                ExitDriver exitDriver = new ExitDriver();
+                exitDriver.FullName = driverName;
+                exitDriver.IsDeleted = false;
+                exitDriver.CreationDate = DateTime.Now;
+                exitDriver.Id = Guid.NewGuid();
+                UnitOfWork.ExitDriverRepository.Insert(exitDriver);
+                UnitOfWork.Save();
+
+                var response = new { Value = exitDriver.Id, Text = exitDriver.FullName };
+                //var result = JsonConvert.SerializeObject(response);
+                //return Json(result, JsonRequestBehavior.AllowGet);
+                return new JsonResult()
+                {
+                    Data = response,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                };
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         #region HelperMethods
@@ -919,7 +950,7 @@ namespace Presentation.Controllers
                     InputDetailId = inputDetailId,
                     IsActive = true,
                     IsDeleted = false,
-                   InitialQuantity = quantity,
+                    InitialQuantity = quantity,
                     InitialWeight = weightMain,
                     FullWeight = 0,
                     EmptyWeight = 0,

@@ -32,11 +32,24 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 #transfer-error, #transfer-success, #transfer-errorTransfer, #transfer-successTransfer, #exitDetailSuccess, #exitDetailDanger,
-#successFinalizeExit, #dangerFinalizeExit {
+#successFinalizeExit, #dangerFinalizeExit, #error-insertDriver, #success-insertDriver {
     display: none;
 }
 
 .field-validation-error {
     color: red;
+}
+.green{
+   color:green;
+}
+.no-display{
+    display:none;
+}
+.border-green {
+    border: 2px solid #008000ed;
+    border-radius: 6px;
+}
+.pointer{
+    cursor:pointer;
 }
 
