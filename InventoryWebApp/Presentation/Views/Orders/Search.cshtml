@@ -1,0 +1,46 @@
+﻿@model ViewModels.OrderDetailViewModel
+
+@{
+    ViewBag.Title = "ردیف دفتر";
+    Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">@ViewBag.Title</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="col-md-3">شماره حواله مادر</label>
+                <label class="col-md-9">
+                    @Html.DropDownList("OrderId", null, htmlAttributes: new { @class = "js-example-basic-single js-states form-control" })
+                   
+                </label>
+            </div>
+        </div>
+        <div id="inputDetails"></div>
+    </div>
+
+</div>
+<link href="~/Content/css/select2.min.css" rel="stylesheet" />
+<script src="~/Scripts/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#OrderId').select2({
+            placeholder: 'انتخاب کنید...',
+            width: '150',
+            multiple: false,
+            closeOnSelect: false,
+        });
+        $('#OrderId').on("select2:select", function (event) {
+            var orderId = $("#OrderId option:selected").val();
+            $.ajax({
+                url: '/Orders/Search',
+                data: { id: orderId },
+                type:'POST',
+                success: function (result) {
+                    $("#inputDetails").html(result);
+                }
+            });
+           
+        });
+    });
+</script>

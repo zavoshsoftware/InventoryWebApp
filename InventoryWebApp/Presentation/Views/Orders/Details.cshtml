@@ -58,8 +58,12 @@
                                 <td>@product.RemainWeight</td>
                                 <td>@product.InputDetailStatusTitle</td>
                                 <td>
-                                    <button class="btn btn-warning" onclick="openTransferModal('@product.ProductId','@Model.OrderId');">انتقال</button>
-                                    <button class="btn btn-warning" onclick="openLoadingModal('@product.ProductId','@Model.OrderId','@product.InputDetailId');">بارگیری</button>
+                                    @if (Convert.ToDecimal(product.RemainQty) != 0 || Convert.ToDecimal(product.RemainWeight) != 0)
+                                    {
+                                        <button class="btn btn-warning" onclick="openTransferModal('@product.ProductId','@Model.OrderId');">انتقال</button>
+                                        <button class="btn btn-warning" onclick="openLoadingModal('@product.ProductId','@Model.OrderId','@product.InputDetailId');">بارگیری</button>
+                                    }
+
                                 </td>
                             </tr>
                         }
@@ -100,8 +104,11 @@
                                 <td>@order.Weight</td>
                                 <td>@order.InputDetailStatus</td>
                                 <td>
-                                    <button class="btn btn-warning" onclick="openTransferModal('@order.ProductId','@order.OrderId');">انتقال</button>
-                                    <button class="btn btn-warning" onclick="openLoadingModal('@order.ProductId','@order.OrderId','@order.InputDetailId');">بارگیری</button>
+                                    @if (Convert.ToDecimal(order.Quantity) != 0 || Convert.ToDecimal(order.Weight) != 0)
+                                    {
+                                        <button class="btn btn-warning" onclick="openTransferModal('@order.ProductId','@order.OrderId');">انتقال</button>
+                                        <button class="btn btn-warning" onclick="openLoadingModal('@order.ProductId','@order.OrderId','@order.InputDetailId');">بارگیری</button>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -183,7 +190,7 @@
                             <input id="carNumber" type="text" class="form-control" />
                         </td>
                     </tr>
-                   
+
                     <tr>
                         <td class="td-title">شماره تماس</td>
                         <td>
@@ -292,7 +299,7 @@
             </div>
             <div class="modal-body">
                 <input type="text" class="form-control" id="txtDriverName" />
-                
+
                 <div class="alert alert-danger" id="error-insertDriver"></div>
                 <div class="alert alert-success" id="success-insertDriver">
                     اطلاعات با موفقیت انجام شد.

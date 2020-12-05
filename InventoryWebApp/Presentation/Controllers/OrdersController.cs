@@ -172,7 +172,6 @@ namespace Presentation.Controllers
             }
 
             List<Product> products = GetProductsByOrder(order);
-
             ViewBag.ProductId = new SelectList(GetProductsByOrder(order), "Id", "Title", products.FirstOrDefault()?.Id);
 
             orderDetail.Products = GetProductInfo(order.Id);
@@ -193,9 +192,15 @@ namespace Presentation.Controllers
             List<ChildOrderViewModel> result = new List<ChildOrderViewModel>();
 
             List<Order> orders = UnitOfWork.OrderRepository.Get(c => c.ParentId == parentOrderId).ToList();
+            Order parent = UnitOfWork.OrderRepository.GetById(parentOrderId);
 
             foreach (Order order in orders)
             {
+                string customerName = order.Customer.FullName;
+                if (order.Code == parent.Code)
+                {
+                    customerName = parent.Customer.FullName + "-" + order.Customer.FullName; 
+                }
                 InputDetail inputDetail =
                     UnitOfWork.InputDetailsRepository.Get(c => c.OrderId == order.Id).FirstOrDefault();
 
@@ -204,7 +209,7 @@ namespace Presentation.Controllers
                     result.Add(new ChildOrderViewModel()
                     {
                         OrderId = order.Id,
-                        OrderCustomer = order.Customer.FullName,
+                        OrderCustomer = customerName,
                         ProductId = inputDetail.ProductId,
                         ProducTitle = inputDetail.Product.Title,
                         Quantity = inputDetail.RemainQuantity.ToString(),
@@ -359,13 +364,23 @@ namespace Presentation.Controllers
             Order order = UnitOfWork.OrderRepository.GetById(orderIdGuid);
 
             Product product = UnitOfWork.ProductRepository.GetById(productIdGuid);
+            string orderCode = string.Empty;
+            List<InputDetail> inputDetails = UnitOfWork.InputDetailsRepository
+              .Get(c => c.OrderId == order.Id).ToList();
+            if (inputDetails.Count() == 1)
+            {
+                orderCode = order.Code;
+            }
+            else
+            {
+                orderCode = GenerateCode.GetChildOrderCode(order.Id);
+            }
 
-
-            TransferDetailViewModel transfer = new TransferDetailViewModel()
+                TransferDetailViewModel transfer = new TransferDetailViewModel()
             {
                 RemainQuantity = GetRemainProduct(productIdGuid, orderIdGuid, order.CustomerId).RemainQuantity,
                 RemainWight = GetRemainProduct(productIdGuid, orderIdGuid, order.CustomerId).RemainWeight,
-                OrderCode = GenerateCode.GetChildOrderCode(order.Id),
+                OrderCode = orderCode,
                 ProductTitle = product.Title,
                 CustomerFullName = order.Customer.FullName,
                 ParentOrderId = orderId,
@@ -440,7 +455,30 @@ namespace Presentation.Controllers
                     return Json(message + "امکان انتقال حواله به مالک قبلی آن وجود ندارد", JsonRequestBehavior.AllowGet);
 
 
-                Guid childOrderId = CreateChildOrder(orderIdGuid, customerIdGuid);
+
+                Guid childOrderId = new Guid();
+                List<InputDetail> inputDetails = UnitOfWork.InputDetailsRepository
+               .Get(c => c.OrderId == order.Id).ToList();
+                if (inputDetails.Count() == 1)//حواله فقط یک کالا دارد
+                {
+                    decimal initialQty = 0;
+                    decimal initialWeight = 0;
+                    initialQty += inputDetails.FirstOrDefault().Quantity;
+                    initialWeight += inputDetails.FirstOrDefault().DestinationWeight;
+                    if (initialQty == qtyInt || initialWeight == weightDecimal)
+                    {
+                        childOrderId = CreateChildOrder(orderIdGuid, customerIdGuid, false);
+                    }
+                    else
+                    {
+                        childOrderId = CreateChildOrder(orderIdGuid, customerIdGuid, true);
+                    }
+                }
+
+
+
+
+                //Guid childOrderId = CreateChildOrder(orderIdGuid, customerIdGuid);
 
                 decimal unit = remain.RemainWeight / remain.RemainQuantity;
 
@@ -569,6 +607,110 @@ namespace Presentation.Controllers
                 throw;
             }
 
+        }
+
+        public ActionResult Search(Guid? id)
+        {
+            OrderDetailViewModel orderDetail = new OrderDetailViewModel();
+            if (id == null)
+            {
+                ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.ParentId == null), "Id", "Code");
+                orderDetail.Products = new List<ProductInfoViewModel>();
+                orderDetail.ChildOrders = new List<ChildOrderViewModel>();
+            }
+            else
+            {
+                Order order = UnitOfWork.OrderRepository.GetById(id.Value);
+
+                if (order == null)
+                {
+                    return HttpNotFound();
+                }
+                orderDetail.ChildOrderCode = order.Code;
+                orderDetail.ChildOrderCustomer = order.Customer.FullName;
+                orderDetail.OrderId = id.Value;
+
+                if (order.ParentId == null)
+                {
+                    orderDetail.ParentOrderCode = order.Code;
+                    orderDetail.ParentOrderCustomer = order.Customer.FullName;
+
+                }
+                else
+                {
+                    orderDetail.ParentOrderCode = order.Parent.Code;
+                    orderDetail.ParentOrderCustomer = order.Parent.Customer.FullName;
+                }
+
+                List<Product> products = GetProductsByOrder(order);
+                ViewBag.ProductId = new SelectList(GetProductsByOrder(order), "Id", "Title", products.FirstOrDefault()?.Id);
+
+                orderDetail.Products = GetProductInfo(order.Id);
+
+                orderDetail.ChildOrders = GetChildOrders(order.Id);
+
+
+                ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
+                ViewBag.ExitDriverId = new SelectList(UnitOfWork.ExitDriverRepository.Get(), "Id", "FullName");
+                DateTime today = DateTime.Today;
+                ViewBag.ExitId = new SelectList(UnitOfWork.ExitRepository.Get(c => c.ExitComplete == false && DbFunctions.TruncateTime(c.CreationDate) == today), "Id", "Code");
+                ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.ParentId == null), "Id", "Code",order.Id);
+
+                return View(orderDetail);
+            }
+            
+            
+
+            return View(orderDetail);
+        }
+        [HttpPost]
+        public ActionResult Search(string id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Guid orderId = new Guid(id);
+                Order order = UnitOfWork.OrderRepository.GetById(orderId);
+
+                if (order == null)
+                {
+                    return HttpNotFound();
+                }
+
+                OrderDetailViewModel orderDetail = new OrderDetailViewModel();
+
+                orderDetail.ChildOrderCode = order.Code;
+                orderDetail.ChildOrderCustomer = order.Customer.FullName;
+                orderDetail.OrderId = orderId;
+
+                if (order.ParentId == null)
+                {
+                    orderDetail.ParentOrderCode = order.Code;
+                    orderDetail.ParentOrderCustomer = order.Customer.FullName;
+
+                }
+                else
+                {
+                    orderDetail.ParentOrderCode = order.Parent.Code;
+                    orderDetail.ParentOrderCustomer = order.Parent.Customer.FullName;
+                }
+
+                List<Product> products = GetProductsByOrder(order);
+
+                orderDetail.Products = GetProductInfo(order.Id);
+
+                orderDetail.ChildOrders = GetChildOrders(order.Id);
+                return PartialView("_InputDatailPartial", orderDetail);
+            }
+            catch (Exception exp)
+            {
+
+                return Json(exp.Message, JsonRequestBehavior.AllowGet);
+            }
+            
         }
 
         #region HelperMethods
@@ -750,12 +892,21 @@ namespace Presentation.Controllers
             return new List<InputDetail>();
         }
 
-        public Guid CreateChildOrder(Guid parentOrderId, Guid customerId)
+        public Guid CreateChildOrder(Guid parentOrderId, Guid customerId, bool createNew)
         {
+            string code = string.Empty;
+            if (createNew)
+            {
+                code = GenerateCode.GetChildOrderCode(parentOrderId);
+            }
+            else
+            {
+                code = UnitOfWork.OrderRepository.GetById(parentOrderId).Code;
+            }
             Order order = new Order()
             {
                 ParentId = parentOrderId,
-                Code = GenerateCode.GetChildOrderCode(parentOrderId),
+                Code = code,
                 CustomerId = customerId,
                 IsActive = true,
                 IsDeleted = false

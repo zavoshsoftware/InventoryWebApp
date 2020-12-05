@@ -1,0 +1,103 @@
+﻿@model ViewModels.OrderDetailViewModel
+<div class="row">
+    <div class="col-md-4">
+        <label class="col-md-3">نام تاجر</label>
+        <label class="col-md-9" id="ParentOrderCustomer">@Model.ParentOrderCustomer</label>
+    </div>
+    <div class="col-md-4">
+        <label class="col-md-3">شماره ردیف</label>
+        <label class="col-md-9" id="ChildOrderCode">@Model.ChildOrderCode</label>
+    </div>
+    <div class="col-md-4">
+        <label class="col-md-3">صاحب ردیف</label>
+        <label class="col-md-9" id="ChildOrderCustomer">@Model.ChildOrderCustomer</label>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">مشخصات کالا</div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>نام کالا</th>
+                    <th>تعداد اعلام شده</th>
+                    <th>وزن اعلام شده</th>
+                    <th>تعداد باقی مانده</th>
+                    <th>وزن باقی مانده</th>
+                    <th>وضعیت</th>
+                    <th>دستورات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.ProductTitle</td>
+                        <td>@product.InitialQty</td>
+                        <td>@product.InitialWeight</td>
+                        <td>@product.RemainQty</td>
+                        <td>@product.RemainWeight</td>
+                        <td>@product.InputDetailStatusTitle</td>
+                        <td>
+                            @if (Convert.ToDecimal(product.RemainQty) != 0 || Convert.ToDecimal(product.RemainWeight) != 0)
+                            {
+                                <button class="btn btn-warning" onclick="openTransferModal('@product.ProductId','@Model.OrderId');">انتقال</button>
+                                            <button class="btn btn-warning" onclick="openLoadingModal('@product.ProductId','@Model.OrderId','@product.InputDetailId');">بارگیری</button>
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">حواله های زیر مجموعه</div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>کد حواله</th>
+                    <th>نام صاحب ردیف</th>
+                    <th>نام کالا</th>
+                    <th>وزن اولیه</th>
+                    <th>تعداد اولیه</th>
+                    <th>وزن باقی مانده</th>
+                    <th>تعداد باقی مانده</th>
+                    <th>وضعیت</th>
+                    <th>دستورات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.ChildOrders)
+                {
+                    <tr>
+                        <td>@order.OrderCode</td>
+                        <td>@order.OrderCustomer</td>
+                        <td>@order.ProducTitle</td>
+                        <td>@order.InitialQuantity</td>
+                        <td>@order.InitialWeight</td>
+                        <td>@order.Quantity</td>
+                        <td>@order.Weight</td>
+                        <td>@order.InputDetailStatus</td>
+                        <td>
+                            @if (Convert.ToDecimal(order.Quantity) != 0 || Convert.ToDecimal(order.Weight) != 0)
+                            {
+                                <button class="btn btn-warning" onclick="openTransferModal('@order.ProductId','@order.OrderId');">انتقال</button>
+                                            <button class="btn btn-warning" onclick="openLoadingModal('@order.ProductId','@order.OrderId','@order.InputDetailId');">بارگیری</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
