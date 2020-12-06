@@ -43,9 +43,9 @@
                             @if (Convert.ToDecimal(product.RemainQty) != 0 || Convert.ToDecimal(product.RemainWeight) != 0)
                             {
                                 <button class="btn btn-warning" onclick="openTransferModal('@product.ProductId','@Model.OrderId');">انتقال</button>
-                                            <button class="btn btn-warning" onclick="openLoadingModal('@product.ProductId','@Model.OrderId','@product.InputDetailId');">بارگیری</button>
+                                <button class="btn btn-warning" onclick="openLoadingModal('@product.ProductId','@Model.OrderId','@product.InputDetailId');">بارگیری</button>
                             }
-
+                            @Html.ActionLink("کاردکس ردیف", "Kardex", new { id = product.InputDetailId },new { @class = "btn btn-warning" })
                         </td>
                     </tr>
                 }
@@ -89,7 +89,7 @@
                             @if (Convert.ToDecimal(order.Quantity) != 0 || Convert.ToDecimal(order.Weight) != 0)
                             {
                                 <button class="btn btn-warning" onclick="openTransferModal('@order.ProductId','@order.OrderId');">انتقال</button>
-                                            <button class="btn btn-warning" onclick="openLoadingModal('@order.ProductId','@order.OrderId','@order.InputDetailId');">بارگیری</button>
+                                <button class="btn btn-warning" onclick="openLoadingModal('@order.ProductId','@order.OrderId','@order.InputDetailId');">بارگیری</button>
                             }
                         </td>
                     </tr>

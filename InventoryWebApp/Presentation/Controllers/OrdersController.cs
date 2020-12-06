@@ -614,7 +614,7 @@ namespace Presentation.Controllers
             OrderDetailViewModel orderDetail = new OrderDetailViewModel();
             if (id == null)
             {
-                ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.ParentId == null), "Id", "Code");
+                ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code");
                 orderDetail.Products = new List<ProductInfoViewModel>();
                 orderDetail.ChildOrders = new List<ChildOrderViewModel>();
             }
@@ -650,16 +650,15 @@ namespace Presentation.Controllers
                 orderDetail.ChildOrders = GetChildOrders(order.Id);
 
 
-                ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
-                ViewBag.ExitDriverId = new SelectList(UnitOfWork.ExitDriverRepository.Get(), "Id", "FullName");
-                DateTime today = DateTime.Today;
-                ViewBag.ExitId = new SelectList(UnitOfWork.ExitRepository.Get(c => c.ExitComplete == false && DbFunctions.TruncateTime(c.CreationDate) == today), "Id", "Code");
-                ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.ParentId == null), "Id", "Code",order.Id);
+                ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code",order.Id);
 
-                return View(orderDetail);
             }
-            
-            
+
+            ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
+            ViewBag.ExitDriverId = new SelectList(UnitOfWork.ExitDriverRepository.Get(), "Id", "FullName");
+            DateTime today = DateTime.Today;
+            ViewBag.ExitId = new SelectList(UnitOfWork.ExitRepository.Get(c => c.ExitComplete == false && DbFunctions.TruncateTime(c.CreationDate) == today), "Id", "Code");
+
 
             return View(orderDetail);
         }
@@ -711,6 +710,27 @@ namespace Presentation.Controllers
                 return Json(exp.Message, JsonRequestBehavior.AllowGet);
             }
             
+        }
+
+        public ActionResult Kardex(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            InputDetail inputDetail = UnitOfWork.InputDetailsRepository.GetById(id.Value);
+
+            if (inputDetail == null)
+            {
+                return HttpNotFound();
+            }
+            KardexViewModel model = new KardexViewModel();
+            model.OrderId = inputDetail.OrderId.Value;
+            model.ParentOrderCode = inputDetail.Order.Code;
+            model.ParentOrderCustomer = inputDetail.Order.Customer.FullName;
+            model.OrderProductName = inputDetail.Product.Title;
+            model.ChildOrders = GetKardexChild(id.Value);
+            return View(model);
         }
 
         #region HelperMethods
@@ -873,7 +893,8 @@ namespace Presentation.Controllers
                 ParentId = inputDetail.Id,
                 SourceWeight = newWeight,
                 InputDetailStatusId = UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 1)
-                    .FirstOrDefault()?.Id
+                    .FirstOrDefault()?.Id,
+                CreationDate=DateTime.Now
 
             };
 
@@ -1038,6 +1059,59 @@ namespace Presentation.Controllers
             return order.Id;
         }
 
+        public List<KardexChildOrderViewModel> GetKardexChild(Guid inputDetailId)
+        {
+            List<KardexChildOrderViewModel> result = new List<KardexChildOrderViewModel>();
+            InputDetail parentInputDetail = UnitOfWork.InputDetailsRepository.GetById(inputDetailId);
+            result.Add(new KardexChildOrderViewModel {
+                OrderCode = parentInputDetail.Order.Code,
+                OrderCustomer = parentInputDetail.Order.Customer.FullName,
+                OrderId = parentInputDetail.OrderId.Value,
+                InitialQuantity = parentInputDetail.RemainQuantity.ToString(),
+                InitialWeight = parentInputDetail.RemainDestinationWeight.ToString(),
+                InputDetailId = parentInputDetail.Id,
+                InputDetailStatus = parentInputDetail.InputDetailStatus.Title,
+                IssuedQuantity = "0",
+                IssuedWeight = "0",
+                CreationDate=parentInputDetail.CreationDate.ToString("yyyy/MM/dd")
+            });
+
+            List<InputDetail> childeren = UnitOfWork.InputDetailsRepository.Get(current => current.ParentId == parentInputDetail.Id).ToList();
+            foreach (var item in childeren)
+            {
+                result.Add(new KardexChildOrderViewModel
+                {
+                    OrderCode = item.Order.Code,
+                    OrderCustomer = item.Order.Customer.FullName,
+                    OrderId = item.OrderId.Value,
+                    InitialQuantity = "0",
+                    InitialWeight = "0",
+                    InputDetailId = item.Id,
+                    InputDetailStatus = item.InputDetailStatus.Title,
+                    IssuedQuantity = item.RemainQuantity.ToString(),
+                    IssuedWeight = item.RemainDestinationWeight.ToString(),
+                    CreationDate=item.CreationDate.ToString("yyyy/MM/dd")
+                });
+                List<InputDetail> childList = UnitOfWork.InputDetailsRepository.Get(current => current.ParentId == item.Id).ToList();
+                foreach (var child in childList)
+                {
+                    result.Add(new KardexChildOrderViewModel
+                    {
+                        OrderCode = child.Order.Code,
+                        OrderCustomer = child.Order.Customer.FullName,
+                        OrderId = child.OrderId.Value,
+                        InitialQuantity = "0",
+                        InitialWeight = "0",
+                        InputDetailId = child.Id,
+                        InputDetailStatus = child.InputDetailStatus.Title,
+                        IssuedQuantity = child.RemainQuantity.ToString(),
+                        IssuedWeight = child.RemainDestinationWeight.ToString(),
+                        CreationDate=child.CreationDate.ToString("yyyy/MM/dd")
+                    });
+                }
+            }
+            return result;
+        }
 
         #endregion
 

@@ -947,6 +947,7 @@
     <Compile Include="ViewModels\ExitAccountViewModel.cs" />
     <Compile Include="ViewModels\ExitDetailViewModel.cs" />
     <Compile Include="ViewModels\ExitInputDetailViewModel.cs" />
+    <Compile Include="ViewModels\KardexViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
     <Compile Include="ViewModels\ProductRemainsViewModel.cs" />
     <Compile Include="ViewModels\TransferDetailViewModel.cs" />
@@ -1192,6 +1193,7 @@
     <Content Include="Views\ProductGroupCustomActions\Index.cshtml" />
     <Content Include="Views\Orders\Search.cshtml" />
     <Content Include="Views\Orders\_InputDatailPartial.cshtml" />
+    <Content Include="Views\Orders\Kardex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

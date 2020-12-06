@@ -1,0 +1,118 @@
+﻿@model ViewModels.KardexViewModel
+@{
+    ViewBag.Title = "کاردکس ردیف";
+    Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">@ViewBag.Title</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="col-md-3">شماره ردیف</label>
+                <label class="col-md-9">
+                    @Html.DisplayFor(model => model.ParentOrderCode)
+                </label>
+            </div>
+            <div class="col-md-6">
+                <label class="col-md-3">آقای/شرکت</label>
+                <label class="col-md-9">
+                    @Html.DisplayFor(model => model.ParentOrderCustomer)
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="col-md-3">نام کالا</label>
+                <label class="col-md-9">
+                    @Html.DisplayFor(model => model.OrderProductName)
+                </label>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">مشخصات ردیف</div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">تاریخ</th>
+                            <th rowspan="2">ردیف</th>
+                            <th rowspan="2">نام صاحب</th>
+                            <th rowspan="2">وضعیت</th>
+                            <th colspan="2">وارده</th>
+                            <th colspan="2">صادره</th>
+                        </tr>
+                        <tr>
+                            <th>تعداد</th>
+                            <th>وزن</th>
+                            <th>تعداد</th>
+                            <th>وزن</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var inputDetail in Model.ChildOrders)
+                        {
+                            <tr>
+                                <td>@inputDetail.CreationDate</td>
+                                <td>@inputDetail.OrderCode</td>
+                                <td>@inputDetail.OrderCustomer</td>
+                                <td>@inputDetail.InputDetailStatus</td>
+                                <td class="iniQty">@inputDetail.InitialQuantity</td>
+                                <td class="iniWei">@inputDetail.InitialWeight</td>
+                                <td class="isuQty">@inputDetail.IssuedQuantity</td>
+                                <td class="isuWei">@inputDetail.IssuedWeight</td>
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" class="text-left">جمع کل</th>
+                            <th id="totalInitialQty" class="text-right"></th>
+                            <th id="totalInitialWieght" class="text-right"></th>
+                            <th id="totalIssuedQty" class="text-right"></th>
+                            <th id="totalIssuedWieght" class="text-right"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="4" class="text-left">مانده تعداد</th>
+                            <th id="remainQty" class="text-right"></th>
+                            <th class="text-right" colspan="2">مانده وزن</th>
+                            <th id="remainWieght" class="text-right"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var totalInitialQty = 0;
+            var totalInitialWieght = 0;
+            var totalIssuedQty = 0;
+            var totalIssuedWieght = 0;
+            $(".iniQty").each(function () {
+                totalInitialQty += parseInt($(this).text());
+            });
+            $(".iniWei").each(function () {
+                totalInitialWieght += parseFloat($(this).text());
+            });
+            $(".isuQty").each(function () {
+                totalIssuedQty += parseInt($(this).text());
+            });
+            $(".isuWei").each(function () {
+                totalIssuedWieght += parseFloat($(this).text());
+            });
+            $("#totalInitialQty").html(totalInitialQty);
+            $("#totalInitialWieght").html(totalInitialWieght);
+            $("#totalIssuedQty").html(totalIssuedQty);
+            $("#totalIssuedWieght").html(totalIssuedWieght);
+            $("#remainQty").html(totalInitialQty - totalIssuedQty);
+            $("#remainWieght").html(totalInitialWieght - totalIssuedWieght);
+        });
+    </script>
+}

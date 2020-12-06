@@ -20,7 +20,104 @@
     </div>
 
 </div>
+
+<div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transferModalLabel">
+                    انتقال
+
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-responsive table-bordered">
+                    <tr>
+                        <td class="td-title">نام کالا</td>
+                        <td colspan="3" id="productTitleTransfer"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">حواله</td>
+                        <td colspan="3" id="orderCodeTransfer"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="td-title">نام تاجر</td>
+                        <td id="customerNameTransfer"></td>
+                        <td class="td-title">خریدار</td>
+                        <td>
+                            @Html.DropDownList("CustomerId", String.Empty)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">تعداد مانده</td>
+                        <td id="remainQtyTransfer"></td>
+                        <td class="td-title">وزن مانده</td>
+                        <td id="remainWeightTransfer"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">تعداد</td>
+                        <td>
+                            <input id="qtyTransfer" type="text" class="form-control" />
+                        </td>
+                        <td class="td-title">وزن</td>
+                        <td>
+                            <input id="weightTransfer" type="text" class="form-control" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="alert alert-danger" id="transfer-errorTransfer"></div>
+                <div class="alert alert-success" id="transfer-successTransfer">
+                    انتقال با موفقیت انجام شد.
+                </div>
+                <input id="productIdTransfer" type="hidden" class="form-control" />
+                <input id="orderIdTransfer" type="hidden" class="form-control" />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalTransfer">بستن</button>
+                <button type="button" class="btn btn-primary" onclick="postTransfer();">انتقال</button>
+                <a href="/customers" class="btn btn-default">تعریف مشتری جدید</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="driverModal" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transferModalLabel">
+                    افزودن راننده
+
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="txtDriverName" />
+
+                <div class="alert alert-danger" id="error-insertDriver"></div>
+                <div class="alert alert-success" id="success-insertDriver">
+                    اطلاعات با موفقیت انجام شد.
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalDriver">بستن</button>
+                <button type="button" class="btn btn-primary" onclick="AddDriver();">افزودن</button>
+            </div>
+        </div>
+    </div>
+</div>
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+@section scripts{
+<script src="~/Scripts/functions/transferFunctions.js"></script>
 <script src="~/Scripts/select2.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -44,3 +141,4 @@
         });
     });
 </script>
+    }
