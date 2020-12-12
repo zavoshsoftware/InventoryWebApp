@@ -447,6 +447,48 @@ namespace DAL
                 return (_productGroupCustomActionRepository);
             }
         }
+
+        private IManageConfigurationRepository _manageConfigurationRepository;
+        public IManageConfigurationRepository ManageConfigurationRepository
+        {
+            get
+            {
+                if (_manageConfigurationRepository == null)
+                {
+                    _manageConfigurationRepository =
+                        new ManageConfigurationRepository(DatabaseContext);
+                }
+                return (_manageConfigurationRepository);
+            }
+        }
+
+        private IPaymentRepository _paymentRepository;
+        public IPaymentRepository PaymentRepository
+        {
+            get
+            {
+                if (_paymentRepository == null)
+                {
+                    _paymentRepository =
+                        new PaymentRepository(DatabaseContext);
+                }
+                return (_paymentRepository);
+            }
+        }
+
+        private IAccountingRepository _accountingRepository;
+        public IAccountingRepository AccountingRepository
+        {
+            get
+            {
+                if (_accountingRepository == null)
+                {
+                    _accountingRepository =
+                        new AccountingRepository(DatabaseContext);
+                }
+                return (_accountingRepository);
+            }
+        }
         #endregion Inserting custom Respositories
 
     }

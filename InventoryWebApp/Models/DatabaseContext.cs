@@ -34,6 +34,11 @@ namespace Models
         public DbSet<ExitDriver> ExitDrivers { get; set; }
         public DbSet<CustomAction> CustomActions { get; set; }
         public DbSet<ProductGroupCustomAction> ProductGroupCustomActions { get; set; }
+        public DbSet<ManageConfiguration> ManageConfigurations { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Accounting> Accountings { get; set; }
+
+
 
 
 

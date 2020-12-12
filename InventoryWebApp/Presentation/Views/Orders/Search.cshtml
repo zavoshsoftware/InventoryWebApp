@@ -20,7 +20,101 @@
     </div>
 
 </div>
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loadingModalLabel">
+                    بارگیری
 
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnInputDetailId" />
+                <table class="table table-responsive table-bordered">
+                    <tr>
+                        <td class="td-title">شماره خروج</td>
+                        <td colspan="3" id="exitCode">
+                            @Html.DropDownList("ExitId", String.Empty)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">نام کالا</td>
+                        <td colspan="3" id="productTitle"></td>
+                    </tr>
+                    @*<tr>
+                            <td class="td-title">حواله</td>
+                            <td colspan="3" id="orderCode"></td>
+                        </tr>*@
+
+                    <tr>
+                        <td class="td-title">نام صاحب ردیف</td>
+                        <td id="customerName"></td>
+                        <td class="td-title">حواله</td>
+                        <td id="orderCode"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="td-title">تعداد مانده</td>
+                        <td id="remainQty"></td>
+                        <td class="td-title">وزن مانده</td>
+                        <td id="remainWeight"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">تعداد</td>
+                        <td>
+                            <input id="qty" type="text" class="form-control" />
+                        </td>
+                        <td class="td-title">وزن</td>
+                        <td>
+                            <input id="weight" type="text" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">
+                            راننده
+                            <a onclick="ShowDriverModal();" class="green pointer" title="افزودن راننده"><i class="fa fa-plus"></i></a>
+                        </td>
+
+                        <td>
+                            @Html.DropDownList("ExitDriverId", null, new { @class = "form-control" })
+                        </td>
+                        <td class="td-title">شماره ماشین</td>
+                        <td>
+                            <input id="carNumber" type="text" class="form-control" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="td-title">شماره تماس</td>
+                        <td>
+                            <input id="driverPhone" type="text" class="form-control" />
+                        </td>
+                        <td class="td-title">توضیحات</td>
+                        <td>
+                            <input id="desc" type="text" class="form-control" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="alert alert-danger" id="transfer-error"></div>
+                <div class="alert alert-success" id="transfer-success">
+                    عملیات بارگیری با موفقیت انجام شد.
+                </div>
+                <input id="productId" type="hidden" class="form-control" />
+                <input id="orderId" type="hidden" class="form-control" />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">بستن</button>
+                <button type="button" class="btn btn-primary" onclick="Loading();">بارگیری</button>
+                @*<a href="/customers" class="btn btn-default">تعریف مشتری جدید</a>*@
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

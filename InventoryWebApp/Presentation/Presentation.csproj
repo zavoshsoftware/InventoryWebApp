@@ -589,6 +589,7 @@
     <Content Include="fonts\fontAwesome\FontAwesome.otf" />
     <Content Include="Reports\MRT\InvoiceReport.mrt" />
     <Content Include="Reports\MRT\ExitReport.mrt" />
+    <Content Include="Content\license.key" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\function.js" />
     <Content Include="Scripts\functions\exitFunctions.js" />
@@ -921,6 +922,7 @@
     <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\InputDetailsController.cs" />
     <Compile Include="Controllers\InputsController.cs" />
+    <Compile Include="Controllers\ManageConfigurationsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductCreatorsController.cs" />
     <Compile Include="Controllers\ProductFormsController.cs" />
@@ -1194,6 +1196,11 @@
     <Content Include="Views\Orders\Search.cshtml" />
     <Content Include="Views\Orders\_InputDatailPartial.cshtml" />
     <Content Include="Views\Orders\Kardex.cshtml" />
+    <Content Include="Views\ManageConfigurations\Create.cshtml" />
+    <Content Include="Views\ManageConfigurations\Delete.cshtml" />
+    <Content Include="Views\ManageConfigurations\Details.cshtml" />
+    <Content Include="Views\ManageConfigurations\Edit.cshtml" />
+    <Content Include="Views\ManageConfigurations\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

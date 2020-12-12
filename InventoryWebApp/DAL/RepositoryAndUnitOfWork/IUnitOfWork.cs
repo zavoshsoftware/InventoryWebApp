@@ -35,6 +35,10 @@ namespace DAL
         IExitDriverRepository ExitDriverRepository { get; }
         ICustomActionRepository CustomActionRepository { get; }
         IProductGroupCustomActionRepository ProductGroupCustomActionRepository { get; }
+        IManageConfigurationRepository ManageConfigurationRepository { get; }
+        IPaymentRepository PaymentRepository { get; }
+        IAccountingRepository AccountingRepository { get; }
+
 
         void Save();
     }

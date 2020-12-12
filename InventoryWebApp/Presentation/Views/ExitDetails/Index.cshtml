@@ -5,7 +5,7 @@
 		Layout = "~/Views/Shared/BackEndLayout/_BackEndLayout.cshtml";
 }
 
-
+@Html.HiddenFor(m=>m.Exit.CustomerId)
 <div class="panel panel-primary">
 	<div class="panel-heading">@ViewBag.Title</div>
 	<div class="panel-body">
@@ -110,8 +110,8 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-
+			<div class="modal-body panel panel-primary">
+                <div class="panel-heading">هزینه ها</div>
 				<table class="table table-responsive table-bordered">
 				 
 					<tr>
@@ -151,16 +151,58 @@
 					 
 					</tr>
 				</table>
-			 
+                <div class="panel-heading">دریافت ها</div>
+                <table class="table table-responsive table-bordered">
+
+                    <tr>
+                        <td class="td-title">خرج انبار</td>
+                        <td>
+                            <input type="text" class="form-control" id="txtInventoryIn" onchange="ReceivedAmountChange('Inventory');" />
+                        </td>
+                        <td class="td-title">مانده</td>
+                        <td>
+                            @Html.DropDownList("CustomerId", null, "انتخاب کنید...", new { @class="form-control" ,@id= "InventoryCustomer",@disabled=true })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">خرج برش</td>
+                        <td>
+                            <input type="text" class="form-control" id="txtCutIn"  onchange="ReceivedAmountChange('Cut');" />
+                        </td>
+                        <td class="td-title">مانده</td>
+                        <td>
+                            @Html.DropDownList("CustomerId", null,"انتخاب کنید...", new { @class = "form-control", @id = "CutCustomer", @disabled = true })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">خرج بارگیری</td>
+                        <td>
+                            <input type="text" class="form-control" id="txtLoadIn"  onchange="ReceivedAmountChange('Load');" />
+                        </td>
+                        <td class="td-title">مانده</td>
+                        <td>
+                            @Html.DropDownList("CustomerId", null, "انتخاب کنید...", new { @class = "form-control", @id = "LoadCustomer", @disabled = true })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">خرج مالیات</td>
+                        <td>
+                            <input type="text" class="form-control" id="txtVatIn"  onchange="ReceivedAmountChange('Vat');" />
+                        </td>
+                        <td class="td-title">مانده</td>
+                        <td>
+                            @Html.DropDownList("CustomerId", null, "انتخاب کنید...", new { @class = "form-control", @id = "VatCustomer", @disabled = true })
+                        </td>
+                    </tr>
+                </table>
 				<div class="alert alert-success" id="successFinalizeExit">برگه خروج با موفقیت صادر شد</div>
 				<div class="alert alert-danger" id="dangerFinalizeExit"></div>
-
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalTransfer">بستن</button>
 				<button type="button" class="btn btn-primary" id="btnSave" onclick="finalizeExit('@Model.Exit.Id');">ذخیره</button>
 				<button type="button" class="btn btn-primary" id="btnAccount" disabled="disabled" onclick="redirectTo('/reports/Invoice/@Model.Exit.Id')">مخارج</button>
-				<button type="button" class="btn btn-primary" id="btnAccountPaper" disabled="disabled">برگه خروج</button>
+				<button type="button" class="btn btn-primary" id="btnAccountPaper" disabled="disabled" onclick="redirectTo('/reports/Exit/@Model.Exit.Id')">برگه خروج</button>
 			</div>
 		</div>
 	</div>

@@ -40,6 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Accounting.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Accounting.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\BaseEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,10 +90,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InputDetail.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ManageConfiguration.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManageConfiguration.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Order.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Order.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Payment.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -138,6 +153,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Models\Accounting.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Accounting.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\BaseEntity.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BaseEntity.Designer.cs</LastGenOutput>
@@ -174,9 +193,17 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>InputDetail.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Models\ManageConfiguration.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ManageConfiguration.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\Order.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Order.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Payment.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Payment.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Product.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

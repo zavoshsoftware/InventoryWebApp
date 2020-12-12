@@ -54,7 +54,16 @@ function openAccountModal(exitId) {
                 $('#txtCut').val(data.CutAmount);
                 $('#txtVat').val(data.Vat);
                 $('#txtTotal').val(data.TotalAmount);
-            
+
+                $('#txtInventoryIn').val(data.InventoryAmount);
+                $('#txtLoadIn').val(data.LoadAmount);
+                $('#txtWeightBridgeIn').val(data.WeighbridgeAmount);
+                $('#txtOtherIn').val(data.OtherAmount);
+                $('#txtCutIn').val(data.CutAmount);
+                $('#txtVatIn').val(data.Vat);
+                $('#txtTotalIn').val(data.TotalAmount);
+
+
             },
             error: function (reponse) {
                 alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
@@ -70,6 +79,22 @@ function finalizeExit(exitId) {
     var weighbridgeAmount = $('#txtWeightBridge').val();
     var otherAmount = $('#txtOther').val();
     var cutAmount = $('#txtCut').val();
+    var vatAmount = $('#txtVat').val();
+
+    var receivedInventoryAmount = $('#txtInventoryIn').val();
+    var receivedCutAmount = $('#txtCutIn').val();
+    var receivedLoadAmount = $('#txtLoadIn').val();
+    var receivedVatAmount = $('#txtVatIn').val();
+
+    var inventoryCustomer = $('#InventoryCustomer').val();
+    var cutCustomer = $('#CutCustomer').val();
+    var loadCustomer = $('#LoadCustomer').val();
+    var vatCustomer = $('#VatCustomer').val();
+
+    var customer = $('#Exit_CustomerId').val();
+
+
+
 
     $.ajax(
         {
@@ -81,6 +106,19 @@ function finalizeExit(exitId) {
                 weighbridgeAmount: weighbridgeAmount,
                 loadAmount: loadAmount,
                 inventoryAmount: inventoryAmount,
+                vatAmount: vatAmount,
+
+                receivedInventoryAmount: receivedInventoryAmount,
+                receivedCutAmount: receivedCutAmount,
+                receivedLoadAmount: receivedLoadAmount,
+                receivedVatAmount: receivedVatAmount,
+
+                customer: customer,
+                inventoryCustomer: inventoryCustomer,
+                cutCustomer: cutCustomer,
+                loadCustomer: loadCustomer,
+                vatCustomer: vatCustomer
+
             },
             cache: false,
             type: "POST",
@@ -93,12 +131,12 @@ function finalizeExit(exitId) {
                     $('#dangerFinalizeExit').css('display', 'none');
                     $('#successFinalizeExit').css('display', 'block');
 
-               
-                    $("#btnSave" ).prop("disabled", true);
-                    $("#btnAccount" ).prop("disabled", false);
+
+                    $("#btnSave").prop("disabled", true);
+                    $("#btnAccount").prop("disabled", false);
                     $("#btnAccountPaper").prop("disabled", false);
-                    
-                }  
+
+                }
             },
             error: function (reponse) {
                 alert("خطایی رخ داده است. لطفا مجدادا تلاش کنید");
@@ -107,6 +145,10 @@ function finalizeExit(exitId) {
 
 }
 
+function ReceivedAmountChange(id)
+{
+    $("#" + id + "Customer").attr('disabled', false);
+}
 
 function redirectTo(url) {
     window.location.href = url;
