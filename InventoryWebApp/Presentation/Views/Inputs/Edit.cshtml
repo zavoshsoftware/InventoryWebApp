@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.CustomerId, new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.DropDownList("CustomerId", String.Empty)
+                                    @Html.DropDownList("CustomerId", null, htmlAttributes: new { @class = "js-example-basic-single js-states form-control" })
                                     @Html.ValidationMessageFor(model => model.CustomerId)
                                 </div>
                             </div>
@@ -258,7 +258,22 @@
 }
 
 
+<link href="~/Content/css/select2.min.css" rel="stylesheet" />
 @section scripts{
+    <script src="~/Scripts/functions/transferFunctions.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#CustomerId').select2({
+                placeholder: 'انتخاب کنید...',
+                width: '100%',
+                multiple: false,
+                closeOnSelect: true,
+            });
+
+        });
+    </script>
+
 	<script>
 
 		$("#FullWeight").focus(function () {

@@ -144,7 +144,7 @@
                         <td id="customerNameTransfer"></td>
                         <td class="td-title">خریدار</td>
                         <td>
-                            @Html.DropDownList("CustomerId", String.Empty)
+                            @Html.DropDownList("CustomerId", null, htmlAttributes: new { @class = "js-example-basic-single js-states form-control" })
                         </td>
                     </tr>
                     <tr>
@@ -215,22 +215,34 @@
 <script src="~/Scripts/select2.min.js"></script>
 <script>
     $(document).ready(function () {
+        $('#CustomerId').select2({
+            placeholder: 'انتخاب کنید...',
+            multiple: false,
+            closeOnSelect: true,
+            width: '100%',
+        });
         $('#OrderId').select2({
             placeholder: 'انتخاب کنید...',
             width: '150',
             multiple: false,
-            closeOnSelect: false,
+            closeOnSelect: true,
         });
         $('#OrderId').on("select2:select", function (event) {
             var orderId = $("#OrderId option:selected").val();
-            $.ajax({
-                url: '/Orders/Search',
-                data: { id: orderId },
-                type:'POST',
-                success: function (result) {
-                    $("#inputDetails").html(result);
-                }
-            });
+            if (orderId == "0") {
+                $("#inputDetails").html('');
+            }
+            else {
+                $.ajax({
+                    url: '/Orders/Search',
+                    data: { id: orderId },
+                    type: 'POST',
+                    success: function (result) {
+                        $("#inputDetails").html(result);
+                    }
+                });
+            }
+            
            
         });
     });

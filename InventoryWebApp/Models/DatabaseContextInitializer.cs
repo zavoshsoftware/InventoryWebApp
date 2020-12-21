@@ -12,7 +12,8 @@ namespace Models
         internal static void Seed(DatabaseContext databaseContext)
         {
             //InitialRoles(databaseContext);
-            InitialInputDetailStatuses(databaseContext);
+            //InitialInputDetailStatuses(databaseContext);
+            InitialManageConfiguration(databaseContext);
         }
 
         #region Role
@@ -67,11 +68,29 @@ namespace Models
             databaseContext.InputDetailStatuses.Add(inputDetailStatus);
             databaseContext.SaveChanges();
         }
- 
+
         #endregion
 
-    
-
-
+        #region InitialManageConfiguration
+        public static void InitialManageConfiguration(DatabaseContext databaseContext)
+        {
+            InsertManageConfiguration("FF0DCDB7-0D46-4753-A397-C6539F532CB3",9,40000, databaseContext);
+        }
+        public static void InsertManageConfiguration(string id,int vat,int amount,DatabaseContext databaseContext)
+        {
+            Guid idGuid = new Guid(id);
+            ManageConfiguration manageConfiguration = new ManageConfiguration()
+            {
+                CreationDate = DateTime.Now,
+                IsActive = true,
+                IsDeleted = false,
+                Id = idGuid,
+                VAT = vat,
+                Amount = amount,
+            };
+            databaseContext.ManageConfigurations.Add(manageConfiguration);
+            databaseContext.SaveChanges();
+        }
+        #endregion InitialManageConfiguration
     }
 }

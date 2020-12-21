@@ -23,7 +23,10 @@ namespace Presentation.Controllers
         public ActionResult Create()
         {
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title");
-            ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
+            List<SelectListItem> items = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName").ToList();
+            items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
+            ViewBag.CustomerId = items;
+            //ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title");
             //ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code");
             Input input = new Input() { InputDate = DateTime.Now, InputTime = DateTime.Now.Hour.ToString() };
@@ -45,7 +48,10 @@ namespace Presentation.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
-            ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
+            List<SelectListItem> items = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId).ToList();
+            items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
+            ViewBag.CustomerId = items;
+            //ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title", input.TransporterId);
             //ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code", input.OrderId);
             return View(input);
@@ -64,7 +70,10 @@ namespace Presentation.Controllers
                 return HttpNotFound();
             }
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
-            ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
+            List<SelectListItem> items = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId).ToList();
+            items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
+            ViewBag.CustomerId = items;
+            //ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title", input.TransporterId);
             //ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c=>c.CustomerId==input.CustomerId), "Id", "Code", input.OrderId);
             return View(input);
@@ -83,7 +92,10 @@ namespace Presentation.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
-            ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
+            List<SelectListItem> items = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId).ToList();
+            items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
+            ViewBag.CustomerId = items;
+            //ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId);
             ViewBag.TransporterId = new SelectList(UnitOfWork.TransporterRepository.Get(), "Id", "Title", input.TransporterId);
             //ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.CustomerId == input.CustomerId), "Id", "Code", input.OrderId);
             return View(input);

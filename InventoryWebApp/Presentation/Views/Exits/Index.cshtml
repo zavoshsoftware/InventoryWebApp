@@ -9,14 +9,16 @@ ViewBag.Title = "فهرست " ;
 <h2>@ViewBag.Title</h2>
 
         @(Html.Kendo().Grid(Model)
-              .Name("Grid")
-              .Columns(columns =>
-                  {
-                            columns.Bound(model => model.Customer.FullName);
+        .Name("Grid")
+        .Columns(columns =>
+        {
+        columns.Bound(model => model.Customer.FullName);
         columns.Bound(model => model.Order);
+        columns.Bound(model => model.Code);
+        columns.Bound(model => model.ExitDriver.FullName);
         columns.Bound(model => model.ExitDate);
-					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
-							.Template(@<text>
+        columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+                      .Template(@<text>
 									@Html.ActionLink("جزییات", "index","ExitDetails", new {id = @item.Id}, new {@class = "k-button"})
 									</text>).Width(200);  
 		})

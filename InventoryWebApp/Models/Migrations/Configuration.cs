@@ -16,7 +16,7 @@ namespace Models.Migrations
         protected override void Seed(Models.DatabaseContext databaseContext)
         {
             base.Seed(databaseContext);
-            if (databaseContext.InputDetailStatuses.Count() != 0)
+            if (databaseContext.ManageConfigurations.Count() != 0)
             {
                 return;
             }

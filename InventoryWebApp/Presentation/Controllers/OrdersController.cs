@@ -614,7 +614,9 @@ namespace Presentation.Controllers
             OrderDetailViewModel orderDetail = new OrderDetailViewModel();
             if (id == null)
             {
-                ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code");
+                List<SelectListItem> items = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code").ToList();
+                items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
+                ViewBag.OrderId = items;
                 orderDetail.Products = new List<ProductInfoViewModel>();
                 orderDetail.ChildOrders = new List<ChildOrderViewModel>();
             }
@@ -650,11 +652,14 @@ namespace Presentation.Controllers
                 orderDetail.ChildOrders = GetChildOrders(order.Id);
 
 
-                ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code",order.Id);
+                List<SelectListItem> items = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code",order.Id).ToList();
+                items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
+                ViewBag.OrderId = items;
 
             }
-
-            ViewBag.CustomerId = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName");
+            List<SelectListItem> itemsCustomer = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName").ToList();
+            itemsCustomer.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
+            ViewBag.CustomerId = itemsCustomer;
             ViewBag.ExitDriverId = new SelectList(UnitOfWork.ExitDriverRepository.Get(), "Id", "FullName");
             DateTime today = DateTime.Today;
             ViewBag.ExitId = new SelectList(UnitOfWork.ExitRepository.Get(c => c.ExitComplete == false && DbFunctions.TruncateTime(c.CreationDate) == today), "Id", "Code");

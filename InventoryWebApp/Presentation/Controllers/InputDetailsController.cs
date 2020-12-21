@@ -28,7 +28,14 @@ namespace Presentation.Controllers
             TempData["Error"] = "";
             if (!string.IsNullOrEmpty(error))
             {
-                TempData["Error"] = @"<p class='alert alert-danger'>خطایی رخ داد! مجددا تلاش نمایید</p> ";
+                if (error == "error")
+                {
+                    TempData["Error"] = @"<p class='alert alert-danger'>خطایی رخ داد! مجددا تلاش نمایید</p> ";
+                }
+                else
+                {
+                    TempData["Error"] = @"<p class='alert alert-danger'>" + error + "</p> ";
+                }
             }
 
             ViewBag.OrderId = new SelectList(UnitOfWork.OrderRepository.Get(c => c.CustomerId == viewModel.Input.CustomerId && c.IsActive), "Id", "Code");
@@ -44,18 +51,35 @@ namespace Presentation.Controllers
             {
                 if (!ViewModel.EditMode)
                 {
-                    ViewModel.Detail.IsDeleted = false;
-                    ViewModel.Detail.CreationDate = DateTime.Now;
-                    ViewModel.Detail.Id = Guid.NewGuid();
-                    ViewModel.Detail.ProductId = ViewModel.ProductId;
-                    ViewModel.Detail.OrderId = SetOrder(ViewModel.OrderId,ViewModel.Input.CustomerId,ViewModel.ProductId);
-                    ViewModel.Detail.InputId = ViewModel.Input.Id;
-                    ViewModel.Detail.RemainDestinationWeight = ViewModel.Detail.DestinationWeight;
-                    ViewModel.Detail.RemainQuantity = ViewModel.Detail.Quantity;
-                    ViewModel.Detail.InputDetailStatusId = UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 1)
-                        .FirstOrDefault()?.Id;
+                    decimal weight = 0;
+                    Input input = UnitOfWork.InputRepository.GetById(ViewModel.Input.Id);
+                    List<InputDetail> inputDetails = UnitOfWork.InputDetailsRepository.Get(current => current.InputId == input.Id).ToList();
+                    foreach (InputDetail inputDetail in inputDetails)
+                    {
+                        weight += inputDetail.DestinationWeight;
+                    }
+                    weight += ViewModel.Detail.DestinationWeight;
 
-                    UnitOfWork.InputDetailsRepository.Insert(ViewModel.Detail);
+                    if (input.DestinationWeight < weight)
+                    {
+                        //TempData["Error"] = "<p class='alert alert-danger'>مجموع وزن وارد شده از وزن مقصد بیشتر است</p>";
+                        return RedirectToAction("Index", new { id = ViewModel.Input.Id, error = "مجموع وزن وارد شده از وزن مقصد بیشتر است" });
+                    }
+                    else
+                    {
+                        ViewModel.Detail.IsDeleted = false;
+                        ViewModel.Detail.CreationDate = DateTime.Now;
+                        ViewModel.Detail.Id = Guid.NewGuid();
+                        ViewModel.Detail.ProductId = ViewModel.ProductId;
+                        ViewModel.Detail.OrderId = SetOrder(ViewModel.OrderId, ViewModel.Input.CustomerId, ViewModel.ProductId);
+                        ViewModel.Detail.InputId = ViewModel.Input.Id;
+                        ViewModel.Detail.RemainDestinationWeight = ViewModel.Detail.DestinationWeight;
+                        ViewModel.Detail.RemainQuantity = ViewModel.Detail.Quantity;
+                        ViewModel.Detail.InputDetailStatusId = UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 1)
+                            .FirstOrDefault()?.Id;
+
+                        UnitOfWork.InputDetailsRepository.Insert(ViewModel.Detail);
+                    }
                 }
                 else
                 {
@@ -69,7 +93,7 @@ namespace Presentation.Controllers
                     inputDetail.DestinationWeight = ViewModel.Detail.DestinationWeight;
                     inputDetail.RemainDestinationWeight = ViewModel.Detail.DestinationWeight;
                     inputDetail.RemainQuantity = ViewModel.Detail.Quantity;
-                  
+
 
                     UnitOfWork.InputDetailsRepository.Update(inputDetail);
                 }
@@ -84,10 +108,10 @@ namespace Presentation.Controllers
             }
         }
 
-        public Guid SetOrder(Guid orderId,Guid customerId,Guid productId)
+        public Guid SetOrder(Guid orderId, Guid customerId, Guid productId)
         {
             Guid newOrderId = new Guid(System.Web.Configuration.WebConfigurationManager.AppSettings["newOrderId"]);
-           
+
             if (orderId == newOrderId)
             {
                 Order order = new Order()
