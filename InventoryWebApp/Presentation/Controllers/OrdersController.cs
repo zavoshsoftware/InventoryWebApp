@@ -662,7 +662,7 @@ namespace Presentation.Controllers
             ViewBag.CustomerId = itemsCustomer;
             ViewBag.ExitDriverId = new SelectList(UnitOfWork.ExitDriverRepository.Get(), "Id", "FullName");
             DateTime today = DateTime.Today;
-            ViewBag.ExitId = new SelectList(UnitOfWork.ExitRepository.Get(c => c.ExitComplete == false && DbFunctions.TruncateTime(c.CreationDate) == today), "Id", "Code");
+            ViewBag.ExitId = new SelectList(UnitOfWork.ExitRepository.Get(c => c.ExitComplete == false), "Id", "Code");
 
 
             return View(orderDetail);
