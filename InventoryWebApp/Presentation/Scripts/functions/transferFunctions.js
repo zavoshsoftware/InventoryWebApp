@@ -162,7 +162,7 @@ function postTransfer() {
     if (qty !== '' && weight !== '') {
         showErrorMessage('یکی از دو مقادیر تعداد و وزن باید تکمیل شوند.');
     } else {
-        if (customerId === '') {
+        if (customerId === '' || customerId === '0') {
 
             showErrorMessage('خریدار را انتخاب نمایید.');
         } else {

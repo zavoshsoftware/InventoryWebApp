@@ -58,6 +58,7 @@ namespace Presentation.Controllers
                 order.IsActive = true;
                 order.Code = GenerateCode.GetOrderCode();
                 order.ParentId = null;
+                order.IsLatest = true;
 
                 UnitOfWork.OrderRepository.Insert(order);
                 UnitOfWork.Save();
@@ -212,12 +213,12 @@ namespace Presentation.Controllers
                         OrderCustomer = customerName,
                         ProductId = inputDetail.ProductId,
                         ProducTitle = inputDetail.Product.Title,
-                        Quantity = inputDetail.RemainQuantity.ToString(),
+                        Quantity = inputDetail.RemainQuantity.ToString("N0"),
                         OrderCode = order.Code,
-                        Weight = inputDetail.RemainDestinationWeight.ToString(),
+                        Weight = inputDetail.RemainDestinationWeight.ToString("N0"),
                         InputDetailStatus = inputDetail.InputDetailStatus?.Title,
-                        InitialWeight = inputDetail.DestinationWeight.ToString(),
-                        InitialQuantity = inputDetail.Quantity.ToString(),
+                        InitialWeight = inputDetail.DestinationWeight.ToString("N0"),
+                        InitialQuantity = inputDetail.Quantity.ToString("N0"),
                         InputDetailId = inputDetail.Id
                     });
                 }
@@ -240,9 +241,6 @@ namespace Presentation.Controllers
             decimal remainWeight = 0;
             decimal initialWeight = 0;
 
-
-
-
             foreach (InputDetail inputDetail in inputDetails)
             {
                 initialQty += inputDetail.Quantity;
@@ -250,14 +248,14 @@ namespace Presentation.Controllers
 
                 remainQty += inputDetail.RemainQuantity;
                 remainWeight += inputDetail.RemainDestinationWeight;
-
+              
                 result.Add(new ProductInfoViewModel()
                 {
                     ProductId = inputDetail.ProductId,
-                    RemainWeight = remainWeight.ToString(),
-                    InitialQty = initialQty.ToString(),
-                    InitialWeight = initialWeight.ToString(),
-                    RemainQty = remainQty.ToString(),
+                    RemainWeight = remainWeight.ToString("N0"),
+                    InitialQty = initialQty.ToString("N0"),
+                    InitialWeight = initialWeight.ToString("N0"),
+                    RemainQty = remainQty.ToString("N0"),
                     ProductTitle = inputDetail.Product.Title,
                     InputDetailId = inputDetail.Id,
                     InputDetailStatusTitle = inputDetail.InputDetailStatus.Title
@@ -537,7 +535,7 @@ namespace Presentation.Controllers
                     return Json(message + "وزن وارد شده بیش از وزن باقی مانده می باشد", JsonRequestBehavior.AllowGet);
 
                 }
-
+               
 
                 if (string.IsNullOrEmpty(exitId))
                 {
@@ -614,7 +612,7 @@ namespace Presentation.Controllers
             OrderDetailViewModel orderDetail = new OrderDetailViewModel();
             if (id == null)
             {
-                List<SelectListItem> items = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code").ToList();
+                List<SelectListItem> items = new SelectList(UnitOfWork.OrderRepository.Get(current=>current.IsLatest==true), "Id", "Code").ToList();
                 items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
                 ViewBag.OrderId = items;
                 orderDetail.Products = new List<ProductInfoViewModel>();
@@ -652,7 +650,7 @@ namespace Presentation.Controllers
                 orderDetail.ChildOrders = GetChildOrders(order.Id);
 
 
-                List<SelectListItem> items = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code",order.Id).ToList();
+                List<SelectListItem> items = new SelectList(UnitOfWork.OrderRepository.Get(current => current.IsLatest == true), "Id", "Code",order.Id).ToList();
                 items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
                 ViewBag.OrderId = items;
 
@@ -928,6 +926,8 @@ namespace Presentation.Controllers
             else
             {
                 code = UnitOfWork.OrderRepository.GetById(parentOrderId).Code;
+                Order parent = UnitOfWork.OrderRepository.GetById(parentOrderId);
+                parent.IsLatest = false;
             }
             Order order = new Order()
             {
@@ -935,7 +935,8 @@ namespace Presentation.Controllers
                 Code = code,
                 CustomerId = customerId,
                 IsActive = true,
-                IsDeleted = false
+                IsDeleted = false,
+                IsLatest= true
             };
 
             UnitOfWork.OrderRepository.Insert(order);
@@ -1057,7 +1058,8 @@ namespace Presentation.Controllers
                 Code = GenerateCode.GetOrderCode(),
                 ParentId = null,
                 CustomerId = customerId,
-                IsActive = true
+                IsActive = true,
+                IsLatest=true
             };
 
             UnitOfWork.OrderRepository.Insert(order);
@@ -1211,10 +1213,14 @@ namespace Presentation.Controllers
                 }
 
                 InputDetail inputDetail = UnitOfWork.InputDetailsRepository.GetById(inputDetailId);
+                Guid status = UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 2).FirstOrDefault().Id;
+                if (weightMain < inputDetail.RemainDestinationWeight || quantity < inputDetail.RemainQuantity)
+                {
+                    status = UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 4).FirstOrDefault().Id;
+                }
                 inputDetail.RemainQuantity = inputDetail.RemainQuantity - quantity;
                 inputDetail.RemainDestinationWeight = inputDetail.RemainDestinationWeight - weightMain;
-                inputDetail.InputDetailStatusId =
-                    UnitOfWork.InputDetailStatusRepository.Get(c => c.Code == 2).FirstOrDefault()?.Id;
+                inputDetail.InputDetailStatusId = status;
                 UnitOfWork.InputDetailsRepository.Update(inputDetail);
                 UnitOfWork.Save();
                 return Json("true", JsonRequestBehavior.AllowGet);

@@ -35,6 +35,7 @@ namespace Models
         [Display(Name="محصول")]
         public Guid? ProductId { get; set; }
         public virtual Product Product { get; set; }
+        public bool IsLatest { get; set; }
 
         internal class configuration : EntityTypeConfiguration<Order>
         {

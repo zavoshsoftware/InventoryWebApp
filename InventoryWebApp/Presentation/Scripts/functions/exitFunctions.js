@@ -1,12 +1,26 @@
-﻿function updateWeight(exitDetailId) {
-    var fullWeight = $('#txtfull_' + exitDetailId).val();
-    var emptyWeight = $('#txtempty_' + exitDetailId).val();
+﻿var fullWeight;
+var emptyWeight;
+var exitDetailGuid;
+function updateWeight(exitDetailId, exitDetailFullWeight) {
+     fullWeight = $('#txtfull_' + exitDetailId).val();
+     emptyWeight = $('#txtempty_' + exitDetailId).val();
+     exitDetailGuid = exitDetailId;
+    var pureWeight = $('#txtpure_' + exitDetailId).val();
+    if (parseFloat(exitDetailFullWeight) != parseFloat(pureWeight))
+    {
+        jQuery.noConflict();
 
+        $('#exitModal').modal('show');
+    }
+    
+}
+
+function finalizeEdit() {
     $.ajax(
         {
             url: "/ExitDetails/Edit",
             data: {
-                exitDetailId: exitDetailId,
+                exitDetailId: exitDetailGuid,
                 fullWeight: fullWeight,
                 emptyWeight: emptyWeight
             },
@@ -29,7 +43,6 @@
             }
         });
 }
-
 
 
 function openAccountModal(exitId) {

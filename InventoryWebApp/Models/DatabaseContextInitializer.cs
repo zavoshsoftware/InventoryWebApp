@@ -49,6 +49,7 @@ namespace Models
             InsertInputDetailStatus("d470cf2b-b34b-4043-b5a6-4ac6e84ce314",1, "موجود", databaseContext);
             InsertInputDetailStatus("2abc7440-f669-4d8c-8852-7c54f394a830", 2, "در حال بارگیری", databaseContext);
             InsertInputDetailStatus("67c73dd8-d83f-4cdc-8d63-cebbab636510", 3, "ناموجود", databaseContext);
+            InsertInputDetailStatus("36c73dd8-d83f-4cdc-8d63-cebbab636510", 4, "بارگیری ناقص", databaseContext);
         }
 
         public static void InsertInputDetailStatus(string id, int code, string title, DatabaseContext databaseContext)

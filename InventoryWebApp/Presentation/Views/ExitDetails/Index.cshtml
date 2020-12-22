@@ -70,13 +70,13 @@
 						<tr>
 							<td>@exitDetail.InputDetail.Product.Title</td>
 							<td>@exitDetail.InputDetail.Order.Code</td>
-							<td><input type="text" class="weight" value="@exitDetail.FullWeight" id="txtfull_@exitDetail.Id" /> </td>
-							<td><input type="text" class="weight" value="@exitDetail.EmptyWeight" id="txtempty_@exitDetail.Id" /> </td>
-							<td id="txtpure_@exitDetail.Id">@exitDetail.PureWeight</td>
+							<td><input type="text" class="weight" value="@string.Format("{0:N0}",exitDetail.FullWeight)" id="txtfull_@exitDetail.Id" /> </td>
+							<td><input type="text" class="weight" value="@string.Format("{0:N0}",exitDetail.EmptyWeight)" id="txtempty_@exitDetail.Id" /> </td>
+							<td id="txtpure_@exitDetail.Id">@string.Format("{0:N0}", exitDetail.PureWeight)</td>
 
 							<td>400</td>
 							<td>
-								<button type="button" class="btn btn-warning" onclick="updateWeight('@exitDetail.Id')">ویرایش</button>
+								<button type="button" class="btn btn-warning" onclick="updateWeight('@exitDetail.Id','@exitDetail.FullWeight')">ویرایش</button>
 							</td>
 						</tr>
 					}
@@ -206,6 +206,30 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="modal fade" id="exitModal" tabindex="-1" role="dialog" aria-labelledby="exitModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exitModalLabel">
+                   هشدار
+
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               
+            <p>وزن خالص با وزن بارگیری متفاوت است</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalTransfer">بستن</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnSave" onclick="finalizeEdit();">ویرایش</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section scripts{
