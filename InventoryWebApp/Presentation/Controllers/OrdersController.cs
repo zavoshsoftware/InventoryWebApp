@@ -202,6 +202,7 @@ namespace Presentation.Controllers
                 {
                     customerName = parent.Customer.FullName + "-" + order.Customer.FullName; 
                 }
+
                 InputDetail inputDetail =
                     UnitOfWork.InputDetailsRepository.Get(c => c.OrderId == order.Id).FirstOrDefault();
 
