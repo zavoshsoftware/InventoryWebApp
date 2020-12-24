@@ -916,6 +916,7 @@
     <Compile Include="Controllers\CutDetailTypesController.cs" />
     <Compile Include="Controllers\CutOrderDetailsController.cs" />
     <Compile Include="Controllers\CutTypesController.cs" />
+    <Compile Include="Controllers\ExitArchiveController.cs" />
     <Compile Include="Controllers\ExitDetailsController.cs" />
     <Compile Include="Controllers\ExitDriversController.cs" />
     <Compile Include="Controllers\ExitsController.cs" />
@@ -1201,6 +1202,8 @@
     <Content Include="Views\ManageConfigurations\Details.cshtml" />
     <Content Include="Views\ManageConfigurations\Edit.cshtml" />
     <Content Include="Views\ManageConfigurations\Index.cshtml" />
+    <Content Include="Views\ExitArchive\Details.cshtml" />
+    <Content Include="Views\ExitArchive\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
