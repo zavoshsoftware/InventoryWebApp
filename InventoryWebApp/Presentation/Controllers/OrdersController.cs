@@ -613,7 +613,7 @@ namespace Presentation.Controllers
             OrderDetailViewModel orderDetail = new OrderDetailViewModel();
             if (id == null)
             {
-                List<SelectListItem> items = new SelectList(UnitOfWork.OrderRepository.Get(current=>current.IsLatest==true), "Id", "Code").ToList();
+                List<SelectListItem> items = new SelectList(UnitOfWork.OrderRepository.Get(), "Id", "Code").ToList();
                 items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
                 ViewBag.OrderId = items;
                 orderDetail.Products = new List<ProductInfoViewModel>();
