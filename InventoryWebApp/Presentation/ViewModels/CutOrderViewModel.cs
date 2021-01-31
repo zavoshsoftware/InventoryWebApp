@@ -9,12 +9,18 @@ namespace ViewModels
 {
     public class CutOrderViewModel
     {
+        public CutOrderViewModel()
+        {
+            CutOrderDetails = new List<CutOrderDetail>();
+        }
         //public CutOrder CutOrder { get; set; }
         public InputDetail InputDetail { get; set; }
         public List<CutOrderDetail> CutOrderDetails { get; set; }
         public  CutOrderDetail CutOrderDetail { get; set; }
         [Display(Name ="وزن")]
         public decimal Weight { get; set; }
+        [Display(Name = "وزن مانده")]
+        public decimal RemainWeight { get; set; }
         [Display(Name = "متراژ")]
         public decimal Length { get; set; }
         [Display(Name = "چگالی")]
@@ -22,7 +28,8 @@ namespace ViewModels
         [Display(Name = "برگ")]
         public decimal Quantity { get; set; }
         [Display(Name = "نوع برش")]
-        public Guid CutDetailTypeId { get; set; }
-        public Guid CutOrderId { get; set; }
+        public Guid CustomActionId { get; set; }
+        public Guid? CutOrderId { get; set; }
+        public decimal Math { get; set; }
     }
 }

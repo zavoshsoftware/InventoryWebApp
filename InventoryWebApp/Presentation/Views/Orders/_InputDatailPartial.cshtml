@@ -44,8 +44,10 @@
                             {
                                 <button class="btn btn-warning" onclick="openTransferModal('@product.ProductId','@Model.OrderId');">انتقال</button>
                                 <button class="btn btn-warning" onclick="openLoadingModal('@product.ProductId','@Model.OrderId','@product.InputDetailId');">بارگیری</button>
+                                @Html.ActionLink("برش", "Details", "Cut", new { id = product.InputDetailId }, new { @class = "btn btn-warning" })
                             }
                             @Html.ActionLink("کاردکس ردیف", "Kardex", new { id = product.InputDetailId },new { @class = "btn btn-warning" })
+                            
                         </td>
                     </tr>
                 }

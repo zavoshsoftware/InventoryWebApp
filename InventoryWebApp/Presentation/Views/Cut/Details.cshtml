@@ -10,18 +10,30 @@
     </div>
     <div class="panel-body">
         <div class="row form-group">
-            <div class="col-md-2">شماره حواله</div>
+            <div class="col-md-2">شماره ردیف</div>
             <div class="col-md-4">@Model.InputDetail.Order.Code</div>
+            <div class="col-md-2">صاحب ردیف</div>
+            <div class="col-md-4">@ViewBag.CustomerName</div>
         </div>
         <div class="row form-group">
-            <div class="col-md-2">محصول</div>
+            <div class="col-md-2">نام کالا</div>
             <div class="col-md-4">@Model.InputDetail.Product.Title</div>
+            <div class="col-md-2">وزن مانده</div>
+            <div class="col-md-4">@Model.RemainWeight</div>
         </div>
+       
     </div>
+
     @using (Html.BeginForm("details", "cut", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
+    { 
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.CutOrderId)
+        @Html.HiddenFor(model => model.InputDetail.Product.ProductGroupId)
+        @Html.HiddenFor(model => model.Math)
+        @Html.HiddenFor(model => model.InputDetail.OrderId)
+        @Html.HiddenFor(model => model.InputDetail.Id)
+
+
         <div class="row panel-row">
             <div class="panel panel-primary">
                 <div class="panel-heading">فرم ورود جزئیات برش</div>
@@ -29,18 +41,24 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.CutDetailTypeId, new { @class = "control-label col-md-3" })
+                                @Html.LabelFor(model => model.CustomActionId, new { @class = "control-label col-md-2" })
                                 <div class="col-md-3">
-                                    @Html.DropDownList("CutDetailTypeId", String.Empty)
-                                    @Html.ValidationMessageFor(model => model.CutDetailTypeId)
+                                    @Html.DropDownList("CustomActionId", null,"--انتخاب کنید--", new {onchange= "CutDetailTypeChange();" })
+                                    @Html.ValidationMessageFor(model => model.CustomActionId)
                                 </div>
+
+                                <div class="col-md-2">فی برش</div>
+                                <div class="col-md-3">
+                                  <input type="text" disabled="disabled" id="txtCutAmount" />
+                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Weight, new { @class = "control-label col-md-3" })
+                                @Html.LabelFor(model => model.Weight, new { @class = "control-label col-md-2" })
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(model => model.Weight, new { @onchange = "QuantityChange();" })
                                     @Html.ValidationMessageFor(model => model.Weight)
@@ -51,7 +69,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Density, new { @class = "control-label col-md-3" })
+                                @Html.LabelFor(model => model.Density, new { @class = "control-label col-md-2" })
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(model => model.Density, new { @disabled = "disabled" })
                                     @Html.HiddenFor(model => model.Density)
@@ -62,7 +80,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Length, new { @class = "control-label col-md-3" })
+                                @Html.LabelFor(model => model.Length, new { @class = "control-label col-md-2" })
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(model => model.Length, new { @onchange = "QuantityChange();" })
                                     @Html.ValidationMessageFor(model => model.Length)
@@ -74,9 +92,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Quantity, new { @class = "control-label col-md-3" })
+                                @Html.LabelFor(model => model.Quantity, new { @class = "control-label col-md-2" })
                                 <div class="col-md-9">
-                                    @Html.TextBoxFor(model => model.Quantity, new { @disabled="disabled"})
+                                    @Html.TextBoxFor(model => model.Quantity)
                                     @Html.ValidationMessageFor(model => model.Quantity)
                                 </div>
                             </div>
@@ -116,15 +134,52 @@
 @section scripts{
     <script>
         function QuantityChange() {
+            var remainWeight = '@Model.RemainWeight';
             var weight = parseFloat($("#Weight").val());
-            var length = parseFloat($("#Length").val());
-            var density = parseFloat($("#Density").val());
-            if (weight != '' && length != '') {
-                if (weight != '0' && length != '0') {
-                    var quantity = parseInt(weight / density / length);
-                    $("#Quantity").val(quantity);
+            if (weight > parseFloat(remainWeight)) {
+                alert('وزن وارد شده از وزن باقیمانده بیشتر است');
+                $("#Weight").focus();
+            }
+            else {
+                var length = parseFloat($("#Length").val());
+                var math = parseFloat($("#Math").val());
+                //var density = parseFloat($("#Density").val());
+                if (weight != '' && length != '') {
+                    if (weight != '0' && length != '0') {
+                        var quantity = parseInt(weight / parseFloat(math * length));
+                        //var quantity = parseInt(weight / density / length);
+                        $("#Quantity").val(quantity);
+                    }
                 }
             }
+            
+        }
+
+        function CutDetailTypeChange()
+        {
+            var CustomActionId = $("#CustomActionId option:selected").val();
+            var productGroupId = $("#InputDetail_Product_ProductGroupId").val();
+            if (CustomActionId == "0") {
+                $("#txtCutAmount").val('');
+            }
+            else {
+                $.ajax({
+                    url: '/Cut/GetCutAmount',
+                    data: { id: CustomActionId, productGroupId: productGroupId},
+                    type: 'POST',
+                    success: function (result) {
+                        $("#txtCutAmount").val(result);
+                    }
+                });
+            }
+        }
+
+        function onSuccess() {
+            $("#CustomActionId option:selected").val('');
+            $("#Density").val('');
+            $("#Length").val('');
+            $("#Quantity").val('');
+            alert('عملیات با موفقیت انجام شد');
         }
         </script>
     }

@@ -12,7 +12,7 @@ namespace Models
         {
             CutOrderDetails = new List<CutOrderDetail>();
         }
-        public Guid CutTypeId { get; set; }
+        public Guid? CutTypeId { get; set; }
         public virtual CutType CutType { get; set; }
         public Guid InputDetailId { get; set; }
         public virtual InputDetail InputDetail { get; set; }

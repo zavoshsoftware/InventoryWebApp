@@ -12,8 +12,8 @@ namespace Models
         public Guid CutOrderId { get; set; }
         public virtual CutOrder CutOrder { get; set; }
         [Display(Name = "CutDetailTypeId", ResourceType = typeof(Resources.Models.Cut))]
-        public Guid CutDetailTypeId { get; set; }
-        public virtual CutDetailType CutDetailType { get; set; }
+        public Guid CustomActionId { get; set; }
+        public virtual CustomAction CustomAction { get; set; }
 
         [Display(Name = "Weight", ResourceType = typeof(Resources.Models.Cut))]
         public decimal Weight { get; set; }
