@@ -14,7 +14,7 @@ namespace Presentation.Controllers
     {
         public ActionResult Index()
         {
-            var productGroups = UnitOfWork.ProductGroupRepository.Get().OrderByDescending(p=>p.CreationDate);
+            var productGroups = UnitOfWork.ProductGroupRepository.Get().OrderBy(p=>p.Code);
             return View(productGroups.ToList());
         }
          

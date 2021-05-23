@@ -37,6 +37,8 @@ namespace Models
         public DbSet<ManageConfiguration> ManageConfigurations { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Accounting> Accountings { get; set; }
+        public DbSet<TempProduct> TempProducts { get; set; }
+        public DbSet<TempCustomer> TempCustomers { get; set; }
 
 
 

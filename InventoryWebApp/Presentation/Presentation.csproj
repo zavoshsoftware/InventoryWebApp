@@ -933,6 +933,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductStatusesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\TempController.cs" />
     <Compile Include="Controllers\TransportersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1215,6 +1216,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\CutOrderDetails\" />
+    <Folder Include="Views\Temp\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

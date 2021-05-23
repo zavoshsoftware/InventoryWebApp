@@ -25,20 +25,17 @@ namespace Models
         public virtual ProductGroup ProductGroup { get; set; }
 
         [Display(Name = "Title", ResourceType = typeof(Resources.Models.ProductForm))]
-        [Required(ErrorMessage = "لطفا {0} را وارد نمایید.")]
-        public Guid ProductFormId { get; set; }
+        public Guid? ProductFormId { get; set; }
 
         public virtual ProductForm ProductForm { get; set; }
 
         [Display(Name = "Title", ResourceType = typeof(Resources.Models.ProductCreator))]
-        [Required(ErrorMessage = "لطفا {0} را وارد نمایید.")]
-        public Guid ProductCreatorId { get; set; }
+        public Guid? ProductCreatorId { get; set; }
 
         public virtual ProductCreator ProductCreator { get; set; }
 
         [Display(Name = "Title", ResourceType = typeof(Resources.Models.ProductStatus))]
-        [Required(ErrorMessage = "لطفا {0} را وارد نمایید.")]
-        public Guid ProductStatusId { get; set; }
+        public Guid? ProductStatusId { get; set; }
 
         public virtual ProductStatus ProductStatus { get; set; }
 
@@ -58,14 +55,18 @@ namespace Models
         [Required(ErrorMessage = "لطفا {0} را وارد نمایید.")]
         public decimal Weight { get; set; }
 
+      
+
         [Display(Name = "IsPureWeight", ResourceType = typeof(Resources.Models.Product))]
         public bool IsPureWeight { get; set; }
 
         [Display(Name = "Grid", ResourceType = typeof(Resources.Models.Product))]
-        public string Grid { get; set; }
+        public string Grade { get; set; }
 
         [Display(Name = "Other", ResourceType = typeof(Resources.Models.Product))]
         public string Other { get; set; }
+
+        public string Condition { get; set; }
 
         public virtual ICollection<InputDetail> InputDetails { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
