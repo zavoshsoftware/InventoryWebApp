@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,24 @@ namespace Models
         public int Code { get; set; }
 
         [Display(Name = "InputDate", ResourceType = typeof(Resources.Models.Input))]
+        [UIHint("PersianDatePicker")]
         public DateTime InputDate { get; set; }
+
+        [Display(Name = "InputDate", ResourceType = typeof(Resources.Models.Input))]
+        [NotMapped]
+        public string InputDateStr
+        {
+            get
+            {
+                //  return "hi";
+                System.Globalization.PersianCalendar pc = new System.Globalization.PersianCalendar();
+                string year = pc.GetYear(InputDate).ToString().PadLeft(4, '0');
+                string month = pc.GetMonth(InputDate).ToString().PadLeft(2, '0');
+                string day = pc.GetDayOfMonth(InputDate).ToString().PadLeft(2, '0');
+                return String.Format("{0}/{1}/{2}", year, month, day);
+            }
+        }
+
 
         [Display(Name = "FullName", ResourceType = typeof(Resources.Models.Customer))]
         public Guid CustomerId { get; set; }

@@ -59,10 +59,40 @@
       <HintPath>..\packages\Stimulsoft.Reports.Engine.2020.4.2\lib\net45\LibExcel.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Stimulsoft.Base, Version=2020.4.2.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
       <HintPath>..\packages\Stimulsoft.Reports.Engine.2020.4.2\lib\net45\Stimulsoft.Base.dll</HintPath>
     </Reference>
@@ -183,6 +213,9 @@
     <Content Include="Content\Admin\admin-font-awesome.min.css" />
     <Content Include="Content\Admin\app.v2.css" />
     <Content Include="Content\Admin\app.v2.min.css" />
+    <Content Include="Content\Admin\Login\main.css" />
+    <Content Include="Content\Admin\Login\main.js" />
+    <Content Include="Content\Admin\Login\style.css" />
     <Content Include="Content\Admin\Style.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -525,12 +558,15 @@
     <Content Include="Content\kendo\2017.3.913\Uniform\sprite_2x.png" />
     <Content Include="Content\kendo\2017.3.913\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo\2017.3.913\Uniform\sprite_kpi_2x.png" />
+    <Content Include="Content\PersianDatePicker\PersianDatePicker.css" />
+    <Content Include="Content\PersianDatePicker\PersianDatePicker.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\fontAwesome\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\avatar_default.jpg" />
     <Content Include="images\favicon.png" />
+    <Content Include="images\logo.png" />
     <Content Include="Localization\ar.xml" />
     <Content Include="Localization\be.xml" />
     <Content Include="Localization\bg.xml" />
@@ -590,6 +626,7 @@
     <Content Include="Reports\MRT\InvoiceReport.mrt" />
     <Content Include="Reports\MRT\ExitReport.mrt" />
     <Content Include="Content\license.key" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\function.js" />
     <Content Include="Scripts\functions\exitFunctions.js" />
@@ -904,12 +941,16 @@
     <Content Include="Scripts\kendo\2017.3.913\kendo.window.min.js" />
     <Content Include="Scripts\kendo\2017.3.913\pako_deflate.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\PersianDatePicker\PersianDatePicker.js" />
+    <Content Include="Scripts\PersianDatePicker\PersianDatePicker.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomActionsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\CutController.cs" />
@@ -921,6 +962,7 @@
     <Compile Include="Controllers\ExitDriversController.cs" />
     <Compile Include="Controllers\ExitsController.cs" />
     <Compile Include="Controllers\GridController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InputDetailsController.cs" />
     <Compile Include="Controllers\InputsController.cs" />
     <Compile Include="Controllers\ManageConfigurationsController.cs" />
@@ -935,23 +977,27 @@
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TempController.cs" />
     <Compile Include="Controllers\TransportersController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\GenerateCode.cs" />
     <Compile Include="Helper\GetPersianDate.cs" />
     <Compile Include="Helper\PersianCulture.cs" />
+    <Compile Include="Helper\PersianDateModelBinder .cs" />
     <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Infrastructure\BaseControllerWithUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\Models\ExitReportViewModel.cs" />
     <Compile Include="Reports\Models\InvoiceReportViewModel.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CutOrderViewModel.cs" />
     <Compile Include="ViewModels\DropDownKeyValueViewModel.cs" />
     <Compile Include="ViewModels\ExitAccountViewModel.cs" />
     <Compile Include="ViewModels\ExitDetailViewModel.cs" />
     <Compile Include="ViewModels\ExitInputDetailViewModel.cs" />
     <Compile Include="ViewModels\KardexViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
     <Compile Include="ViewModels\ProductRemainsViewModel.cs" />
     <Compile Include="ViewModels\TransferDetailViewModel.cs" />
@@ -1205,6 +1251,13 @@
     <Content Include="Views\ManageConfigurations\Index.cshtml" />
     <Content Include="Views\ExitArchive\Details.cshtml" />
     <Content Include="Views\ExitArchive\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PersianDatePicker.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1216,6 +1269,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\CutOrderDetails\" />
+    <Folder Include="Views\Home\" />
     <Folder Include="Views\Temp\" />
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Helpers;
 
 namespace Presentation
 {
@@ -15,6 +16,9 @@ namespace Presentation
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            ModelBinders.Binders.Add(typeof(DateTime), new PersianDateModelBinder());
+            ModelBinders.Binders.Add(typeof(DateTime?), new PersianDateModelBinder());
         }
         protected void Application_BeginRequest(object sender, EventArgs e)
         {

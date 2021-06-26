@@ -14,8 +14,8 @@
 																		columns.Bound(model => model.Code);
 																		columns.Bound(model => model.Customer.FullName);
 																		//columns.Bound(model => model.Order.Code);
-																		columns.Bound(model => model.InputDate);
-																		columns.Bound(model => model.CreationDate);
+																		columns.Bound(model => model.InputDateStr);
+																		columns.Bound(model => model.CreationDateStr);
 																		columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
 																		.Template(@<text>
                                             @Html.ActionLink("جزئیات ورود", "Index", "InputDetails", new { id = @item.Id }, new { @class = "k-button" })
