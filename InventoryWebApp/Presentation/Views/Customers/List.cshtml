@@ -9,12 +9,14 @@
 <h2>@ViewBag.Title</h2>
 
 @(Html.Kendo().Grid(Model)
-				.Name("Grid")
-				.Columns(columns =>
-				{
-				columns.Bound(model => model.FullName);
-				columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
-											.Template(@<text>
+            .Name("Grid")
+            .Columns(columns =>
+            {
+            columns.Bound(model => model.FullName);
+            columns.Bound(model => model.CellNumber);
+            columns.Bound(model => model.Address);
+            columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+                                        .Template(@<text>
 											@Html.ActionLink("انتقال", "Transfer","Orders", new { id = @item.Id }, new { @class = "k-button" })
 											</text>).Width(200);
 				})

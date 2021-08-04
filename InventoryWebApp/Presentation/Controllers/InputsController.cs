@@ -22,6 +22,14 @@ namespace Presentation.Controllers
 
         public ActionResult Create()
         {
+            var alphabetList = new SelectList(new List<string>() { 
+    "ب", "پ", "ت", "ث", "ج", "چ", "ح", "خ", "د", "ذ",
+    "ر", "ز", "ژ", "س", "ش", "ص", "ض", "ط", "ظ",
+    "ع", "غ", "ف", "ق", "ک", "گ", "ل", "م", "ن",
+    "و", "ه", "ی"});
+
+
+            ViewBag.Alphabet = alphabetList;
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title");
             List<SelectListItem> items = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName").ToList();
             items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));
@@ -42,11 +50,18 @@ namespace Presentation.Controllers
                 //input.OrderId = GetOrderId(input.OrderId, input.CustomerId);
                 input.IsActive = true;
                 input.Code = GenerateCode.GetInputCode();
+                input.CarNumber = input.CarNoStr;
 
                 UnitOfWork.InputRepository.Insert(input);
                 UnitOfWork.Save();
                 return RedirectToAction("Index");
             }
+            var alphabetList = new SelectList(new List<string>() {
+    "ب", "پ", "ت", "ث", "ج", "چ", "ح", "خ", "د", "ذ",
+    "ر", "ز", "ژ", "س", "ش", "ص", "ض", "ط", "ظ",
+    "ع", "غ", "ف", "ق", "ک", "گ", "ل", "م", "ن",
+    "و", "ه", "ی"});
+            ViewBag.Alphabet = alphabetList;
             ViewBag.CityId = new SelectList(UnitOfWork.CityRepository.Get(), "Id", "Title", input.CityId);
             List<SelectListItem> items = new SelectList(UnitOfWork.CustomerRepository.Get(), "Id", "FullName", input.CustomerId).ToList();
             items.Insert(0, (new SelectListItem { Text = "انتخاب کنید...", Value = "0" }));

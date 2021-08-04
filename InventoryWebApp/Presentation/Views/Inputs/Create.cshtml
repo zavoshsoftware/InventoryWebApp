@@ -43,7 +43,7 @@
 										</div>
 									</div>
 								</div>*@
-
+						@Html.HiddenFor(model => model.CarNoStr)
 						</div>
 						<div class="row">
 							<div class="col-md-6">
@@ -214,14 +214,29 @@
 												</div>
 											</div>
 										</div><div class="col-md-6">
-											<div class="form-group">
-												@Html.LabelFor(model => model.CarNumber, new { @class = "control-label col-md-3" })
-												<div class="col-md-9">
-													@Html.EditorFor(model => model.CarNumber)
+                                                  <row>
+                                                      <div class="form-inline">
+                                                          @Html.LabelFor(model => model.CarNumber, new { @class = "control-label col-md-3" })
+                                                          <div class="col-md-9">
 
-													@Html.ValidationMessageFor(model => model.CarNumber)
-												</div>
-											</div>
+                                                              <div style="width:40px; display:inline-flex">ایران</div>
+                                                              <div style="width:40px; display:inline-flex">
+                                                                  <input type="text" style="width:40px;" id="carNo1" />
+                                                              </div>
+                                                              <span style=" width:10px; display:inline-block; text-align:center">-</span>
+                                                              <div style="width:40px; display:inline-flex">
+                                                                  <input type="text" style="width:40px;" id="carNo2" />
+                                                              </div>
+                                                              <div style="width:52px; display:inline-flex">
+                                                                  @Html.DropDownList("Alphabet", "الف")
+                                                              </div>
+                                                              <div style="width:50px; display:inline-flex">
+                                                                  <input type="text" style="width:50px;" id="carNo3" />
+                                                              </div>
+                                                              @Html.ValidationMessageFor(model => model.CarNumber)
+                                                          </div>
+                                                          </div>
+                                                  </row>
 										</div>
 									</div>
 								</div>
@@ -293,6 +308,15 @@
 			var destinationWeight = parseInt(fullWeight) - parseInt(emptyWeight);
 			$('#DestinationWeight').val(destinationWeight);
 		}
-	</script>
+
+		function ChangeDecimal(){
+			var carNo1 = $("#carNo1").val();
+			var carNo2 = $("#carNo2").val();
+			var carNo3 = $("#carNo3").val();
+			var alphabet = document.getElementById("Alphabet").value;
+			var carno = "ایران" + " " + carNo1 + " - " + carNo2 + " " + alphabet + " " + carNo3;
+            $("#CarNoStr").val(carno);
+        }
+	</script> 
 }
 

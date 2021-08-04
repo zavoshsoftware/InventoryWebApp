@@ -94,6 +94,9 @@ namespace Models
         public virtual ICollection<InputDetail> InputDetails { get; set; }
 
 
+        [NotMapped]
+        [Display(Name = "شماره ماشین")]
+        public string CarNoStr { get; set; }
         //[Display(Name = "Code", ResourceType = typeof(Resources.Models.Order))]
         //public Guid? OrderId { get; set; }
         //public virtual Order Order { get; set; }

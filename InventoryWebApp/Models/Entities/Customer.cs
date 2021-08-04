@@ -16,8 +16,10 @@ namespace Models
         }
         [Display(Name = "FullName", ResourceType = typeof(Resources.Models.Customer))]
         public string FullName { get; set; }
-
+        [Display(Name = "CellNumber", ResourceType = typeof(Resources.Models.Customer))]
         public string CellNumber { get; set; }
+        [Display(Name = "Address", ResourceType = typeof(Resources.Models.Customer))]
+        public string Address { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<Input> Inputs { get; set; }

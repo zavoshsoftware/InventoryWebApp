@@ -8,14 +8,16 @@ ViewBag.Title = "فهرست تاجران";
 <h2>@ViewBag.Title</h2>
 
         @(Html.Kendo().Grid(Model)
-              .Name("Grid")
-              .Columns(columns =>
-                  {
-                      columns.Bound(model => model.FullName);
+        .Name("Grid")
+        .Columns(columns =>
+        {
+        columns.Bound(model => model.FullName);
+        columns.Bound(model => model.CellNumber);
+        columns.Bound(model => model.Address);
         columns.Bound(model => model.IsActive);
         columns.Bound(model => model.CreationDate);
-					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
-							.Template(@<text>
+        columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+                      .Template(@<text>
 									@Html.ActionLink("ویرایش", "Edit", new {id = @item.Id}, new {@class = "k-button"})
 									@Html.ActionLink("حذف", "Delete", new {id = @item.Id}, new {@class = "k-button"})
 									</text>).Width(200);  
